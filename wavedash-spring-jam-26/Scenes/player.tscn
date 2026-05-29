@@ -1,10 +1,14 @@
 [gd_scene format=3 uid="uid://gskoscpb10cw"]
 
-[ext_resource type="Script" uid="uid://c3s2rh2hnp0mb" path="res://player.gd" id="1_cvnsp"]
+[ext_resource type="Script" uid="uid://c3s2rh2hnp0mb" path="res://Scripts/player.gd" id="1_cvnsp"]
 [ext_resource type="Texture2D" uid="uid://crbc5ij8xovgx" path="res://icon.svg" id="2_6t5aa"]
+[ext_resource type="Script" uid="uid://dq2xu7b0o1in2" path="res://Scripts/player_interaction_component.gd" id="3_6t5aa"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vgqql"]
 size = Vector3(0.646, 0.643, 0.5)
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6t5aa"]
+radius = 2.0
 
 [node name="Player" type="CharacterBody3D" unique_id=1112257171]
 script = ExtResource("1_cvnsp")
@@ -20,5 +24,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0034179688, 0.005065918, 0)
 shape = SubResource("BoxShape3D_vgqql")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1310406389]
-transform = Transform3D(1, 0, 0, 0, 0.9628616, 0.26999554, 0, -0.26999554, 0.9628616, 0, 1.822, 3.704)
+transform = Transform3D(1, 0, 0, 0, 0.90348494, 0.4286198, 0, -0.4286198, 0.90348494, 0, 1.822, 3.704)
 fov = 50.0
+
+[node name="InteractionArea" type="Area3D" parent="." unique_id=2130641661]
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea" unique_id=944061481]
+shape = SubResource("SphereShape3D_6t5aa")
+
+[node name="InteractionComponent" type="Node" parent="." unique_id=409073183]
+script = ExtResource("3_6t5aa")

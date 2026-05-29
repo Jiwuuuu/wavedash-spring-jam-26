@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://bt5cwxsdwu4a1"]
+
+[ext_resource type="Script" uid="uid://r8063tg1wv76" path="res://Scripts/Interactions/tree_interaction.gd" id="1_xj3bu"]
+[ext_resource type="Texture2D" uid="uid://crbc5ij8xovgx" path="res://icon.svg" id="2_neu11"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jrj5y"]
+size = Vector3(0.42895508, 1.3818359, 0.47509766)
+
+[node name="Tree" type="StaticBody3D" unique_id=958576022]
+script = ExtResource("1_xj3bu")
+metadata/_custom_type_script = "uid://d3go8pkw17lw"
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1499756674]
+transform = Transform3D(0.295, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6361891, 0)
+texture = ExtResource("2_neu11")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=385620945]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0030517578, 0.7026367, 0.040283203)
+shape = SubResource("BoxShape3D_jrj5y")
