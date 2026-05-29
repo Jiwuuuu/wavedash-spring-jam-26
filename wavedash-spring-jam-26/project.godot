@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="wavedash-spring-jam-26"
-run/main_scene="uid://bol2quqm527n4"
+run/main_scene="res://Scenes/world.tscn"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
