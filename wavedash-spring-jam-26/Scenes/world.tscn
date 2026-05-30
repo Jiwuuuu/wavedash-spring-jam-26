@@ -1,8 +1,9 @@
 [gd_scene format=3 uid="uid://cy5qs46337aui"]
 
-[ext_resource type="PackedScene" uid="uid://gskoscpb10cw" path="res://scenes/player.tscn" id="1_player"]
+[ext_resource type="PackedScene" uid="uid://gskoscpb10cw" path="res://Scenes/player.tscn" id="1_player"]
 [ext_resource type="PackedScene" uid="uid://dppos35gaxjit" path="res://Scenes/tree.tscn" id="2_tree"]
-[ext_resource type="PackedScene" uid="uid://bt5cwxsdwu4a1" path="res://scenes/Interactables/tree.tscn" id="3_4wyf3"]
+[ext_resource type="PackedScene" uid="uid://bt5cwxsdwu4a1" path="res://Scenes/Interactables/tree.tscn" id="3_4wyf3"]
+[ext_resource type="PackedScene" path="res://Scenes/Enemies/wolf.tscn" id="4_8j60k"]
 
 [sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
 sky_horizon_color = Color(0.66, 0.67, 0.69, 1)
@@ -207,3 +208,7 @@ transform = Transform3D(0.884, 0, 0, 0, 0.884, 0, 0, 0, 0.884, 44, 0, 45)
 
 [node name="Tree" parent="." unique_id=958576022 instance=ExtResource("3_4wyf3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6095464, 0.0038108826, -3.061339)
+
+[node name="Wolf" parent="." unique_id=1280497630 node_paths=PackedStringArray("player") instance=ExtResource("4_8j60k")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -10.930725)
+player = NodePath("../Player")

@@ -17,10 +17,10 @@ extends CharacterBody3D
 @export_group("Detection")
 @export var player: Node3D                          
 @export var detection_range: float = 10.0          
-@export_range(0, 360) var detection_angle: float = 120.0 
-@export var detection_fill_near: float = 80.0  
-@export var detection_fill_far: float = 20.0  
-@export var detection_decay: float = 30.0    
+@export_range(0, 360) var detection_angle: float = 270.0 
+@export var detection_fill_near: float = 100.0  
+@export var detection_fill_far: float = 30.0  
+@export var detection_decay: float = 20.0    
 @export var detect_bar: Node 
 
 enum State { IDLE, WANDER }
@@ -136,11 +136,22 @@ func _can_detect_player() -> bool:
 	var dist: float = to_player.length()
 	if dist > detection_range:
 		return false
-	if dist < 2:
+	if dist < 4:
 		return true   
 
 	
 	var forward: Vector3 = -global_transform.basis.z
 	forward.y = 0.0
 	var angle: float = rad_to_deg(forward.angle_to(to_player))
-	return angle <= detection_angle / 2.0
+	if angle > detection_angle / 2.0:
+		return false
+	return _has_line_of_sight()
+	
+func _has_line_of_sight() -> bool:
+	var space := get_world_3d().direct_space_state
+	var from: Vector3 = global_position + Vector3.UP * 0.5
+	var to: Vector3 = player.global_position
+	var query := PhysicsRayQueryParameters3D.create(from, to)
+	query.exclude = [get_rid()]   
+	var hit := space.intersect_ray(query)
+	return hit.is_empty() or hit.collider == player
