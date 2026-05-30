@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://cleafburst0001"]
+
+[sub_resource type="StandardMaterial3D" id="mat"]
+shading_mode = 0
+vertex_color_use_as_albedo = true
+billboard_mode = 3
+billboard_keep_scale = true
+cull_mode = 2
+
+[sub_resource type="QuadMesh" id="quad"]
+material = SubResource("mat")
+size = Vector2(0.16, 0.16)
+
+[node name="LeafBurst" type="CPUParticles3D"]
+emitting = false
+amount = 10
+lifetime = 1.2
+one_shot = true
+explosiveness = 0.8
+mesh = SubResource("quad")
+direction = Vector3(0, 1, 0)
+spread = 80.0
+gravity = Vector3(0, -3, 0)
+initial_velocity_min = 1.5
+initial_velocity_max = 3.0
+angular_velocity_min = -200.0
+angular_velocity_max = 200.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 0.7
+scale_amount_max = 1.2
+color = Color(0.33, 0.55, 0.33, 1)

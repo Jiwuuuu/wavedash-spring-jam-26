@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://cwoodchips0001"]
+
+[sub_resource type="StandardMaterial3D" id="mat"]
+albedo_color = Color(0.5, 0.35, 0.2, 1)
+
+[sub_resource type="BoxMesh" id="chip"]
+material = SubResource("mat")
+size = Vector3(0.06, 0.06, 0.06)
+
+[node name="WoodChips" type="CPUParticles3D"]
+emitting = false
+amount = 12
+lifetime = 0.6
+one_shot = true
+explosiveness = 0.9
+mesh = SubResource("chip")
+direction = Vector3(0, 1, 0)
+spread = 55.0
+gravity = Vector3(0, -9.8, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 4.0
+scale_amount_min = 0.6
+scale_amount_max = 1.2

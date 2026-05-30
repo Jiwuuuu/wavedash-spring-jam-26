@@ -1,0 +1,53 @@
+[gd_scene load_steps=5 format=3 uid="uid://cchewfx00001"]
+
+[sub_resource type="StandardMaterial3D" id="chip_mat"]
+albedo_color = Color(0.5, 0.35, 0.2, 1)
+
+[sub_resource type="BoxMesh" id="chip_mesh"]
+material = SubResource("chip_mat")
+size = Vector3(0.06, 0.06, 0.06)
+
+[sub_resource type="StandardMaterial3D" id="leaf_mat"]
+shading_mode = 0
+vertex_color_use_as_albedo = true
+billboard_mode = 3
+billboard_keep_scale = true
+cull_mode = 2
+
+[sub_resource type="QuadMesh" id="leaf_mesh"]
+material = SubResource("leaf_mat")
+size = Vector2(0.16, 0.16)
+
+[node name="ChewFx" type="Node3D"]
+
+[node name="WoodChips" type="CPUParticles3D" parent="."]
+emitting = false
+amount = 12
+lifetime = 0.6
+mesh = SubResource("chip_mesh")
+direction = Vector3(0, 1, 0)
+spread = 55.0
+gravity = Vector3(0, -9.8, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 4.0
+scale_amount_min = 0.6
+scale_amount_max = 1.2
+
+[node name="LeafBurst" type="CPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+emitting = false
+amount = 10
+lifetime = 1.2
+mesh = SubResource("leaf_mesh")
+direction = Vector3(0, 1, 0)
+spread = 80.0
+gravity = Vector3(0, -3, 0)
+initial_velocity_min = 1.5
+initial_velocity_max = 3.0
+angular_velocity_min = -200.0
+angular_velocity_max = 200.0
+angle_min = -180.0
+angle_max = 180.0
+scale_amount_min = 0.7
+scale_amount_max = 1.2
+color = Color(0.33, 0.55, 0.33, 1)

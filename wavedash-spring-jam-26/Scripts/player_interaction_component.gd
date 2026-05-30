@@ -6,25 +6,49 @@ extends Node
 
 var player: CharacterBody3D
 var area_bodies: Array
+var _chew_target: Node = null
 
 func _ready() -> void:
 	player = get_parent()
 
 func _process(delta: float) -> void:
 	area_bodies = _get_area_bodies()
-	_handle_world_interaction()
+	_handle_hold_chew(delta)
+	_handle_press_interact()
 
-func _handle_world_interaction():
-	if Input.is_action_just_pressed("interact") and can_interact:
-		if !area_bodies: return # If the area is empty dont do anything
-		var body: InteractableBody = _get_closest_interactable()
-		
-		# If the body is not interactable, Then dont continue.
-		if !body.is_interactable: return
-		
-		body.on_interact() # Call the interact function on the body
-		print("Interacted with %s" % body.name)
+# Hold "interact" to chew the closest chewable interactable (trees).
+func _handle_hold_chew(delta: float) -> void:
+	var target: Node = _get_chew_target()
+	if target != _chew_target:
+		# Stopped or switched trees: let the old one reset.
+		if _chew_target != null and is_instance_valid(_chew_target) and _chew_target.has_method("cancel_chew"):
+			_chew_target.cancel_chew()
+		_chew_target = target
+	if _chew_target != null and _chew_target.has_method("chew"):
+		_chew_target.chew(delta)
 
+func _get_chew_target() -> Node:
+	if not can_interact or not Input.is_action_pressed("interact"):
+		return null
+	if !area_bodies:
+		return null
+	var body: InteractableBody = _get_closest_interactable()
+	if body != null and body.is_interactable and body.has_method("chew"):
+		return body
+	return null
+
+# Single-press still works for non-chew interactables.
+func _handle_press_interact() -> void:
+	if not Input.is_action_just_pressed("interact") or not can_interact:
+		return
+	if !area_bodies:
+		return
+	var body: InteractableBody = _get_closest_interactable()
+	if body == null or not body.is_interactable:
+		return
+	if body.has_method("chew"):
+		return # handled by hold-to-chew
+	body.on_interact()
 
 func _get_area_bodies() -> Array:
 	if !interaction_area.has_overlapping_bodies(): return []
@@ -34,17 +58,16 @@ func _get_area_bodies() -> Array:
 func _get_closest_interactable() -> InteractableBody:
 	var closest_body: Node3D
 	var closest_distance: float = INF
-	
+
 	# Looping through all the bodies inside the Interaction Area
 	for body in area_bodies:
 		if !body is InteractableBody: continue # If the body is not an Interactable Body dont calculate the distance.
-		
+
 		# Getting the distance to the player
 		var distance_to_body: float = player.global_position.distance_to(body.global_position)
 		# Checking if the distance to the body is less than the last closest distance
 		if distance_to_body < closest_distance:
-			# If a new closest body is found, Set it below.
 			closest_distance = distance_to_body
 			closest_body = body
-	
+
 	return closest_body

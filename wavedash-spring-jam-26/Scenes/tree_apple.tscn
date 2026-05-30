@@ -1,0 +1,37 @@
+[gd_scene load_steps=7 format=3 uid="uid://a7apple7tree2sp"]
+
+[ext_resource type="Script" uid="uid://r8063tg1wv76" path="res://Scripts/Interactions/tree_interaction.gd" id="1_tree"]
+[ext_resource type="Texture2D" uid="uid://c0twip8ep6i7p" path="res://assets/sprites/treepngs/pngs/Apple Tree.png" id="2_tex"]
+[ext_resource type="Shader" path="res://shaders/tree_sway_sprite.gdshader" id="3_sway"]
+[ext_resource type="PackedScene" uid="uid://cchewfx00001" path="res://scenes/fx/chew_fx.tscn" id="4_fx"]
+
+[sub_resource type="ShaderMaterial" id="sprite_mat"]
+shader = ExtResource("3_sway")
+shader_parameter/tex = ExtResource("2_tex")
+shader_parameter/wind_strength = 0.06
+shader_parameter/sway_speed = 1.5
+shader_parameter/wind_direction = 90.0
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_trunk"]
+size = Vector3(0.4, 1.6, 0.4)
+
+[node name="TreeApple" type="StaticBody3D"]
+script = ExtResource("1_tree")
+
+[node name="Sprite" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+pixel_size = 0.025
+billboard = 2
+texture_filter = 0
+alpha_cut = 1
+texture = ExtResource("2_tex")
+hframes = 6
+frame = 5
+material_override = SubResource("sprite_mat")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("BoxShape3D_trunk")
+
+[node name="ChewFx" parent="." instance=ExtResource("4_fx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)

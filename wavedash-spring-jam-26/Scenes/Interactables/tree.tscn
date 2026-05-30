@@ -1,19 +1,37 @@
-[gd_scene format=3 uid="uid://bt5cwxsdwu4a1"]
+[gd_scene load_steps=7 format=3 uid="uid://bt5cwxsdwu4a1"]
 
-[ext_resource type="Script" uid="uid://r8063tg1wv76" path="res://Scripts/Interactions/tree_interaction.gd" id="1_xj3bu"]
-[ext_resource type="Texture2D" uid="uid://crbc5ij8xovgx" path="res://icon.svg" id="2_neu11"]
+[ext_resource type="Script" uid="uid://r8063tg1wv76" path="res://Scripts/Interactions/tree_interaction.gd" id="1_tree"]
+[ext_resource type="Texture2D" uid="uid://cmx3ooao42i3o" path="res://assets/sprites/treepngs/pngs/Willow Tree.png" id="2_tex"]
+[ext_resource type="Shader" path="res://shaders/tree_sway_sprite.gdshader" id="3_sway"]
+[ext_resource type="PackedScene" uid="uid://cchewfx00001" path="res://scenes/fx/chew_fx.tscn" id="4_fx"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_jrj5y"]
-size = Vector3(0.42895508, 1.3818359, 0.47509766)
+[sub_resource type="ShaderMaterial" id="sprite_mat"]
+shader = ExtResource("3_sway")
+shader_parameter/tex = ExtResource("2_tex")
+shader_parameter/wind_strength = 0.06
+shader_parameter/sway_speed = 1.5
+shader_parameter/wind_direction = 90.0
 
-[node name="Tree" type="StaticBody3D" unique_id=958576022]
-script = ExtResource("1_xj3bu")
-metadata/_custom_type_script = "uid://d3go8pkw17lw"
+[sub_resource type="BoxShape3D" id="BoxShape3D_trunk"]
+size = Vector3(0.4, 1.6, 0.4)
 
-[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1499756674]
-transform = Transform3D(0.295, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6361891, 0)
-texture = ExtResource("2_neu11")
+[node name="Tree" type="StaticBody3D"]
+script = ExtResource("1_tree")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=385620945]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0030517578, 0.7026367, 0.040283203)
-shape = SubResource("BoxShape3D_jrj5y")
+[node name="Sprite" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+pixel_size = 0.025
+billboard = 2
+texture_filter = 0
+alpha_cut = 1
+texture = ExtResource("2_tex")
+hframes = 5
+frame = 4
+material_override = SubResource("sprite_mat")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("BoxShape3D_trunk")
+
+[node name="ChewFx" parent="." instance=ExtResource("4_fx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
