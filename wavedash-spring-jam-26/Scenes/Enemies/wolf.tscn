@@ -1,0 +1,108 @@
+[gd_scene format=3 uid="uid://34vb4icsd2ew"]
+
+[ext_resource type="Script" uid="uid://8elfe8x0wlh7" path="res://Scripts/Enemies/wolf.gd" id="1_wolf"]
+
+[sub_resource type="StandardMaterial3D" id="fur"]
+albedo_color = Color(0.28, 0.28, 0.31, 1)
+
+[sub_resource type="BoxMesh" id="body_mesh"]
+material = SubResource("fur")
+size = Vector3(0.55, 0.5, 1.1)
+
+[sub_resource type="BoxMesh" id="tail_mesh"]
+material = SubResource("fur")
+size = Vector3(0.12, 0.12, 0.42)
+
+[sub_resource type="StandardMaterial3D" id="dark"]
+albedo_color = Color(0.13, 0.13, 0.15, 1)
+
+[sub_resource type="BoxMesh" id="leg_mesh"]
+material = SubResource("dark")
+size = Vector3(0.13, 0.5, 0.16)
+
+[sub_resource type="BoxMesh" id="head_mesh"]
+material = SubResource("fur")
+size = Vector3(0.42, 0.4, 0.4)
+
+[sub_resource type="BoxMesh" id="ear_mesh"]
+material = SubResource("fur")
+size = Vector3(0.1, 0.2, 0.08)
+
+[sub_resource type="BoxMesh" id="snout_mesh"]
+material = SubResource("dark")
+size = Vector3(0.2, 0.18, 0.24)
+
+[sub_resource type="CapsuleShape3D" id="body_shape"]
+radius = 0.38
+height = 1.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_i6k80"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Wolf" type="CharacterBody3D" unique_id=1280497630 node_paths=PackedStringArray("head", "detect_bar")]
+script = ExtResource("1_wolf")
+head = NodePath("Model/Face")
+wander_radius = 10.0
+wander_jitter = 5.0
+detection_range = 12.0
+detect_bar = NodePath("SubViewport/ProgressBar")
+
+[node name="Model" type="Node3D" parent="." unique_id=1254728846]
+
+[node name="Body" type="MeshInstance3D" parent="Model" unique_id=1811378295]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, 0)
+mesh = SubResource("body_mesh")
+
+[node name="Tail" type="MeshInstance3D" parent="Model" unique_id=1298553711]
+transform = Transform3D(1, 0, 0, 0, 0.9396926, 0.34202012, 0, -0.34202012, 0.9396926, 0, 0.66, 0.72)
+mesh = SubResource("tail_mesh")
+
+[node name="LegFL" type="MeshInstance3D" parent="Model" unique_id=1274813758]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0.25, -0.32)
+mesh = SubResource("leg_mesh")
+
+[node name="LegFR" type="MeshInstance3D" parent="Model" unique_id=166113960]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.25, -0.32)
+mesh = SubResource("leg_mesh")
+
+[node name="LegBL" type="MeshInstance3D" parent="Model" unique_id=52588570]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.18, 0.25, 0.34)
+mesh = SubResource("leg_mesh")
+
+[node name="LegBR" type="MeshInstance3D" parent="Model" unique_id=710181756]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.18, 0.25, 0.34)
+mesh = SubResource("leg_mesh")
+
+[node name="Face" type="Node3D" parent="Model" unique_id=307595773]
+
+[node name="Head" type="MeshInstance3D" parent="Model/Face" unique_id=228426938]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.62, -0.62)
+mesh = SubResource("head_mesh")
+
+[node name="EarL" type="MeshInstance3D" parent="Model/Face" unique_id=348366865]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13, 0.86, -0.55)
+mesh = SubResource("ear_mesh")
+
+[node name="EarR" type="MeshInstance3D" parent="Model/Face" unique_id=1558103654]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.13, 0.86, -0.55)
+mesh = SubResource("ear_mesh")
+
+[node name="Snout" type="MeshInstance3D" parent="Model/Face" unique_id=1893120486]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.55, -0.88)
+mesh = SubResource("snout_mesh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=270919832]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("body_shape")
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1227396162]
+size = Vector2i(300, 20)
+
+[node name="ProgressBar" type="ProgressBar" parent="SubViewport" unique_id=1727376338]
+offset_right = 300.0
+offset_bottom = 27.0
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1792026589]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3668013, 0)
+billboard = 1
+texture = SubResource("ViewportTexture_i6k80")
