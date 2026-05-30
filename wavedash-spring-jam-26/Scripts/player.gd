@@ -18,14 +18,14 @@ extends CharacterBody3D
 @export var camera_follow_speed: float = 6.0
 
 const TEX := {
-	"down": preload("res://assets/sprites/Beaver/BeaveDOWN.png"),
-	"down_right": preload("res://assets/sprites/Beaver/BeaveDownRight.png"),
-	"right": preload("res://assets/sprites/Beaver/BeaverRight.png"),
-	"up_right": preload("res://assets/sprites/Beaver/BeaverUpRight.png"),
-	"up": preload("res://assets/sprites/Beaver/BeaverUp.png"),
-	"up_left": preload("res://assets/sprites/Beaver/BeaverUpLeft.png"),
-	"left": preload("res://assets/sprites/Beaver/BeaverLeft.png"),
-	"down_left": preload("res://assets/sprites/Beaver/BeaverDownLeft.png"),
+	"down": preload("res://Assets/sprites/Beaver/BeaveDOWN.png"),
+	"down_right": preload("res://Assets/sprites/Beaver/BeaveDownRight.png"),
+	"right": preload("res://Assets/sprites/Beaver/BeaverRight.png"),
+	"up_right": preload("res://Assets/sprites/Beaver/BeaverUpRight.png"),
+	"up": preload("res://Assets/sprites/Beaver/BeaverUp.png"),
+	"up_left": preload("res://Assets/sprites/Beaver/BeaverUpLeft.png"),
+	"left": preload("res://Assets/sprites/Beaver/BeaverLeft.png"),
+	"down_left": preload("res://Assets/sprites/Beaver/BeaverDownLeft.png"),
 }
 
 @onready var sprite: Sprite3D = $Sprite3D

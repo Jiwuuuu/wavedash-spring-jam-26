@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="wavedash-spring-jam-26"
-run/main_scene="res://scenes/Main.tscn"
+run/main_scene="uid://bmainpix2view1"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameState="*res://Scripts/game_state.gd"
 
 [editor_plugins]
 

@@ -1,10 +1,14 @@
-[gd_scene load_steps=9 format=3 uid="uid://c3doaktree0001"]
+[gd_scene load_steps=10 format=3 uid="uid://c3doaktree0001"]
 
 [ext_resource type="Script" uid="uid://r8063tg1wv76" path="res://Scripts/Interactions/tree_interaction.gd" id="1_s"]
 [ext_resource type="Shader" path="res://shaders/toon.gdshader" id="2_toon"]
+[ext_resource type="PackedScene" uid="uid://cchewfx00001" path="res://scenes/fx/chew_fx.tscn" id="3_fx"]
 
 [sub_resource type="ShaderMaterial" id="bark"]
 shader = ExtResource("2_toon")
+shader_parameter/wind_strength = 0.02
+shader_parameter/sway_speed = 1.5
+shader_parameter/wind_direction = 90.0
 shader_parameter/albedo = Color(0.45, 0.31, 0.2, 1)
 shader_parameter/bands = 3
 shader_parameter/band_softness = 0.02
@@ -12,6 +16,9 @@ shader_parameter/ambient_tint = Color(0.35, 0.4, 0.45, 1)
 
 [sub_resource type="ShaderMaterial" id="leaf"]
 shader = ExtResource("2_toon")
+shader_parameter/wind_strength = 0.02
+shader_parameter/sway_speed = 1.5
+shader_parameter/wind_direction = 90.0
 shader_parameter/albedo = Color(0.33, 0.55, 0.33, 1)
 shader_parameter/bands = 3
 shader_parameter/band_softness = 0.02
@@ -59,3 +66,6 @@ material_override = SubResource("leaf")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.75, 0)
 shape = SubResource("col")
+
+[node name="ChewFx" parent="." instance=ExtResource("3_fx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)

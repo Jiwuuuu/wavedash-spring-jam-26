@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://cchewbar00001"]
+
+[sub_resource type="ViewportTexture" id="vt"]
+viewport_path = NodePath("SubViewport")
+
+[node name="ChewBar" type="Node3D"]
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(120, 16)
+render_target_update_mode = 4
+
+[node name="ProgressBar" type="ProgressBar" parent="SubViewport"]
+offset_right = 120.0
+offset_bottom = 16.0
+max_value = 100.0
+value = 0.0
+show_percentage = false
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+pixel_size = 0.008
+billboard = 1
+texture = SubResource("vt")
