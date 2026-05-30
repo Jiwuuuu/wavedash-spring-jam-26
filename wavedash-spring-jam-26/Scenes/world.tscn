@@ -345,8 +345,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.69869137, 0.0038108826, -3
 [node name="Tree2" parent="." unique_id=589912082 instance=ExtResource("3_4wyf3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.341237, 0.0038108826, -3.061339)
 
-[node name="Wolf" parent="." unique_id=1280497630 instance=ExtResource("4_k0juu")]
+[node name="Wolf" parent="." unique_id=1280497630 node_paths=PackedStringArray("player") instance=ExtResource("4_k0juu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.223165, 0.50063074, -6.481133)
+player = NodePath("../Player")
 
 [node name="Terrain3D" type="Terrain3D" parent="." unique_id=1441589237]
 data_directory = "res://"

@@ -1,6 +1,6 @@
-[gd_scene format=3 uid="uid://34vb4icsd2ew"]
+[gd_scene format=3 uid="uid://c7grmqhd8u2b1"]
 
-[ext_resource type="Script" uid="uid://8elfe8x0wlh7" path="res://Scripts/Enemies/wolf.gd" id="1_wolf"]
+[ext_resource type="Script" uid="uid://bf6gphy22hrhk" path="res://Scripts/Enemies/wolf.gd" id="1_wolf"]
 
 [sub_resource type="StandardMaterial3D" id="fur"]
 albedo_color = Color(0.28, 0.28, 0.31, 1)
@@ -44,7 +44,6 @@ script = ExtResource("1_wolf")
 head = NodePath("Model/Face")
 wander_radius = 10.0
 wander_jitter = 5.0
-detection_range = 12.0
 detect_bar = NodePath("SubViewport/ProgressBar")
 
 [node name="Model" type="Node3D" parent="." unique_id=1254728846]
