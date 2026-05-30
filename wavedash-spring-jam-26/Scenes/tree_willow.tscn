@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://f6willow7tree2s"]
+
+[ext_resource type="Script" uid="uid://r8063tg1wv76" path="res://Scripts/Interactions/tree_interaction.gd" id="1_tree"]
+[ext_resource type="Texture2D" uid="uid://cmx3ooao42i3o" path="res://assets/sprites/treepngs/pngs/Willow Tree.png" id="2_tex"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_trunk"]
+size = Vector3(0.4, 1.6, 0.4)
+
+[node name="TreeWillow" type="StaticBody3D"]
+script = ExtResource("1_tree")
+
+[node name="Sprite" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+pixel_size = 0.025
+billboard = 2
+texture_filter = 0
+alpha_cut = 1
+texture = ExtResource("2_tex")
+hframes = 5
+frame = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
+shape = SubResource("BoxShape3D_trunk")

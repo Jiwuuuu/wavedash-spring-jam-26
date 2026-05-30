@@ -1,34 +1,24 @@
-[gd_scene format=3 uid="uid://dppos35gaxjit"]
+[gd_scene load_steps=4 format=3 uid="uid://dppos35gaxjit"]
 
-[sub_resource type="StandardMaterial3D" id="bark"]
-albedo_color = Color(0.45, 0.31, 0.2, 1)
+[ext_resource type="Script" uid="uid://r8063tg1wv76" path="res://Scripts/Interactions/tree_interaction.gd" id="1_tree"]
+[ext_resource type="Texture2D" uid="uid://kbkse2kqv5db" path="res://assets/sprites/treepngs/pngs/Oak Tree.png" id="2_tex"]
 
-[sub_resource type="BoxMesh" id="trunk_mesh"]
-material = SubResource("bark")
-size = Vector3(0.35, 1.6, 0.35)
+[sub_resource type="BoxShape3D" id="BoxShape3D_trunk"]
+size = Vector3(0.4, 1.6, 0.4)
 
-[sub_resource type="StandardMaterial3D" id="leaf"]
-albedo_color = Color(0.33, 0.5, 0.33, 1)
+[node name="Tree" type="StaticBody3D"]
+script = ExtResource("1_tree")
 
-[sub_resource type="SphereMesh" id="canopy_mesh"]
-material = SubResource("leaf")
-radius = 1.1
-height = 2.2
+[node name="Sprite" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+pixel_size = 0.025
+billboard = 2
+texture_filter = 0
+alpha_cut = 1
+texture = ExtResource("2_tex")
+hframes = 7
+frame = 6
 
-[sub_resource type="CylinderShape3D" id="trunk_shape"]
-height = 1.6
-radius = 0.24853516
-
-[node name="Tree" type="StaticBody3D" unique_id=1527196447]
-
-[node name="Trunk" type="MeshInstance3D" parent="." unique_id=810467740]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
-mesh = SubResource("trunk_mesh")
-
-[node name="Canopy" type="MeshInstance3D" parent="." unique_id=1800429607]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
-mesh = SubResource("canopy_mesh")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1264828368]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8, 0)
-shape = SubResource("trunk_shape")
+shape = SubResource("BoxShape3D_trunk")
