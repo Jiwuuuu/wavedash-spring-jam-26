@@ -26,7 +26,7 @@ shader_parameter/highlight_strength = 0.1
 shader_parameter/highlight_color = Color(1, 1, 1, 1)
 shader_parameter/shadow_color = Color(0, 0, 0, 1)
 
-[node name="Player" type="CharacterBody3D" unique_id=1112257171]
+[node name="Player" type="CharacterBody3D" unique_id=1112257171 groups=["player"]]
 script = ExtResource("1_cvnsp")
 acceleration = 9.0
 friction = 40.0

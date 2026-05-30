@@ -14,9 +14,12 @@ func _physics_process(delta: float) -> void:
 		if self.visible == true:
 			self.hide()
 			instance.process_mode = ProcessMode.PROCESS_MODE_ALWAYS
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		else:
 			self.show()
 			instance.process_mode = ProcessMode.PROCESS_MODE_DISABLED
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
 
 func _on_play_pressed() -> void:
 	#get_tree().change_scene_to_file(game_scene)

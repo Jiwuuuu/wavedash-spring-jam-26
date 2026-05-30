@@ -66,7 +66,8 @@ func _physics_process(delta: float) -> void:
 		velocity += get_gravity() * delta
 	#detection bar
 	var was_seeing: bool = _can_see_player
-	_can_see_player = _can_detect_player()
+	var hidden: bool = _is_player_hidden()
+	_can_see_player = _can_detect_player() and not hidden
 	if _can_see_player:
 		var to_player: Vector3 = player.global_position - global_position
 		to_player.y = 0.0
@@ -243,9 +244,10 @@ func _process_orbit(delta: float) -> void:
 	velocity.x = move.x * orbit_speed
 	velocity.z = move.z * orbit_speed
 	_face_direction(to_dir, delta) 
-	_orbit_timer -= delta
-	if _orbit_timer <= 0.0:
-		_start_pounce()
+	if _can_see_player:
+		_orbit_timer -= delta
+		if _orbit_timer <= 0.0:
+			_start_pounce()
 
 func _start_pounce() -> void:
 	_state = State.POUNCE
@@ -261,3 +263,7 @@ func _process_pounce(delta: float) -> void:
 	_pounce_timer -= delta
 	if _pounce_timer <= 0.0:
 		_start_chase()   
+		
+		
+func _is_player_hidden() -> bool:
+	return player != null and player.get_meta("hidden_count", 0) > 0

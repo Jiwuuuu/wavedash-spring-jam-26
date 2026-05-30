@@ -2,10 +2,12 @@
 
 [ext_resource type="Script" uid="uid://10fbpyn8xf1" path="res://Scripts/Interactions/dam.gd" id="1_vtrub"]
 [ext_resource type="Texture2D" uid="uid://crbc5ij8xovgx" path="res://Scripts/icon.svg" id="2_ixr5i"]
+[ext_resource type="PackedScene" uid="uid://ces3u3rg6uwef" path="res://Scenes/hide_area.tscn" id="3_ixr5i"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vtrub"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ixr5i"]
+size = Vector3(0.2, 0.2, 0.2)
 
 [node name="Dam" type="StaticBody3D" unique_id=486108224]
 script = ExtResource("1_vtrub")
@@ -23,3 +25,5 @@ collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1754091881]
 shape = SubResource("BoxShape3D_ixr5i")
+
+[node name="HideArea" parent="." unique_id=359572115 instance=ExtResource("3_ixr5i")]

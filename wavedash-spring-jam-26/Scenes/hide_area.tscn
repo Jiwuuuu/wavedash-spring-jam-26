@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://ces3u3rg6uwef"]
+
+[ext_resource type="Script" uid="uid://dg7cap23ywxbx" path="res://Scripts/hide_area.gd" id="1_yph0d"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_m4v8b"]
+radius = 1.5
+
+[node name="HideArea" type="Area3D" unique_id=359572115]
+script = ExtResource("1_yph0d")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1408825509]
+shape = SubResource("SphereShape3D_m4v8b")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

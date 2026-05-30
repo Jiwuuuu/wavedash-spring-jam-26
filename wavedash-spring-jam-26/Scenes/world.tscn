@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://bfsdur4v5jgou" path="res://Scenes/tree3d_birch.tscn" id="11_jhx03"]
 [ext_resource type="PackedScene" uid="uid://hv8srshlkrc7" path="res://Scenes/river.tscn" id="12_q5onr"]
 [ext_resource type="Script" uid="uid://b63ht60l26c28" path="res://Scripts/ui/shelterhud.gd" id="14_e0ngr"]
+[ext_resource type="PackedScene" uid="uid://drpjw482tswcd" path="res://Scenes/bush.tscn" id="14_kn0ld"]
 
 [sub_resource type="ProceduralSkyMaterial" id="sky_mat"]
 sky_horizon_color = Color(0.66, 0.67, 0.69, 1)
@@ -381,6 +382,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.950733, 0.078560054, 19.63
 
 [node name="River3" parent="." unique_id=1840320339 instance=ExtResource("12_q5onr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.950733, 0.078560054, 33.703083)
+
+[node name="Bush" parent="." unique_id=254392255 instance=ExtResource("14_kn0ld")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.198951, 0, 5.002413)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1691690285]
 
