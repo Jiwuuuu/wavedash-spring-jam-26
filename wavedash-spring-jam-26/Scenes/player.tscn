@@ -8,8 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://cbg50oauneaea" path="res://Scenes/fx/dust_motes.tscn" id="6_dust"]
 [ext_resource type="PackedScene" uid="uid://bmacvkn11dvlg" path="res://Scenes/fx/wind_gust_leaves.tscn" id="7_gust"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_vgqql"]
-size = Vector3(0.646, 0.643, 0.5)
+[sub_resource type="SphereShape3D" id="SphereShape3D_f1ek2"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6t5aa"]
+radius = 2.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_pp"]
 size = Vector2(10, 10)
@@ -24,13 +26,11 @@ shader_parameter/highlight_strength = 0.1
 shader_parameter/highlight_color = Color(1, 1, 1, 1)
 shader_parameter/shadow_color = Color(0, 0, 0, 1)
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_6t5aa"]
-radius = 2.0
-
 [node name="Player" type="CharacterBody3D" unique_id=1112257171]
 script = ExtResource("1_cvnsp")
 acceleration = 9.0
 friction = 40.0
+camera_follow_speed = 30.0
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=1654588392]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.18139091, 0)
@@ -42,16 +42,7 @@ texture = ExtResource("2_6t5aa")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=98548090]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0034179688, 0.005065918, 0)
-shape = SubResource("BoxShape3D_vgqql")
-
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1310406389]
-transform = Transform3D(1, 0, 0, 0, 0.9932276, 0.11618537, 0, -0.11618537, 0.9932276, 0, 1.229276, 3.704)
-fov = 50.0
-
-[node name="Postprocess" type="MeshInstance3D" parent="Camera3D" unique_id=1521573945]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, -0.873369)
-mesh = SubResource("PlaneMesh_pp")
-surface_material_override/0 = SubResource("ShaderMaterial_pp")
+shape = SubResource("SphereShape3D_f1ek2")
 
 [node name="InteractionArea" type="Area3D" parent="." unique_id=2130641661]
 collision_mask = 2
@@ -72,3 +63,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
 [node name="WindGust" parent="AmbientFX" unique_id=1700724641 instance=ExtResource("7_gust")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 4, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="." unique_id=615081735]
+transform = Transform3D(1, 0, 0, 0, 0.8281387, 0.56052345, 0, -0.56052345, 0.8281387, 0, 0, 0)
+spring_length = 6.0
+
+[node name="Camera3D" type="Camera3D" parent="SpringArm3D" unique_id=1310406389]
+transform = Transform3D(1, 0, 0, 0, 0.9932276, 0.11618537, 0, -0.11618537, 0.9932276, 0, 0, 0)
+fov = 50.0
+
+[node name="Postprocess" type="MeshInstance3D" parent="SpringArm3D/Camera3D" unique_id=1521573945]
+transform = Transform3D(1, 0, 0, 0, -4.4703484e-08, -1, 0, 1, -4.4703484e-08, -0.0015186071, 0.0052604675, -0.87437034)
+mesh = SubResource("PlaneMesh_pp")
+surface_material_override/0 = SubResource("ShaderMaterial_pp")

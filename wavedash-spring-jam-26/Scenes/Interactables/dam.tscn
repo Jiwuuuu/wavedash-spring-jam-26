@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://dsegyqxkg2kfo"]
+
+[ext_resource type="Script" uid="uid://10fbpyn8xf1" path="res://Scripts/Interactions/dam.gd" id="1_vtrub"]
+[ext_resource type="Texture2D" uid="uid://crbc5ij8xovgx" path="res://Scripts/icon.svg" id="2_ixr5i"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vtrub"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ixr5i"]
+
+[node name="Dam" type="StaticBody3D" unique_id=486108224]
+script = ExtResource("1_vtrub")
+stage_textures = Array[Texture2D]([ExtResource("2_ixr5i"), ExtResource("2_ixr5i"), ExtResource("2_ixr5i")])
+wood_costs = Array[int]([1, 1])
+
+[node name="Sprite3D" type="Sprite3D" parent="." unique_id=1331321089]
+billboard = 1
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=685427941]
+shape = SubResource("BoxShape3D_vtrub")
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1993541104]
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=1754091881]
+shape = SubResource("BoxShape3D_ixr5i")

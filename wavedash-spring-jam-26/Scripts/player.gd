@@ -16,6 +16,11 @@ extends CharacterBody3D
 # Smooth "delay follow" camera. Higher = snappier, lower = floatier/more delay.
 @export_group("Camera")
 @export var camera_follow_speed: float = 6.0
+@export var mouse_sensitivity: float = 0.0025
+@export var camera_distance: float = 6.0  
+@export var camera_height: float = 4.0   
+@export var look_height: float = 1.0      
+
 
 const TEX := {
 	"down": preload("res://Assets/sprites/Beaver/BeaveDOWN.png"),
@@ -29,11 +34,15 @@ const TEX := {
 }
 
 @onready var sprite: Sprite3D = $Sprite3D
-@onready var camera: Camera3D = $Camera3D
+@onready var camera: Camera3D = $SpringArm3D/Camera3D
+@onready var arm: SpringArm3D = $SpringArm3D
+
 
 var current_speed: float = 0
 var movement_direction: Vector3
 var _camera_offset: Vector3
+var _cam_yaw: float
+var _follow_pos: Vector3
 
 # Environment hooks (driven by River.gd while the beaver is in water). Defaults are
 # inert: drag 1.0 = normal speed, no current. See Scripts/river.gd.
@@ -43,36 +52,47 @@ var water_drag: float = 1.0
 func _ready() -> void:
 	current_speed = walking_speed
 	_setup_camera()
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	
+
+	if event is InputEventMouseMotion:
+		rotate_y(-event.relative.x * mouse_sensitivity)
 
 func _setup_camera() -> void:
-	# Decouple the camera from the player so it can trail smoothly, while keeping
-	# the exact offset / tilt / fov authored in player.tscn.
-	_camera_offset = camera.position
-	var tilt: Basis = camera.global_transform.basis
 	camera.top_level = true
-	camera.global_transform = Transform3D(tilt, global_position + _camera_offset)
+	_cam_yaw = global_rotation.y
+	_follow_pos = global_position
+	_place_camera()
 
-func _process(_delta: float) -> void:
-	_update_facing_sprite()
+func _place_camera() -> void:
+
+	var off: Vector3 = Basis(Vector3.UP, _cam_yaw) * Vector3(0.0, camera_height, camera_distance)
+	camera.global_position = _follow_pos + off
+	camera.look_at(_follow_pos + Vector3.UP * look_height, Vector3.UP)
 
 func _update_camera(delta: float) -> void:
-	# Framerate-independent lerp toward the player (Godot's recommended formula),
-	# leaving a little delay so the camera feels alive. Tilt/angle stay fixed.
-	# Runs in _physics_process so it stays in lockstep with the player's movement
-	# (avoids the sprite jittering against a per-frame camera).
-	var target: Vector3 = global_position + _camera_offset
 	var weight: float = 1.0 - exp(-camera_follow_speed * delta)
-	camera.global_position = camera.global_position.lerp(target, weight)
-
+	_follow_pos = _follow_pos.lerp(global_position, weight)
+	_cam_yaw = lerp_angle(_cam_yaw, global_rotation.y, weight)
+	_place_camera()
+	
+func _process(_delta: float) -> void:
+	_update_facing_sprite()
+	
 func _update_facing_sprite() -> void:
 	# Cosmetic facing from horizontal velocity. Idle keeps the last-faced sprite.
-	if absf(velocity.x) < facing_deadzone and absf(velocity.z) < facing_deadzone:
+	var local_vel: Vector3 = global_transform.basis.inverse() * velocity
+
+	if absf(local_vel.x) < facing_deadzone and absf(local_vel.z) < facing_deadzone:
 		return
 
-	var up: bool = velocity.z < -facing_deadzone    # moving away from camera
-	var down: bool = velocity.z > facing_deadzone    # moving toward camera
-	var right: bool = velocity.x > facing_deadzone
-	var left: bool = velocity.x < -facing_deadzone
+	var up: bool = local_vel.z < -facing_deadzone
+	var down: bool = local_vel.z > facing_deadzone
+	var right: bool = local_vel.x > facing_deadzone
+	var left: bool = local_vel.x < -facing_deadzone
 
 	var key: String
 	if up and right:
