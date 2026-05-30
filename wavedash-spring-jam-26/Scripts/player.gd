@@ -35,6 +35,11 @@ var current_speed: float = 0
 var movement_direction: Vector3
 var _camera_offset: Vector3
 
+# Environment hooks (driven by River.gd while the beaver is in water). Defaults are
+# inert: drag 1.0 = normal speed, no current. See Scripts/river.gd.
+var water_current: Vector3 = Vector3.ZERO
+var water_drag: float = 1.0
+
 func _ready() -> void:
 	current_speed = walking_speed
 	_setup_camera()
@@ -104,13 +109,19 @@ func _physics_process(delta: float) -> void:
 	elif Input.is_action_just_released("sprint"):
 		current_speed = walking_speed
 	
+	# water_drag slows control in water; defaults to 1.0 (no effect) on dry land.
+	var target_speed: float = current_speed * water_drag
 	if movement_direction:
-		velocity.x = movement_direction.x * current_speed
-		velocity.z = movement_direction.z * current_speed
+		velocity.x = movement_direction.x * target_speed
+		velocity.z = movement_direction.z * target_speed
 	else:
 		# Lerping the velocity to 0 if there is no input.
 		velocity.x = move_toward(velocity.x, 0, friction * delta)
 		velocity.z = move_toward(velocity.z, 0, friction * delta)
+
+	# Downstream current from a River (zero elsewhere).
+	velocity.x += water_current.x
+	velocity.z += water_current.z
 
 	move_and_slide()
 	_update_camera(delta)
