@@ -1,0 +1,154 @@
+[gd_scene format=3 uid="uid://crqg3egv0agje"]
+
+[ext_resource type="Script" uid="uid://d42nnmnag1d8" path="res://Scripts/ui/main_menu.gd" id="1_c2fhx"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_48xlc"]
+bg_color = Color(0.1764706, 0.1764706, 0.1764706, 1)
+
+[node name="MainMenu" type="Control" unique_id=300199305 node_paths=PackedStringArray("button_box", "settings_box", "credits_box")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_c2fhx")
+game_scene = "uid://cy5qs46337aui"
+button_box = NodePath("ButtonBox")
+settings_box = NodePath("SettingsBox")
+credits_box = NodePath("CreditsBox")
+
+[node name="ButtonBox" type="VBoxContainer" parent="." unique_id=1875915908]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -132.0
+offset_top = -68.0
+offset_right = 132.0
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Play" type="Button" parent="ButtonBox" unique_id=1853390153]
+layout_mode = 2
+text = "Play"
+
+[node name="Settings" type="Button" parent="ButtonBox" unique_id=1208872235]
+layout_mode = 2
+text = "Settings"
+
+[node name="Credits" type="Button" parent="ButtonBox" unique_id=1920728027]
+layout_mode = 2
+text = "Credits"
+
+[node name="Quit" type="Button" parent="ButtonBox" unique_id=1557247450]
+layout_mode = 2
+text = "Quit
+"
+
+[node name="CreditsBox" type="Label" parent="." unique_id=1766486662]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -132.0
+offset_right = 150.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_48xlc")
+text = "Person 1
+Person 2
+Person 3
+Etc."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BackButton" type="Button" parent="CreditsBox" unique_id=1083133248]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.5
+offset_top = 121.0
+offset_right = 22.5
+offset_bottom = 156.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Back"
+
+[node name="SettingsBox" type="ColorRect" parent="." unique_id=1086401719]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -132.0
+offset_right = 150.0
+offset_bottom = 90.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.1764706, 0.1764706, 0.1764706, 1)
+
+[node name="BackButton2" type="Button" parent="SettingsBox" unique_id=1265661182]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -22.5
+offset_top = 121.0
+offset_right = 22.5
+offset_bottom = 156.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Back"
+
+[node name="Volume Bar" type="HSlider" parent="SettingsBox" unique_id=1799099218]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -8.0
+offset_right = 120.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="SettingsBox" unique_id=750803677]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -29.5
+offset_top = -33.0
+offset_right = 29.5
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Volume"
+
+[connection signal="pressed" from="ButtonBox/Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="ButtonBox/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="ButtonBox/Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="ButtonBox/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="CreditsBox/BackButton" to="." method="_on_back_button_pressed"]
+[connection signal="pressed" from="SettingsBox/BackButton2" to="." method="_on_back_button_2_pressed"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://e5fir7tree2sprt"]
+[gd_scene format=3 uid="uid://ctrp0bhdxd0nl"]
 
 [ext_resource type="Script" uid="uid://r8063tg1wv76" path="res://Scripts/Interactions/tree_interaction.gd" id="1_tree"]
 [ext_resource type="Texture2D" uid="uid://cqcnt811kh3ma" path="res://assets/sprites/treepngs/pngs/Fir Tree.png" id="2_tex"]

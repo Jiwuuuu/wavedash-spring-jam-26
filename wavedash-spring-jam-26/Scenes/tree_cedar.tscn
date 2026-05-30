@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://c3cedar7tree2s"]
+[gd_scene format=3 uid="uid://dklg4f5r7jevg"]
 
 [ext_resource type="Script" uid="uid://r8063tg1wv76" path="res://Scripts/Interactions/tree_interaction.gd" id="1_tree"]
 [ext_resource type="Texture2D" uid="uid://bi5w3lb743tai" path="res://assets/sprites/treepngs/pngs/Cedar Tree.png" id="2_tex"]

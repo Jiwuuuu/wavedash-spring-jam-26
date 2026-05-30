@@ -22,8 +22,24 @@ extends CharacterBody3D
 @export var detection_fill_far: float = 30.0  
 @export var detection_decay: float = 20.0    
 @export var detect_bar: Node 
+@export var eye: Node3D 
 
-enum State { IDLE, WANDER }
+
+@export_group("Chase")
+@export var chase_speed: float = 3.0
+@export var orbit_distance: float = 3.0   
+@export var avoid_distance: float = 2.0   
+
+@export_group("Orbit")
+@export var orbit_speed: float = 3.0
+@export var orbit_radius: float = 3.0     
+@export var orbit_time: float = 2.5       
+
+@export_group("Pounce")
+@export var pounce_speed: float = 8.0
+@export var pounce_time: float = 0.4      
+
+enum State { IDLE, WANDER, CHASE, ORBIT, POUNCE }
 
 var _state: State = State.IDLE
 var _home_position: Vector3              
@@ -31,6 +47,10 @@ var _idle_timer: float = 0.0
 var _wander_timer: float = 0.0
 var _wander_angle: float = 0.0    
 var _can_see_player: bool = false     
+var _orbit_dir: float = 1.0   
+var _orbit_timer: float = 0.0
+var _pounce_dir: Vector3 = Vector3.ZERO
+var _pounce_timer: float = 0.0
 
 signal player_detected
 var _detection_level: float = 0.0
@@ -63,12 +83,23 @@ func _physics_process(delta: float) -> void:
 		if _detection_level <= 0.0:
 			_detected = false
 	detect_bar.value = _detection_level
-	#move behavior based on state
+	
+	if _detected and (_state == State.IDLE or _state == State.WANDER):
+		_start_chase()
+	elif not _detected and (_state == State.CHASE or _state == State.ORBIT or _state == State.POUNCE):
+		_start_idle()
+
 	match _state:
 		State.IDLE:
 			_process_idle(delta)
 		State.WANDER:
 			_process_wander(delta)
+		State.CHASE:
+			_process_chase(delta)
+		State.ORBIT:
+			_process_orbit(delta)
+		State.POUNCE:
+			_process_pounce(delta)
 
 	move_and_slide()
 
@@ -147,11 +178,86 @@ func _can_detect_player() -> bool:
 		return false
 	return _has_line_of_sight()
 	
+
 func _has_line_of_sight() -> bool:
 	var space := get_world_3d().direct_space_state
-	var from: Vector3 = global_position + Vector3.UP * 0.5
+	var from: Vector3 = eye.global_position
 	var to: Vector3 = player.global_position
 	var query := PhysicsRayQueryParameters3D.create(from, to)
 	query.exclude = [get_rid()]   
 	var hit := space.intersect_ray(query)
 	return hit.is_empty() or hit.collider == player
+	
+	
+	
+#Chase functions..... scary stories
+func _start_chase() -> void:
+	_state = State.CHASE
+
+func _process_chase(delta: float) -> void:
+	var to_player: Vector3 = player.global_position - global_position
+	to_player.y = 0.0
+	if to_player.length() <= orbit_distance:
+		_start_orbit()
+		return
+	var desired: Vector3 = _avoid_obstacles(to_player.normalized())
+	velocity.x = desired.x * chase_speed
+	velocity.z = desired.z * chase_speed
+	_face_direction(desired, delta)
+
+func _avoid_obstacles(desired: Vector3) -> Vector3:
+	var space := get_world_3d().direct_space_state
+	var origin: Vector3 = eye.global_position
+	if not _ray_blocked(space, origin, desired):
+		return desired
+	for angle in [30, -30, 60, -60, 90, -90]:
+		var dir: Vector3 = desired.rotated(Vector3.UP, deg_to_rad(angle))
+		if not _ray_blocked(space, origin, dir):
+			return dir
+	return desired  
+
+func _ray_blocked(space: PhysicsDirectSpaceState3D, origin: Vector3, dir: Vector3) -> bool:
+	var query := PhysicsRayQueryParameters3D.create(origin, origin + dir * avoid_distance)
+	query.exclude = [get_rid()]
+	var hit := space.intersect_ray(query)
+	if hit.is_empty():
+		return false
+	return hit.collider != player   
+
+func _start_orbit() -> void:
+	_state = State.ORBIT
+	_orbit_timer = orbit_time
+	_orbit_dir = 1.0 if randf() < 0.5 else -1.0  
+
+func _process_orbit(delta: float) -> void:
+	var to_player: Vector3 = player.global_position - global_position
+	to_player.y = 0.0
+	var dist: float = to_player.length()
+	if dist > orbit_distance * 1.5:   
+		_start_chase()
+		return
+	var to_dir: Vector3 = to_player.normalized()
+	var tangent: Vector3 = Vector3(-to_dir.z, 0.0, to_dir.x) * _orbit_dir   
+	var correction: float = clampf(dist - orbit_radius, -1.0, 1.0)          
+	var move: Vector3 = (tangent + to_dir * correction).normalized()
+	velocity.x = move.x * orbit_speed
+	velocity.z = move.z * orbit_speed
+	_face_direction(to_dir, delta) 
+	_orbit_timer -= delta
+	if _orbit_timer <= 0.0:
+		_start_pounce()
+
+func _start_pounce() -> void:
+	_state = State.POUNCE
+	_pounce_timer = pounce_time
+	var to_player: Vector3 = player.global_position - global_position
+	to_player.y = 0.0
+	_pounce_dir = to_player.normalized()
+	rotation.y = atan2(-_pounce_dir.x, -_pounce_dir.z)   
+
+func _process_pounce(delta: float) -> void:
+	velocity.x = _pounce_dir.x * pounce_speed
+	velocity.z = _pounce_dir.z * pounce_speed
+	_pounce_timer -= delta
+	if _pounce_timer <= 0.0:
+		_start_chase()   

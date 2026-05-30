@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://b0oak7tree2spr"]
+[gd_scene format=3 uid="uid://bo5jdyylw1odb"]
 
 [ext_resource type="Script" uid="uid://r8063tg1wv76" path="res://Scripts/Interactions/tree_interaction.gd" id="1_tree"]
 [ext_resource type="Texture2D" uid="uid://kbkse2kqv5db" path="res://assets/sprites/treepngs/pngs/Oak Tree.png" id="2_tex"]

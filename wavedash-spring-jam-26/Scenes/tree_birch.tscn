@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://d4birch7tree2sp"]
+[gd_scene format=3 uid="uid://c3sqw6xkrgstr"]
 
 [ext_resource type="Script" uid="uid://r8063tg1wv76" path="res://Scripts/Interactions/tree_interaction.gd" id="1_tree"]
 [ext_resource type="Texture2D" uid="uid://cugh054j5lmxb" path="res://assets/sprites/treepngs/pngs/Birch Tree 1.png" id="2_tex"]
