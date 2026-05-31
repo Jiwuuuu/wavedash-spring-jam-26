@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://drpjw482tswcd"]
+
+[ext_resource type="PackedScene" uid="uid://ces3u3rg6uwef" path="res://Scenes/hide_area.tscn" id="1_tld8b"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tld8b"]
+albedo_color = Color(0.063622475, 0.28909305, 2.4065375e-07, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_kx7ng"]
+material = SubResource("StandardMaterial3D_tld8b")
+radius = 1.5
+height = 3.0
+
+[node name="Bush" type="Node3D" unique_id=254392255]
+
+[node name="HideArea" parent="." unique_id=359572115 instance=ExtResource("1_tld8b")]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=491892891]
+mesh = SubResource("SphereMesh_kx7ng")

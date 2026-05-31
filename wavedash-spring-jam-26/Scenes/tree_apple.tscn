@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://a7apple7tree2sp"]
+[gd_scene format=3 uid="uid://cn21ndjyok4ut"]
 
 [ext_resource type="Script" uid="uid://r8063tg1wv76" path="res://Scripts/Interactions/tree_interaction.gd" id="1_tree"]
 [ext_resource type="Texture2D" uid="uid://c0twip8ep6i7p" path="res://assets/sprites/treepngs/pngs/Apple Tree.png" id="2_tex"]

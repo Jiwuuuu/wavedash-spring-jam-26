@@ -13,24 +13,31 @@ extends CharacterBody3D
 # Higher = snappier follow, lower = floatier.
 @export_group("Camera")
 @export var camera_follow_speed: float = 6.0
+@export var mouse_sensitivity: float = 0.0025
+@export var camera_distance: float = 6.0  
+@export var camera_height: float = 4.0   
+@export var look_height: float = 1.0      
+
 
 const TEX := {
-	"down": preload("res://Assets/sprites/Beaver/BeaveDOWN.png"),
-	"down_right": preload("res://Assets/sprites/Beaver/BeaveDownRight.png"),
-	"right": preload("res://Assets/sprites/Beaver/BeaverRight.png"),
-	"up_right": preload("res://Assets/sprites/Beaver/BeaverUpRight.png"),
-	"up": preload("res://Assets/sprites/Beaver/BeaverUp.png"),
-	"up_left": preload("res://Assets/sprites/Beaver/BeaverUpLeft.png"),
-	"left": preload("res://Assets/sprites/Beaver/BeaverLeft.png"),
-	"down_left": preload("res://Assets/sprites/Beaver/BeaverDownLeft.png"),
+	"down": "BeaverDownWalk",
+	"down_right": "BeaverDownRight",
+	"right": "BeaverRight",
+	"up_right": "BeaverUpRight",
+	"up": "BeaverUpWalk",
+	"up_left": "BeaverUpLeft",
+	"left": "BeaverLeft",
+	"down_left": "BeaverDownLeft",
 }
 
-@onready var sprite: Sprite3D = $Sprite3D
+@onready var sprite: AnimatedSprite3D = $AnimatedSprite3D
 @onready var camera: Camera3D = $Camera3D
+
 
 var current_speed: float = 0
 var movement_direction: Vector3
-var _camera_offset: Vector3
+var _cam_yaw: float
+var _follow_pos: Vector3
 
 # Set by River.gd while in water; inert defaults (no current, full speed) on land.
 var water_current: Vector3 = Vector3.ZERO
@@ -39,33 +46,47 @@ var water_drag: float = 1.0
 func _ready() -> void:
 	current_speed = walking_speed
 	_setup_camera()
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	
+
+	if event is InputEventMouseMotion:
+		rotate_y(-event.relative.x * mouse_sensitivity)
 
 func _setup_camera() -> void:
-	# Decouple the camera so it can trail smoothly, keeping the offset/tilt/fov from player.tscn.
-	_camera_offset = camera.position
-	var tilt: Basis = camera.global_transform.basis
 	camera.top_level = true
-	camera.global_transform = Transform3D(tilt, global_position + _camera_offset)
+	_cam_yaw = global_rotation.y
+	_follow_pos = global_position
+	_place_camera()
 
-func _process(_delta: float) -> void:
-	_update_facing_sprite()
+func _place_camera() -> void:
+
+	var off: Vector3 = Basis(Vector3.UP, _cam_yaw) * Vector3(0.0, camera_height, camera_distance)
+	camera.global_position = _follow_pos + off
+	camera.look_at(_follow_pos + Vector3.UP * look_height, Vector3.UP)
 
 func _update_camera(delta: float) -> void:
-	# Framerate-independent lerp toward the player. In _physics_process to stay in
-	# lockstep with movement (avoids sprite jitter).
-	var target: Vector3 = global_position + _camera_offset
 	var weight: float = 1.0 - exp(-camera_follow_speed * delta)
-	camera.global_position = camera.global_position.lerp(target, weight)
-
+	_follow_pos = _follow_pos.lerp(global_position, weight)
+	_cam_yaw = lerp_angle(_cam_yaw, global_rotation.y, weight)
+	_place_camera()
+	
+func _process(_delta: float) -> void:
+	_update_facing_sprite()
+	
 func _update_facing_sprite() -> void:
-	# Facing from horizontal velocity; idle keeps the last sprite.
-	if absf(velocity.x) < facing_deadzone and absf(velocity.z) < facing_deadzone:
+	# Cosmetic facing from horizontal velocity. Idle keeps the last-faced sprite.
+	var local_vel: Vector3 = global_transform.basis.inverse() * velocity
+
+	if absf(local_vel.x) < facing_deadzone and absf(local_vel.z) < facing_deadzone:
 		return
 
-	var up: bool = velocity.z < -facing_deadzone
-	var down: bool = velocity.z > facing_deadzone
-	var right: bool = velocity.x > facing_deadzone
-	var left: bool = velocity.x < -facing_deadzone
+	var up: bool = local_vel.z < -facing_deadzone
+	var down: bool = local_vel.z > facing_deadzone
+	var right: bool = local_vel.x > facing_deadzone
+	var left: bool = local_vel.x < -facing_deadzone
 
 	var key: String
 	if up and right:
@@ -85,7 +106,7 @@ func _update_facing_sprite() -> void:
 	else:
 		key = "left"
 
-	sprite.texture = TEX[key]
+	sprite.play(TEX[key])
 
 func _physics_process(delta: float) -> void:
 	if not is_on_floor():

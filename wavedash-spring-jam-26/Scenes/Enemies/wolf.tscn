@@ -39,12 +39,13 @@ height = 1.0
 [sub_resource type="ViewportTexture" id="ViewportTexture_i6k80"]
 viewport_path = NodePath("SubViewport")
 
-[node name="Wolf" type="CharacterBody3D" unique_id=1280497630 node_paths=PackedStringArray("head", "detect_bar")]
+[node name="Wolf" type="CharacterBody3D" unique_id=1280497630 node_paths=PackedStringArray("head", "detect_bar", "eye")]
 script = ExtResource("1_wolf")
 head = NodePath("Model/Face")
 wander_radius = 10.0
 wander_jitter = 5.0
 detect_bar = NodePath("SubViewport/ProgressBar")
+eye = NodePath("Model/Face/Head")
 
 [node name="Model" type="Node3D" parent="." unique_id=1254728846]
 

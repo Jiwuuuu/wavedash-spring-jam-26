@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://f6willow7tree2s"]
+[gd_scene format=3 uid="uid://dybksui7fumiy"]
 
 [ext_resource type="Script" uid="uid://r8063tg1wv76" path="res://Scripts/Interactions/tree_interaction.gd" id="1_tree"]
 [ext_resource type="Texture2D" uid="uid://cmx3ooao42i3o" path="res://assets/sprites/treepngs/pngs/Willow Tree.png" id="2_tex"]

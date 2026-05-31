@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b22qj6g1ocuu6"
-path="res://.godot/imported/Cherry Blossom Tree.png-393d2852cc20fc05f98d921f62c00891.ctex"
+path="res://.godot/imported/Cherry Blossom Tree.png-67c783b81c4497761ff986f841620055.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/treepngs/pngs/Cherry Blossom Tree.png"
-dest_files=["res://.godot/imported/Cherry Blossom Tree.png-393d2852cc20fc05f98d921f62c00891.ctex"]
+source_file="res://Assets/sprites/treepngs/pngs/Cherry Blossom Tree.png"
+dest_files=["res://.godot/imported/Cherry Blossom Tree.png-67c783b81c4497761ff986f841620055.ctex"]
 
 [params]
 

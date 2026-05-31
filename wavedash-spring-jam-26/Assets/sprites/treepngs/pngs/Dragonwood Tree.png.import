@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dgmnmiwvyejrm"
-path="res://.godot/imported/Dragonwood Tree.png-c976c1ee6fe72652fafd79b6ca978c01.ctex"
+path="res://.godot/imported/Dragonwood Tree.png-5a3eb263949e653eaedd443d5c10b764.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/treepngs/pngs/Dragonwood Tree.png"
-dest_files=["res://.godot/imported/Dragonwood Tree.png-c976c1ee6fe72652fafd79b6ca978c01.ctex"]
+source_file="res://Assets/sprites/treepngs/pngs/Dragonwood Tree.png"
+dest_files=["res://.godot/imported/Dragonwood Tree.png-5a3eb263949e653eaedd443d5c10b764.ctex"]
 
 [params]
 
