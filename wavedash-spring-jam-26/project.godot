@@ -17,6 +17,7 @@ config/icon="res://Scripts/icon.svg"
 
 [autoload]
 
+WavedashSDK="*res://addons/wavedash/WavedashSDK.gd"
 GameState="*res://Scripts/game_state.gd"
 
 [editor_plugins]

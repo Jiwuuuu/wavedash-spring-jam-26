@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://bt5cwxsdwu4a1"]
 
 [ext_resource type="Script" uid="uid://r8063tg1wv76" path="res://Scripts/Interactions/tree_interaction.gd" id="1_tree"]
-[ext_resource type="Texture2D" uid="uid://cmx3ooao42i3o" path="res://Assets/sprites/treepngs/pngs/Willow Tree.png" id="2_tex"]
+[ext_resource type="Texture2D" uid="uid://cmx3ooao42i3o" path="res://assets/sprites/treepngs/pngs/Willow Tree.png" id="2_tex"]
 [ext_resource type="Shader" uid="uid://dw07yvr4iw5qv" path="res://shaders/tree_sway_sprite.gdshader" id="3_sway"]
-[ext_resource type="PackedScene" uid="uid://cchewfx00001" path="res://Scenes/fx/chew_fx.tscn" id="4_fx"]
+[ext_resource type="PackedScene" uid="uid://cchewfx00001" path="res://scenes/fx/chew_fx.tscn" id="4_fx"]
 
 [sub_resource type="ShaderMaterial" id="sprite_mat"]
 shader = ExtResource("3_sway")

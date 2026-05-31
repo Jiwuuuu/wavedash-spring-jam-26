@@ -36,13 +36,30 @@ var _chips: CPUParticles3D
 var _leaves: CPUParticles3D
 
 func _ready() -> void:
+	if prompt_text == "":
+		prompt_text = "Hold E to chew"
 	super._ready()
 	scale = Vector3.ONE * size_scale
+	_apply_sway_base()
+
+func _apply_sway_base() -> void:
+	# Tell the toon sway shader where this tree's base is, so the canopy sways the
+	# same whether the tree sits on flat ground or high on a mountain. Needs the
+	# bark/leaf materials to be resource_local_to_scene (per tree instance).
+	var by: float = global_position.y
+	for child in get_children():
+		var gi := child as GeometryInstance3D
+		if gi == null:
+			continue
+		var mat := gi.material_override as ShaderMaterial
+		if mat != null:
+			mat.set_shader_parameter("base_y", by)
 
 func chew(delta: float) -> void:
 	if _cutting:
 		return
 	_decaying = false
+	suppress_prompt(true)
 	chew_progress += delta
 	_ensure_bar()
 	_ensure_fx()
@@ -70,6 +87,7 @@ func _process(delta: float) -> void:
 	if chew_progress <= 0.0:
 		_decaying = false
 		_free_bar()
+		suppress_prompt(false)
 
 func _update_visuals() -> void:
 	var ratio: float = clampf(chew_progress / chew_duration, 0.0, 1.0)

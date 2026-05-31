@@ -14,7 +14,7 @@ func _ready() -> void:
 func _refresh(wood: int) -> void:
 	if not shelter:
 		return
-	var max_stage := shelter.stage_textures.size() - 1
+	var max_stage := shelter.max_stage()
 	var cost      := shelter.wood_needed_for_next()
 	if shelter.is_complete():
 		self.text = "YAY"

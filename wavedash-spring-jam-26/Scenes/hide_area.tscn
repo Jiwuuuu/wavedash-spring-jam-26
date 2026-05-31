@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dg7cap23ywxbx" path="res://Scripts/hide_area.gd" id="1_yph0d"]
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_m4v8b"]
-radius = 1.5
+[sub_resource type="BoxShape3D" id="SphereShape3D_m4v8b"]
+size = Vector3(3, 3, 3)
 
 [node name="HideArea" type="Area3D" unique_id=359572115]
 script = ExtResource("1_yph0d")
