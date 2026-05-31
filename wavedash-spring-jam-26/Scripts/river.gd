@@ -24,6 +24,12 @@ class_name River extends Area3D
 	set(v):
 		step = clampf(v, 0.2, 4.0)
 		_rebuild()
+## Cross-river subdivisions. Higher = the surface conforms more tightly across its
+## width to the terrain (less chance of the ground poking through).
+@export_range(1, 16) var width_segments: int = 4:
+	set(v):
+		width_segments = clampi(v, 1, 16)
+		_rebuild()
 
 @export_group("Flow")
 ## Downstream push speed, in metres/second.
@@ -33,18 +39,62 @@ class_name River extends Area3D
 ## Flip if the current pushes opposite to the foam's visible flow.
 @export var reverse_flow: bool = false
 
+@export_group("Terrain")
+## Drop each curve point onto the Terrain3D surface so the bed follows the slope.
+## Re-runs live while you drag the river in the editor.
+@export var conform_to_terrain: bool = true
+## Water height relative to the sampled terrain along the river (small positive lifts
+## it just above the bed to avoid z-fighting; negative sinks it in).
+@export var bed_offset: float = 0.05
+## Terrain3D to sample. Auto-found in the scene if left empty.
+@export var terrain: Node3D
+## Momentary inspector button — tick to conform the curve to the terrain now.
+@export var conform_now: bool = false:
+	set(value):
+		if value:
+			_rebuild()
+
 var _player: CharacterBody3D
 var _path: Path3D
 var _surface: MeshInstance3D
 
 func _ready() -> void:
+	set_notify_transform(true) # re-conform live while dragging the river in the editor
 	_fetch_nodes()
 	if _path != null and _path.curve != null and not _path.curve.changed.is_connected(_rebuild):
 		_path.curve.changed.connect(_rebuild)
-	_rebuild()
 	if not Engine.is_editor_hint():
 		body_entered.connect(_on_body_entered)
 		body_exited.connect(_on_body_exited)
+		# Terrain3D loads its height data as the scene starts; wait a frame so the
+		# river conforms to the real terrain instead of sampling it before it exists
+		# (which left the river floating above lowered ground at runtime).
+		await get_tree().process_frame
+	_rebuild()
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSFORM_CHANGED and Engine.is_editor_hint():
+		_rebuild()
+
+
+## The Terrain3D to sample, or null if conforming is off / none found. The whole
+## ribbon (every vertex) is conformed during mesh build, so the bed follows the
+## slope continuously instead of dipping between sparse curve points.
+func _get_terrain() -> Node:
+	if not conform_to_terrain:
+		return null
+	return terrain if terrain != null else TerrainSnap.find_terrain(self)
+
+## Snap a River-local point's Y onto the terrain (+ bed_offset), keeping its XZ.
+func _conform_local(local_pos: Vector3, terr: Node) -> Vector3:
+	if terr == null:
+		return local_pos
+	var world_pos: Vector3 = global_transform * local_pos
+	var h: float = TerrainSnap.get_height_at(terr, world_pos)
+	if is_nan(h):
+		return local_pos # outside a sculpted region — leave this point
+	return global_transform.affine_inverse() * Vector3(world_pos.x, h + bed_offset, world_pos.z)
 
 func _fetch_nodes() -> void:
 	if _path == null:
@@ -70,29 +120,38 @@ func _build_mesh(curve: Curve3D) -> void:
 	var length: float = curve.get_baked_length()
 	if length <= 0.0:
 		return
+	var terr: Node = _get_terrain()
 	var count: int = maxi(2, int(ceil(length / step)) + 1)
 	var st: SurfaceTool = SurfaceTool.new()
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	# Draped grid: subdivide across the width too and conform EVERY vertex to the
+	# terrain, so the whole surface hugs the ground instead of being a flat panel
+	# the terrain pokes through.
+	var wseg: int = maxi(1, width_segments)
+	var cols: int = wseg + 1
 	for i in count:
 		var off: float = length * float(i) / float(count - 1)
-		var pos: Vector3 = _path.transform * curve.sample_baked(off, true)
-		var tan: Vector3 = _tangent_at(curve, off)
-		var right: Vector3 = tan.cross(Vector3.UP).normalized() * (width * 0.5)
+		var center: Vector3 = _path.transform * curve.sample_baked(off, true)
+		var lateral: Vector3 = _tangent_at(curve, off).cross(Vector3.UP).normalized()
 		var v: float = off * foam_tiling
-		st.set_normal(Vector3.UP)
-		st.set_uv(Vector2(0.0, v))
-		st.add_vertex(pos - right)
-		st.set_normal(Vector3.UP)
-		st.set_uv(Vector2(1.0, v))
-		st.add_vertex(pos + right)
+		for j in cols:
+			var t: float = float(j) / float(wseg)
+			var vertex: Vector3 = _conform_local(center + lateral * lerpf(-width * 0.5, width * 0.5, t), terr)
+			st.set_normal(Vector3.UP)
+			st.set_uv(Vector2(t, v))
+			st.add_vertex(vertex)
 	for i in count - 1:
-		var a: int = i * 2
-		st.add_index(a)
-		st.add_index(a + 2)
-		st.add_index(a + 1)
-		st.add_index(a + 1)
-		st.add_index(a + 2)
-		st.add_index(a + 3)
+		for j in wseg:
+			var ll: int = i * cols + j
+			var lr: int = ll + 1
+			var ul: int = ll + cols
+			var ur: int = ul + 1
+			st.add_index(ll)
+			st.add_index(ul)
+			st.add_index(lr)
+			st.add_index(lr)
+			st.add_index(ul)
+			st.add_index(ur)
 	_surface.mesh = st.commit()
 	# The AABB is near-flat and the shader bobs verts on the GPU; a margin avoids early cull.
 	_surface.extra_cull_margin = maxf(4.0, width)
@@ -105,12 +164,13 @@ func _build_collision(curve: Curve3D) -> void:
 	var length: float = curve.get_baked_length()
 	if length <= 0.0:
 		return
+	var terr: Node = _get_terrain()
 	var count: int = maxi(2, int(ceil(length / step)) + 1)
 	for i in count - 1:
 		var o0: float = length * float(i) / float(count - 1)
 		var o1: float = length * float(i + 1) / float(count - 1)
-		var p0: Vector3 = _path.transform * curve.sample_baked(o0, true)
-		var p1: Vector3 = _path.transform * curve.sample_baked(o1, true)
+		var p0: Vector3 = _conform_local(_path.transform * curve.sample_baked(o0, true), terr)
+		var p1: Vector3 = _conform_local(_path.transform * curve.sample_baked(o1, true), terr)
 		var seg: Vector3 = p1 - p0
 		var seg_len: float = seg.length()
 		if seg_len < 0.0001:
@@ -162,6 +222,13 @@ func _physics_process(_delta: float) -> void:
 	var downstream: Vector3 = _downstream_at(_player.global_position)
 	_player.set("water_current", downstream * flow_speed)
 	_player.set("water_drag", water_drag)
+
+## Public: normalized downstream flow direction (XZ, y = 0) nearest a world point.
+## Used by the dam to orient its log wall across the river.
+func flow_direction_at(world_point: Vector3) -> Vector3:
+	_fetch_nodes()
+	return _downstream_at(world_point)
+
 
 func _downstream_at(global_point: Vector3) -> Vector3:
 	var curve: Curve3D = _path.curve if _path != null else null

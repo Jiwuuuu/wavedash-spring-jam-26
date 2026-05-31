@@ -3,8 +3,10 @@
 [ext_resource type="Script" uid="uid://r8063tg1wv76" path="res://Scripts/Interactions/tree_interaction.gd" id="1_s"]
 [ext_resource type="Shader" uid="uid://drr2ts8boff1i" path="res://shaders/toon.gdshader" id="2_toon"]
 [ext_resource type="PackedScene" uid="uid://cchewfx00001" path="res://scenes/fx/chew_fx.tscn" id="3_fx"]
+[ext_resource type="Script" path="res://Scripts/tools/terrain_snap.gd" id="4_snap"]
 
 [sub_resource type="ShaderMaterial" id="bark"]
+resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("2_toon")
 shader_parameter/albedo = Color(0.45, 0.31, 0.2, 1)
@@ -22,6 +24,7 @@ height = 1.5
 radial_segments = 8
 
 [sub_resource type="ShaderMaterial" id="leaf"]
+resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("2_toon")
 shader_parameter/albedo = Color(0.6938009, 0.39971, 0.24003536, 1)
@@ -71,3 +74,6 @@ shape = SubResource("col")
 
 [node name="ChewFx" parent="." unique_id=2082185079 instance=ExtResource("3_fx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+
+[node name="TerrainSnap" type="Node3D" parent="."]
+script = ExtResource("4_snap")

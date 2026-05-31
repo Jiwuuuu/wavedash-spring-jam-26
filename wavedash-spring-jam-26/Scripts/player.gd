@@ -48,6 +48,13 @@ func _ready() -> void:
 	_setup_camera()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
+	# The pixel-outline post-process reads Forward+-only screen buffers
+	# (normal-roughness/depth) that don't exist on the web Compatibility
+	# renderer, so its camera-facing quad fails to compile and renders gray
+	# over the whole view. Disable the effect on web; the game is unaffected.
+	if OS.has_feature("web"):
+		$Camera3D/Postprocess.hide()
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	

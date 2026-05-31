@@ -6,7 +6,7 @@ extends Control
 @export var settings_box : Control
 @export var credits_box : Control
 
-var scene = preload("res://Scenes/world.tscn")
+var scene = preload("res://scenes/world.tscn")
 var instance
 
 func _physics_process(delta: float) -> void:

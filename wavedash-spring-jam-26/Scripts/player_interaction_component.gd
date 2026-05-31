@@ -7,14 +7,27 @@ extends Node
 var player: CharacterBody3D
 var area_bodies: Array
 var _chew_target: Node = null
+var _focused: InteractableBody = null
 
 func _ready() -> void:
 	player = get_parent()
 
 func _process(delta: float) -> void:
 	area_bodies = _get_area_bodies()
+	_update_focus()
 	_handle_hold_chew(delta)
 	_handle_press_interact()
+
+# Show the floating prompt on the closest in-range interactable; clear the previous.
+func _update_focus() -> void:
+	var body: InteractableBody = _get_closest_interactable() if can_interact else null
+	if body == _focused:
+		return
+	if _focused != null and is_instance_valid(_focused):
+		_focused.set_focused(false)
+	_focused = body
+	if _focused != null:
+		_focused.set_focused(true)
 
 # Hold "interact" to chew the closest chewable interactable (trees).
 func _handle_hold_chew(delta: float) -> void:

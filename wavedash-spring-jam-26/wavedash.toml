@@ -1,0 +1,5 @@
+game_id = "j97dm36y93bhj34nrqpazx460d87r9h5"
+upload_dir = "./web"
+
+[godot]
+version = "4.6-stable"

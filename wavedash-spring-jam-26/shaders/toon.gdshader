@@ -13,12 +13,16 @@ uniform vec3 ambient_tint : source_color = vec3(0.35, 0.4, 0.45);
 uniform float wind_strength : hint_range(0.0, 1.0, 0.001) = 0.0;
 uniform float sway_speed : hint_range(0.0, 10.0, 0.1) = 1.5;
 uniform float wind_direction : hint_range(0.0, 360.0, 1.0) = 90.0;
+// World Y of the object's base, set by the tree script / TerrainSnap. Keeps sway
+// the same on a hilltop as on flat ground. 0 == the original "above world zero" look.
+uniform float base_y = 0.0;
 
 void vertex() {
 	if (wind_strength > 0.0) {
 		// World height = canopy sways more than base; world XZ phase desyncs neighbours.
 		vec3 world_pos = (MODEL_MATRIX * vec4(VERTEX, 1.0)).xyz;
-		float h = max(world_pos.y, 0.0);
+		// Height above the tree's BASE — same sway on a peak as on flat ground.
+		float h = max(world_pos.y - base_y, 0.0);
 		float phase = TIME * sway_speed + world_pos.x + world_pos.z;
 		float sway = sin(phase) * wind_strength * h;
 		float rad = wind_direction * (3.14159265 / 180.0);

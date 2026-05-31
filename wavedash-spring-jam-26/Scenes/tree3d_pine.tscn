@@ -3,8 +3,10 @@
 [ext_resource type="Script" uid="uid://r8063tg1wv76" path="res://Scripts/Interactions/tree_interaction.gd" id="1_s"]
 [ext_resource type="Shader" uid="uid://drr2ts8boff1i" path="res://shaders/toon.gdshader" id="2_toon"]
 [ext_resource type="PackedScene" uid="uid://cchewfx00001" path="res://scenes/fx/chew_fx.tscn" id="3_fx"]
+[ext_resource type="Script" uid="uid://cruvqsr81s0bc" path="res://Scripts/tools/terrain_snap.gd" id="4_snap"]
 
 [sub_resource type="ShaderMaterial" id="bark"]
+resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("2_toon")
 shader_parameter/albedo = Color(0.45, 0.31, 0.2, 1)
@@ -14,6 +16,7 @@ shader_parameter/ambient_tint = Color(0.35, 0.4, 0.45, 1)
 shader_parameter/wind_strength = 0.02
 shader_parameter/sway_speed = 1.5
 shader_parameter/wind_direction = 90.0
+shader_parameter/base_y = 0.0
 
 [sub_resource type="CylinderMesh" id="trunk_mesh"]
 top_radius = 0.13
@@ -22,6 +25,7 @@ height = 1.0
 radial_segments = 8
 
 [sub_resource type="ShaderMaterial" id="leaf"]
+resource_local_to_scene = true
 render_priority = 0
 shader = ExtResource("2_toon")
 shader_parameter/albedo = Color(0.69411767, 0.4, 0.23921569, 1)
@@ -31,6 +35,7 @@ shader_parameter/ambient_tint = Color(0.3, 0.38, 0.32, 1)
 shader_parameter/wind_strength = 0.02
 shader_parameter/sway_speed = 1.5
 shader_parameter/wind_direction = 90.0
+shader_parameter/base_y = 0.0
 
 [sub_resource type="CylinderMesh" id="cone1"]
 top_radius = 0.0
@@ -83,3 +88,6 @@ shape = SubResource("col")
 
 [node name="ChewFx" parent="." unique_id=205633870 instance=ExtResource("3_fx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0)
+
+[node name="TerrainSnap" type="Node3D" parent="." unique_id=1745534733]
+script = ExtResource("4_snap")

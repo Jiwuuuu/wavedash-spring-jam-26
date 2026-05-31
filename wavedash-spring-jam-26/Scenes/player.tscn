@@ -227,7 +227,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 4, 0)
 color_initial_ramp = null
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1310406389]
-transform = Transform3D(1, 0, 0, 0, 0.9936015, 0.11294313, 0, -0.11294313, 0.9936015, 0, 0.7972336, 3.733739)
+transform = Transform3D(1, 0, 0, 0, 0.9936015, 0.11294313, 0, -0.11294313, 0.9936015, 0, 1.3301396, 3.733739)
 fov = 50.0
 
 [node name="Postprocess" type="MeshInstance3D" parent="Camera3D" unique_id=1521573945]
