@@ -14,9 +14,8 @@ extends CharacterBody3D
 @export_group("Camera")
 @export var camera_follow_speed: float = 6.0
 @export var mouse_sensitivity: float = 0.0025
-@export var camera_distance: float = 6.0  
-@export var camera_height: float = 4.0   
-@export var look_height: float = 1.0      
+## Where the camera looks vertically (world-Y above the player origin).
+@export var look_height: float = 1.0
 
 
 const TEX := {
@@ -36,6 +35,7 @@ const TEX := {
 
 var current_speed: float = 0
 var movement_direction: Vector3
+var _camera_offset: Vector3   # captured from the editor Camera3D position
 var _cam_yaw: float
 var _follow_pos: Vector3
 
@@ -56,14 +56,17 @@ func _unhandled_input(event: InputEvent) -> void:
 		rotate_y(-event.relative.x * mouse_sensitivity)
 
 func _setup_camera() -> void:
+	# Capture the Camera3D's local position set in the editor as the follow
+	# offset. Moving the Camera3D node in the Godot viewport directly
+	# controls the in-game camera angle and distance.
+	_camera_offset = camera.position
 	camera.top_level = true
 	_cam_yaw = global_rotation.y
 	_follow_pos = global_position
 	_place_camera()
 
 func _place_camera() -> void:
-
-	var off: Vector3 = Basis(Vector3.UP, _cam_yaw) * Vector3(0.0, camera_height, camera_distance)
+	var off: Vector3 = Basis(Vector3.UP, _cam_yaw) * _camera_offset
 	camera.global_position = _follow_pos + off
 	camera.look_at(_follow_pos + Vector3.UP * look_height, Vector3.UP)
 
