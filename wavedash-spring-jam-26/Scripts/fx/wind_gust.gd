@@ -1,7 +1,6 @@
 extends CPUParticles3D
 
-## Periodically fires a one-shot sideways burst of leaves so the ambient drift
-## occasionally gets a livelier gust sweeping through the view.
+## Periodically fires a one-shot sideways burst of leaves.
 
 @export var min_interval: float = 4.0
 @export var max_interval: float = 8.0

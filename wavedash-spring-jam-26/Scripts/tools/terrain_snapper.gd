@@ -1,16 +1,9 @@
 @tool
 extends Node
 
-## Editor utility: drops hand-placed objects onto the sculpted Terrain3D surface.
-##
-## Assign the Terrain3D node and the things to snap, then tick `Snap Now` in the
-## inspector. It samples terrain height at each object's X,Z and sets its Y so the
-## base sits on the ground. Runs at edit time so positions BAKE into the scene
-## (save afterwards) — it is not a runtime/procedural pass. Re-tick after you
-## reshape the hills.
-##
-## `terrain` is typed as Node3D (not Terrain3D) and queried dynamically so this
-## script never hard-fails to parse if the Terrain3D plugin isn't loaded yet.
+## Editor utility: drops hand-placed objects onto the Terrain3D surface. Assign the
+## terrain and objects, then tick `Snap Now`. It sets each object's Y to the sampled
+## terrain height — an edit-time bake (save afterwards), not a runtime pass.
 
 ## The Terrain3D node to sample heights from.
 @export var terrain: Node3D

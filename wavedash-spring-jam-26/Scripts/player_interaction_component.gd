@@ -20,7 +20,7 @@ func _process(delta: float) -> void:
 func _handle_hold_chew(delta: float) -> void:
 	var target: Node = _get_chew_target()
 	if target != _chew_target:
-		# Stopped or switched trees: let the old one reset.
+		# Stopped or switched trees: reset the old one.
 		if _chew_target != null and is_instance_valid(_chew_target) and _chew_target.has_method("cancel_chew"):
 			_chew_target.cancel_chew()
 		_chew_target = target
@@ -59,13 +59,10 @@ func _get_closest_interactable() -> InteractableBody:
 	var closest_body: Node3D
 	var closest_distance: float = INF
 
-	# Looping through all the bodies inside the Interaction Area
 	for body in area_bodies:
-		if !body is InteractableBody: continue # If the body is not an Interactable Body dont calculate the distance.
+		if !body is InteractableBody: continue
 
-		# Getting the distance to the player
 		var distance_to_body: float = player.global_position.distance_to(body.global_position)
-		# Checking if the distance to the body is less than the last closest distance
 		if distance_to_body < closest_distance:
 			closest_distance = distance_to_body
 			closest_body = body

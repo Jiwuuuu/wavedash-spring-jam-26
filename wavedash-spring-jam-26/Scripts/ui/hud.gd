@@ -1,8 +1,6 @@
 extends Control
 
-## Minimal resource HUD. Lives on a full-res CanvasLayer (Main.tscn → UI), so the
-## text stays crisp above the low-res pixel viewport. Reads from the GameState
-## autoload via /root so it doesn't hard-fail if the autoload isn't registered yet.
+## Resource HUD. Reads wood from the GameState autoload via /root.
 
 @onready var wood_label: Label = $WoodLabel
 

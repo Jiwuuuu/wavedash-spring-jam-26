@@ -4,9 +4,9 @@
 [ext_resource type="Texture2D" uid="uid://be4iupnasi3gg" path="res://assets/sprites/Beaver/BeaveDOWN.png" id="2_6t5aa"]
 [ext_resource type="Script" uid="uid://dq2xu7b0o1in2" path="res://Scripts/player_interaction_component.gd" id="3_6t5aa"]
 [ext_resource type="Shader" uid="uid://c8yewie3ldu7t" path="res://shaders/pixel_outline.gdshader" id="4_pp"]
-[ext_resource type="PackedScene" uid="uid://cambleaves0001" path="res://scenes/fx/ambient_leaves.tscn" id="5_aleaves"]
-[ext_resource type="PackedScene" uid="uid://cdustmotes0001" path="res://scenes/fx/dust_motes.tscn" id="6_dust"]
-[ext_resource type="PackedScene" uid="uid://cwindgust00001" path="res://scenes/fx/wind_gust_leaves.tscn" id="7_gust"]
+[ext_resource type="PackedScene" uid="uid://cwdsdb837k441" path="res://scenes/fx/ambient_leaves.tscn" id="5_aleaves"]
+[ext_resource type="PackedScene" uid="uid://cbg50oauneaea" path="res://scenes/fx/dust_motes.tscn" id="6_dust"]
+[ext_resource type="PackedScene" uid="uid://bmacvkn11dvlg" path="res://scenes/fx/wind_gust_leaves.tscn" id="7_gust"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_vgqql"]
 size = Vector3(0.646, 0.643, 0.5)
@@ -62,13 +62,13 @@ shape = SubResource("SphereShape3D_6t5aa")
 [node name="InteractionComponent" type="Node" parent="." unique_id=409073183]
 script = ExtResource("3_6t5aa")
 
-[node name="AmbientFX" type="Node3D" parent="."]
+[node name="AmbientFX" type="Node3D" parent="." unique_id=579243194]
 
-[node name="AmbientLeaves" parent="AmbientFX" instance=ExtResource("5_aleaves")]
+[node name="AmbientLeaves" parent="AmbientFX" unique_id=1512771281 instance=ExtResource("5_aleaves")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
 
-[node name="DustMotes" parent="AmbientFX" instance=ExtResource("6_dust")]
+[node name="DustMotes" parent="AmbientFX" unique_id=74640309 instance=ExtResource("6_dust")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
-[node name="WindGust" parent="AmbientFX" instance=ExtResource("7_gust")]
+[node name="WindGust" parent="AmbientFX" unique_id=497389183 instance=ExtResource("7_gust")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 4, 0)
