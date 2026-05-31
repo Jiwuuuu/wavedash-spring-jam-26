@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 
 @export var shelter: Shelter
 
@@ -17,12 +17,12 @@ func _refresh(wood: int) -> void:
 	var max_stage := shelter.max_stage()
 	var cost      := shelter.wood_needed_for_next()
 	if shelter.is_complete():
-		self.text = "YAY"
+		$Control/Label.text = "YAY"
 	else:
-		self.text = (
-			"Dam: %d / %d\nWood: %d  (need %d)"
+		$Control/Label.text = (
+			"Dam Repair Progress: %d / %d\nWood For Next Stage: %d / %d"
 			% [shelter.current_stage, max_stage, wood, cost]
 		)
 
 func _on_complete() -> void:
-	self.text = "WOOHOOO"
+	$Control/Label.text = "WOOHOOO"

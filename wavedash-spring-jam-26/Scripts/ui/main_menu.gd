@@ -22,11 +22,15 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_play_pressed() -> void:
-	#get_tree().change_scene_to_file(game_scene)
-	instance = scene.instantiate()
-	add_child(instance)
-	$ButtonBox/Play.hide()
-	hide()
+	if instance == null:
+		instance = scene.instantiate()
+		add_child(instance)
+		$ButtonBox/Play.text = "Resume"
+		hide()
+	else:
+		self.hide()
+		instance.process_mode = ProcessMode.PROCESS_MODE_ALWAYS
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _on_settings_pressed() -> void:
 	button_box.hide()
