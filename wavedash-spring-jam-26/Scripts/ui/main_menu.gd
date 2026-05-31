@@ -7,6 +7,9 @@ extends Control
 @export var credits_box : Control
 
 var scene = preload("res://scenes/world.tscn")
+
+
+
 var instance
 
 func _physics_process(delta: float) -> void:
@@ -27,6 +30,8 @@ func _on_play_pressed() -> void:
 		add_child(instance)
 		$ButtonBox/Play.text = "Resume"
 		hide()
+		var dam = instance.dam
+		dam.shelter_complete.connect(_on_shelter_complete)
 	else:
 		self.hide()
 		instance.process_mode = ProcessMode.PROCESS_MODE_ALWAYS
@@ -53,3 +58,13 @@ func _on_back_button_pressed() -> void:
 func _on_back_button_2_pressed() -> void:
 	button_box.show()
 	settings_box.hide()
+
+func _on_shelter_complete() -> void:
+	instance.queue_free()
+	instance = null
+	$ButtonBox/Play.text = "Play"
+	show()
+	GameState.add_wood(GameState.wood * -1)
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	
+	print("win")

@@ -106,4 +106,3 @@ func _consume() -> void:
 	tw.tween_property(self, "position:y", position.y - 0.6, 0.4).set_ease(Tween.EASE_IN)
 	tw.parallel().tween_property(self, "scale", scale * 0.2, 0.4)
 	tw.tween_callback(queue_free)
-
