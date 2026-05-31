@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://b1lt2dl1jy370"
-path.s3tc="res://.godot/imported/BeaveDownRight.png-6adc61264522e5e85bae98a3777c5ed4.s3tc.ctex"
+path.s3tc="res://.godot/imported/BeaveDownRight.png-960630759a70e33916410b2b24b86e3c.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/sprites/Beaver/BeaveDownRight.png"
-dest_files=["res://.godot/imported/BeaveDownRight.png-6adc61264522e5e85bae98a3777c5ed4.s3tc.ctex"]
+source_file="res://assets/sprites/Beaver/BeaveDownRight.png"
+dest_files=["res://.godot/imported/BeaveDownRight.png-960630759a70e33916410b2b24b86e3c.s3tc.ctex"]
 
 [params]
 

@@ -1,13 +1,9 @@
 @tool
 class_name River extends Area3D
 
-## A curving river. Shape it by editing the child Path3D's curve in the editor
-## (drag the points/handles in the viewport) — a ribbon water mesh and matching
-## collision are generated live to follow the curve. While the player (a
-## CharacterBody3D) is in the water, movement is slowed (water_drag) and pushed
-## downstream along the curve tangent nearest them, so the beaver drifts around the
-## bends. The flowing foam (river.gdshader) runs along the ribbon's V axis, so the
-## look and the push both follow the curve.
+## A curving river. Shape it by editing the child Path3D's curve; a ribbon mesh and
+## collision are generated to follow it. While the player is in the water, movement
+## is slowed (water_drag) and pushed downstream along the nearest curve tangent.
 
 @export var width: float = 4.0:
 	set(v):
@@ -98,6 +94,8 @@ func _build_mesh(curve: Curve3D) -> void:
 		st.add_index(a + 2)
 		st.add_index(a + 3)
 	_surface.mesh = st.commit()
+	# The AABB is near-flat and the shader bobs verts on the GPU; a margin avoids early cull.
+	_surface.extra_cull_margin = maxf(4.0, width)
 
 func _build_collision(curve: Curve3D) -> void:
 	for c in get_children():
@@ -145,8 +143,7 @@ func _tangent_at(curve: Curve3D, off: float) -> Vector3:
 # --- Flow / player push -----------------------------------------------------------
 
 func _on_body_entered(body: Node3D) -> void:
-	# The static ground / Terrain3D share the player's collision layer, so filter to
-	# the CharacterBody3D (the beaver) and ignore everything else.
+	# Filter to the CharacterBody3D (the beaver); ignore the static ground/terrain.
 	if body is CharacterBody3D:
 		_player = body
 

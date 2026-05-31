@@ -5,10 +5,8 @@ render_mode unshaded;
 // Source: https://godotshaders.com/shader/3d-pixel-art-outline-highlight-post-processing-shader/
 // Inspired by https://threejs.org/examples/webgl_postprocessing_pixel.html
 //
-// Screen-space outline + edge-highlight post-process. Put this on a PlaneMesh
-// childed to the camera (see player.tscn "Postprocess"). Reads the screen, depth
-// and normal buffers and overdraws crisp edges. Pixel size follows VIEWPORT_SIZE,
-// so it stays 1px-crisp inside the low-res SubViewport.
+// Screen-space outline + edge-highlight post-process on a camera-childed PlaneMesh
+// (see player.tscn "Postprocess"). Pixel size follows VIEWPORT_SIZE.
 
 uniform sampler2D DEPTH_TEXTURE : hint_depth_texture, filter_linear_mipmap;
 uniform sampler2D SCREEN_TEXTURE : hint_screen_texture, filter_linear_mipmap;

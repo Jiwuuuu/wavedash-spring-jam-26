@@ -1,24 +1,22 @@
 class_name TreeInteraction extends InteractableBody
 
-## Hold-to-chew harvesting. The player's InteractionComponent calls chew(delta)
-## each frame while E is held and this is the closest tree; cancel_chew() when it
-## stops. Visuals (floating bar, trunk gnaw, shake, chips, topple) are driven here
-## so all tree scenes get them for free. Works on the 3D trees (which have a
-## "Trunk" mesh) and the legacy sprite trees (Trunk lookup just returns null).
+## Hold-to-chew harvesting. The InteractionComponent calls chew(delta) while held,
+## cancel_chew() when it stops. Drives the bar, trunk gnaw, shake, chips and topple.
 
 signal harvested
 
 const CHEW_BAR: PackedScene = preload("res://scenes/ui/chew_bar.tscn")
-# Fallback only — trees should carry an authored "ChewFx" child positioned at the
-# beaver's gnaw point. If one is missing, we instantiate this at _fallback_offset.
+# Fallback when a tree has no authored "ChewFx" child.
 const CHEW_FX: PackedScene = preload("res://scenes/fx/chew_fx.tscn")
 
 @export var chew_duration: float = 2.0
 @export var decay_rate: float = 1.5
 @export var min_trunk_scale: float = 0.45
 @export var bar_height: float = 3.2
-@export var leaf_color: Color = Color(0.33, 0.55, 0.33)
-## Where a fallback ChewFx is spawned when the tree scene has no authored one.
+@export var leaf_color: Color = Color(0.8, 0.35, 0.08)
+## Uniform tree size. Applied in code so it overrides every placed instance.
+@export var size_scale: float = 2.0
+## Spawn offset for a fallback ChewFx.
 @export var fallback_fx_offset: Vector3 = Vector3(0.0, 0.4, 0.0)
 
 var chew_progress: float = 0.0
@@ -38,7 +36,8 @@ var _chips: CPUParticles3D
 var _leaves: CPUParticles3D
 
 func _ready() -> void:
-	super._ready() # InteractableBody sets collision_layer (solid + interactable)
+	super._ready()
+	scale = Vector3.ONE * size_scale
 
 func chew(delta: float) -> void:
 	if _cutting:
@@ -47,7 +46,7 @@ func chew(delta: float) -> void:
 	chew_progress += delta
 	_ensure_bar()
 	_ensure_fx()
-	_set_emitting(true) # steady stream while chewing; chips fly off and fall
+	_set_emitting(true)
 	_update_visuals()
 
 	_shake_cooldown -= delta
@@ -59,8 +58,7 @@ func chew(delta: float) -> void:
 		_cut()
 
 func cancel_chew() -> void:
-	# Player stopped / switched away — let progress decay back down (see _process).
-	# Stop spawning new particles, but leave the airborne ones to fall (no restart).
+	# Let progress decay (see _process); stop new particles but let airborne ones fall.
 	_decaying = true
 	_set_emitting(false)
 
@@ -103,7 +101,7 @@ func _shake() -> void:
 func _ensure_fx() -> void:
 	if _chips != null or _leaves != null:
 		return
-	# Prefer the authored, editor-placed emitter; fall back to a spawned one.
+	# Prefer the authored emitter; fall back to a spawned one.
 	_fx = get_node_or_null("ChewFx")
 	if _fx == null:
 		_fx = CHEW_FX.instantiate()
@@ -129,10 +127,10 @@ func _cut() -> void:
 		_collision.set_deferred("disabled", true)
 	_free_bar()
 	_ensure_fx()
-	# Stop the gnaw chip stream; airborne chips finish their fall on their own.
+	# Stop the chip stream; airborne chips finish falling on their own.
 	if _chips != null:
 		_chips.emitting = false
-	# One bigger leaf shower as the tree comes down (single burst, not per-frame).
+	# One bigger leaf shower as the tree comes down.
 	if _leaves != null:
 		_leaves.amount = 22
 		_leaves.one_shot = true
@@ -143,13 +141,13 @@ func _cut() -> void:
 
 	var tw: Tween = create_tween()
 	if _trunk != null:
-		# Topple about the base, then sink + shrink away.
+		# Topple, then sink + shrink away.
 		tw.tween_property(self, "rotation:x", deg_to_rad(82.0), 0.6).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
 		tw.tween_interval(0.15)
 	tw.tween_property(self, "position:y", position.y - 2.5, 0.6).set_ease(Tween.EASE_IN)
 	tw.parallel().tween_property(self, "scale", scale * 0.5, 0.6)
 	tw.tween_callback(queue_free)
 
-# Kept for non-chew interactables (single-press). Trees use chew() instead.
+# Trees use chew() instead of single-press.
 func on_interact() -> void:
 	pass
