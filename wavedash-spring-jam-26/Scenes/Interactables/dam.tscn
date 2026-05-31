@@ -15,6 +15,7 @@ stage_textures = Array[Texture2D]([ExtResource("2_ixr5i"), ExtResource("2_ixr5i"
 wood_costs = Array[int]([1, 1])
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=1331321089]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 billboard = 1
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=685427941]

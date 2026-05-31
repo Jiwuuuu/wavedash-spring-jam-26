@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://be1hdx8kvmun0"
-path="res://.godot/imported/BeaverDownWalk.png-7f40c0a70fed0cc52f42467be7578647.ctex"
+uid="uid://b75fay03p8a5u"
+path="res://.godot/imported/BeaverUpWalk.png-6eec9f96253f4949dbb907724364ef5d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/sprites/Beaver/BeaverDownWalk.png"
-dest_files=["res://.godot/imported/BeaverDownWalk.png-7f40c0a70fed0cc52f42467be7578647.ctex"]
+source_file="res://Assets/sprites/Beaver/BeaverUpWalk.png"
+dest_files=["res://.godot/imported/BeaverUpWalk.png-6eec9f96253f4949dbb907724364ef5d.ctex"]
 
 [params]
 
@@ -37,4 +37,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

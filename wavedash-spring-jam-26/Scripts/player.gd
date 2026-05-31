@@ -23,19 +23,18 @@ extends CharacterBody3D
 
 
 const TEX := {
-	"down": preload("res://Assets/sprites/Beaver/BeaveDOWN.png"),
-	"down_right": preload("res://Assets/sprites/Beaver/BeaveDownRight.png"),
-	"right": preload("res://Assets/sprites/Beaver/BeaverRight.png"),
-	"up_right": preload("res://Assets/sprites/Beaver/BeaverUpRight.png"),
-	"up": preload("res://Assets/sprites/Beaver/BeaverUp.png"),
-	"up_left": preload("res://Assets/sprites/Beaver/BeaverUpLeft.png"),
-	"left": preload("res://Assets/sprites/Beaver/BeaverLeft.png"),
-	"down_left": preload("res://Assets/sprites/Beaver/BeaverDownLeft.png"),
+	"down": "BeaverDownWalk",
+	"down_right": "BeaverDownRight",
+	"right": "BeaverRight",
+	"up_right": "BeaverUpRight",
+	"up": "BeaverUpWalk",
+	"up_left": "BeaverUpLeft",
+	"left": "BeaverLeft",
+	"down_left": "BeaverDownLeft",
 }
 
-@onready var sprite: Sprite3D = $Sprite3D
-@onready var camera: Camera3D = $SpringArm3D/Camera3D
-@onready var arm: SpringArm3D = $SpringArm3D
+@onready var sprite: AnimatedSprite3D = $AnimatedSprite3D
+@onready var camera: Camera3D = $Camera3D
 
 
 var current_speed: float = 0
@@ -112,7 +111,7 @@ func _update_facing_sprite() -> void:
 	else:
 		key = "left"
 
-	sprite.texture = TEX[key]
+	sprite.play(TEX[key])
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
