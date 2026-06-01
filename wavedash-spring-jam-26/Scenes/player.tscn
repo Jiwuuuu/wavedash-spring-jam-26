@@ -3,25 +3,25 @@
 [ext_resource type="Script" uid="uid://c3s2rh2hnp0mb" path="res://Scripts/player.gd" id="1_cvnsp"]
 [ext_resource type="Script" uid="uid://dq2xu7b0o1in2" path="res://Scripts/player_interaction_component.gd" id="3_6t5aa"]
 [ext_resource type="Shader" uid="uid://c8yewie3ldu7t" path="res://shaders/pixel_outline.gdshader" id="4_pp"]
-[ext_resource type="PackedScene" uid="uid://cwdsdb837k441" path="res://scenes/fx/ambient_leaves.tscn" id="5_aleaves"]
-[ext_resource type="PackedScene" uid="uid://cbg50oauneaea" path="res://scenes/fx/dust_motes.tscn" id="6_dust"]
-[ext_resource type="PackedScene" uid="uid://bmacvkn11dvlg" path="res://scenes/fx/wind_gust_leaves.tscn" id="7_gust"]
-[ext_resource type="Texture2D" uid="uid://bgljktb1p8101" path="res://assets/sprites/Beaver/BeaverDownLeft.png" id="8_bi64h"]
-[ext_resource type="Texture2D" uid="uid://b1lt2dl1jy370" path="res://assets/sprites/Beaver/BeaveDownRight.png" id="9_2ijsl"]
-[ext_resource type="Texture2D" uid="uid://8d7gmemy1twt" path="res://assets/sprites/Beaver/DownWalkSeperate/BeaveDownWalk1.png" id="10_p1odr"]
-[ext_resource type="Texture2D" uid="uid://clm6n02hkva47" path="res://assets/sprites/Beaver/DownWalkSeperate/BeaveDownWalk2.png" id="11_0gysh"]
-[ext_resource type="Texture2D" uid="uid://nv0hg28q6nkg" path="res://assets/sprites/Beaver/DownWalkSeperate/BeaveDownWalk3.png" id="12_vfarp"]
-[ext_resource type="Texture2D" uid="uid://bfvqfdirrwgir" path="res://assets/sprites/Beaver/DownWalkSeperate/BeaveDownWalk4.png" id="13_y6uwr"]
-[ext_resource type="Texture2D" uid="uid://diihm4bu8ofed" path="res://assets/sprites/Beaver/DownWalkSeperate/BeaveDownWalk5.png" id="14_83xs0"]
-[ext_resource type="Texture2D" uid="uid://r251vdcrhjpq" path="res://assets/sprites/Beaver/DownWalkSeperate/BeaveDownWalk6.png" id="15_ypfnu"]
-[ext_resource type="Texture2D" uid="uid://w38bfb42yh8l" path="res://assets/sprites/Beaver/DownWalkSeperate/BeaveDownWalk7.png" id="16_xuaoq"]
-[ext_resource type="Texture2D" uid="uid://dylgslkwmc2dy" path="res://assets/sprites/Beaver/DownWalkSeperate/BeaveDownWalk8.png" id="17_wohnl"]
-[ext_resource type="Texture2D" uid="uid://cngh0xiu1m1i" path="res://assets/sprites/Beaver/DownWalkSeperate/BeaveDownWalk9.png" id="18_36dho"]
-[ext_resource type="Texture2D" uid="uid://c00h2ufcf37qf" path="res://assets/sprites/Beaver/BeaverLeft.png" id="19_yh6i2"]
-[ext_resource type="Texture2D" uid="uid://bkvis2wqjexqn" path="res://assets/sprites/Beaver/BeaverRight.png" id="20_nv4vc"]
-[ext_resource type="Texture2D" uid="uid://cr5q4j0w7vd4x" path="res://assets/sprites/Beaver/BeaverUpLeft.png" id="21_8gxox"]
-[ext_resource type="Texture2D" uid="uid://vwgcajrlh57c" path="res://assets/sprites/Beaver/BeaverUpRight.png" id="22_11gg7"]
-[ext_resource type="Texture2D" uid="uid://b75fay03p8a5u" path="res://assets/sprites/Beaver/BeaverUpWalk.png" id="23_qpa8y"]
+[ext_resource type="PackedScene" uid="uid://cwdsdb837k441" path="res://Scenes/fx/ambient_leaves.tscn" id="5_aleaves"]
+[ext_resource type="PackedScene" uid="uid://cbg50oauneaea" path="res://Scenes/fx/dust_motes.tscn" id="6_dust"]
+[ext_resource type="PackedScene" uid="uid://bmacvkn11dvlg" path="res://Scenes/fx/wind_gust_leaves.tscn" id="7_gust"]
+[ext_resource type="Texture2D" uid="uid://bgljktb1p8101" path="res://Assets/sprites/Beaver/BeaverDownLeft.png" id="8_bi64h"]
+[ext_resource type="Texture2D" uid="uid://b1lt2dl1jy370" path="res://Assets/sprites/Beaver/BeaveDownRight.png" id="9_2ijsl"]
+[ext_resource type="Texture2D" uid="uid://8d7gmemy1twt" path="res://Assets/sprites/Beaver/DownWalkSeperate/BeaveDownWalk1.png" id="10_p1odr"]
+[ext_resource type="Texture2D" uid="uid://clm6n02hkva47" path="res://Assets/sprites/Beaver/DownWalkSeperate/BeaveDownWalk2.png" id="11_0gysh"]
+[ext_resource type="Texture2D" uid="uid://nv0hg28q6nkg" path="res://Assets/sprites/Beaver/DownWalkSeperate/BeaveDownWalk3.png" id="12_vfarp"]
+[ext_resource type="Texture2D" uid="uid://bfvqfdirrwgir" path="res://Assets/sprites/Beaver/DownWalkSeperate/BeaveDownWalk4.png" id="13_y6uwr"]
+[ext_resource type="Texture2D" uid="uid://diihm4bu8ofed" path="res://Assets/sprites/Beaver/DownWalkSeperate/BeaveDownWalk5.png" id="14_83xs0"]
+[ext_resource type="Texture2D" uid="uid://r251vdcrhjpq" path="res://Assets/sprites/Beaver/DownWalkSeperate/BeaveDownWalk6.png" id="15_ypfnu"]
+[ext_resource type="Texture2D" uid="uid://w38bfb42yh8l" path="res://Assets/sprites/Beaver/DownWalkSeperate/BeaveDownWalk7.png" id="16_xuaoq"]
+[ext_resource type="Texture2D" uid="uid://dylgslkwmc2dy" path="res://Assets/sprites/Beaver/DownWalkSeperate/BeaveDownWalk8.png" id="17_wohnl"]
+[ext_resource type="Texture2D" uid="uid://cngh0xiu1m1i" path="res://Assets/sprites/Beaver/DownWalkSeperate/BeaveDownWalk9.png" id="18_36dho"]
+[ext_resource type="Texture2D" uid="uid://c00h2ufcf37qf" path="res://Assets/sprites/Beaver/BeaverLeft.png" id="19_yh6i2"]
+[ext_resource type="Texture2D" uid="uid://bkvis2wqjexqn" path="res://Assets/sprites/Beaver/BeaverRight.png" id="20_nv4vc"]
+[ext_resource type="Texture2D" uid="uid://cr5q4j0w7vd4x" path="res://Assets/sprites/Beaver/BeaverUpLeft.png" id="21_8gxox"]
+[ext_resource type="Texture2D" uid="uid://vwgcajrlh57c" path="res://Assets/sprites/Beaver/BeaverUpRight.png" id="22_11gg7"]
+[ext_resource type="Texture2D" uid="uid://b75fay03p8a5u" path="res://Assets/sprites/Beaver/BeaverUpWalk.png" id="23_qpa8y"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_f1ek2"]
 radius = 0.24308042
@@ -198,6 +198,7 @@ script = ExtResource("1_cvnsp")
 acceleration = 9.0
 friction = 40.0
 camera_follow_speed = 30.0
+footstep_volume_db = -8.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=98548090]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0034179688, 0.005065918, 0)
