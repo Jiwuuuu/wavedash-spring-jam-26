@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://cq7tni0j48bxn"
-path="res://.godot/imported/chewing_sfx.wav-d3f9bc16be530c484617acdfeea22558.sample"
+path="res://.godot/imported/chewing_sfx.wav-ec8902b88617d0756b05418d0783db7b.sample"
 
 [deps]
 
-source_file="res://assets/Sounds/chewing_sfx.wav"
-dest_files=["res://.godot/imported/chewing_sfx.wav-d3f9bc16be530c484617acdfeea22558.sample"]
+source_file="res://Assets/Sounds/chewing_sfx.wav"
+dest_files=["res://.godot/imported/chewing_sfx.wav-ec8902b88617d0756b05418d0783db7b.sample"]
 
 [params]
 

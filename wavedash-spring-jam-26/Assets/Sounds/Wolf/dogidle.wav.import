@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://dungpdbue8dm4"
-path="res://.godot/imported/dogidle.wav-09fbbb6aeec7cada8c33eaa9d3119f22.sample"
+path="res://.godot/imported/dogidle.wav-537910d2245737948f09bb0bec17f548.sample"
 
 [deps]
 
-source_file="res://assets/Sounds/Wolf/dogidle.wav"
-dest_files=["res://.godot/imported/dogidle.wav-09fbbb6aeec7cada8c33eaa9d3119f22.sample"]
+source_file="res://Assets/Sounds/Wolf/dogidle.wav"
+dest_files=["res://.godot/imported/dogidle.wav-537910d2245737948f09bb0bec17f548.sample"]
 
 [params]
 

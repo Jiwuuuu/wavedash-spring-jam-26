@@ -357,6 +357,7 @@ animations = [{
 script = ExtResource("1_cvnsp")
 acceleration = 9.0
 friction = 40.0
+directional_sprites = false
 camera_follow_speed = 30.0
 footstep_volume_db = -20.0
 

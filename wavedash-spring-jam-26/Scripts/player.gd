@@ -9,6 +9,11 @@ extends CharacterBody3D
 # 8-way facing swap: +Z is toward the camera, -Z away.
 @export_group("Sprite")
 @export var facing_deadzone: float = 0.2
+@export var directional_sprites: bool = true
+@export var bob_speed: float = 8.0
+@export var bob_sway: float = 0.06
+@export var bob_tilt: float = 6.0
+@export var sprint_bob_multiplier: float = 1.5
 
 # Higher = snappier follow, lower = floatier.
 @export_group("Camera")
@@ -16,6 +21,7 @@ extends CharacterBody3D
 @export var mouse_sensitivity: float = 0.0025
 ## Where the camera looks vertically (world-Y above the player origin).
 @export var look_height: float = 1.0
+
 
 # Survival: the wolf bites chunks off; eat carried wood (F) to heal.
 @export_group("Health")
@@ -69,6 +75,10 @@ var _follow_pos: Vector3
 # Set by River.gd while in water; inert defaults (no current, full speed) on land.
 var water_current: Vector3 = Vector3.ZERO
 var water_drag: float = 1.0
+var _bob_time: float = 0.0
+var _bob_blend: float = 0.0
+var _is_sprinting: bool = false
+
 
 func _ready() -> void:
 	current_speed = walking_speed
@@ -112,41 +122,51 @@ func _update_camera(delta: float) -> void:
 	_follow_pos = _follow_pos.lerp(global_position, weight)
 	_cam_yaw = lerp_angle(_cam_yaw, global_rotation.y, weight)
 	_place_camera()
-	
-func _process(_delta: float) -> void:
-	_update_facing_sprite()
-	
+
+func _process(delta: float) -> void:
+	if directional_sprites:
+		_update_facing_sprite()
+	else:
+		sprite.play("BeaverDownWalk")
+		_update_bob(delta)
+
 func _update_facing_sprite() -> void:
-	# Cosmetic facing from horizontal velocity. Idle keeps the last-faced sprite.
 	var local_vel: Vector3 = global_transform.basis.inverse() * velocity
 
 	if absf(local_vel.x) < facing_deadzone and absf(local_vel.z) < facing_deadzone:
 		return
 
-	var up: bool = local_vel.z < -facing_deadzone
-	var down: bool = local_vel.z > facing_deadzone
+	var up:    bool = local_vel.z < -facing_deadzone
+	var down:  bool = local_vel.z > facing_deadzone
 	var right: bool = local_vel.x > facing_deadzone
-	var left: bool = local_vel.x < -facing_deadzone
+	var left:  bool = local_vel.x < -facing_deadzone
 
 	var key: String
-	if up and right:
-		key = "up_right"
-	elif up and left:
-		key = "up_left"
-	elif down and right:
-		key = "down_right"
-	elif down and left:
-		key = "down_left"
-	elif up:
-		key = "up"
-	elif down:
-		key = "down"
-	elif right:
-		key = "right"
-	else:
-		key = "left"
+	if up and right:       key = "up_right"
+	elif up and left:      key = "up_left"
+	elif down and right:   key = "down_right"
+	elif down and left:    key = "down_left"
+	elif up:               key = "up"
+	elif down:             key = "down"
+	elif right:            key = "right"
+	else:                  key = "left"
 
 	sprite.play(TEX[key])
+
+func _update_bob(delta: float) -> void:
+	var is_moving: bool = (absf(velocity.x) + absf(velocity.z)) > 0.1
+
+	var target_blend: float = 1.0 if is_moving else 0.0
+	_bob_blend = move_toward(_bob_blend, target_blend, delta * 6.0)
+
+	if is_moving:
+		var speed_mult: float = sprint_bob_multiplier if _is_sprinting else 1.0
+		_bob_time += delta * bob_speed * speed_mult
+
+	var wave: float = sin(_bob_time) * _bob_blend
+
+	sprite.position.x = wave * bob_sway
+	sprite.rotation_degrees.z = -wave * bob_tilt
 
 # --- Health ----------------------------------------------------------------------
 

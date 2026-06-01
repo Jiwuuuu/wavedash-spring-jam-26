@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://d42nnmnag1d8" path="res://Scripts/ui/main_menu.gd" id="1_c2fhx"]
 [ext_resource type="FontFile" uid="uid://4erwlq5ep5no" path="res://ArchitectsDaughter.ttf" id="2_font"]
-[ext_resource type="Texture2D" uid="uid://dartkmm8owg14" path="res://assets/autumn_ground.png" id="3_bg"]
-[ext_resource type="Texture2D" uid="uid://b1lt2dl1jy370" path="res://assets/sprites/Beaver/BeaveDownRight.png" id="4_beaver"]
+[ext_resource type="Texture2D" uid="uid://dartkmm8owg14" path="res://Assets/autumn_ground.png" id="3_bg"]
+[ext_resource type="Texture2D" uid="uid://b1lt2dl1jy370" path="res://Assets/sprites/Beaver/BeaveDownRight.png" id="4_beaver"]
 [ext_resource type="Script" uid="uid://c6wjpelpb2abb" path="res://Scripts/ui/hover_button.gd" id="5_hover"]
-[ext_resource type="PackedScene" uid="uid://cvjp0b0h2i2nc" path="res://scenes/ui/end_screen.tscn" id="6_end"]
+[ext_resource type="PackedScene" uid="uid://cvjp0b0h2i2nc" path="res://Scenes/ui/end_screen.tscn" id="6_end"]
 
 [sub_resource type="StyleBoxFlat" id="btn_normal"]
 content_margin_left = 16.0
@@ -343,6 +343,7 @@ horizontal_alignment = 1
 custom_minimum_size = Vector2(260, 0)
 layout_mode = 2
 size_flags_horizontal = 4
+value = 100.0
 
 [node name="BackButton2" type="Button" parent="SettingsBox/VBox" unique_id=1273165808]
 layout_mode = 2
