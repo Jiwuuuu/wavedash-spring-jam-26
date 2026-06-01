@@ -8,7 +8,8 @@ signal harvested
 const CHEW_BAR: PackedScene = preload("res://scenes/ui/chew_bar.tscn")
 # Fallback when a tree has no authored "ChewFx" child.
 const CHEW_FX: PackedScene = preload("res://scenes/fx/chew_fx.tscn")
-const FALL_SFX: AudioStream = preload("res://assets/sfx/tree-falling.wav")
+const FALL_SFX: AudioStream = preload("uid://byqi77m1l3b1c")  # tree-falling.wav — uid ref is case-proof for web export
+const CHEW_SFX: AudioStream = preload("uid://cq7tni0j48bxn")  # chewing_sfx.wav — loops while the player gnaws
 
 @export var chew_duration: float = 2.0
 @export var decay_rate: float = 1.5
@@ -27,6 +28,8 @@ const FALL_SFX: AudioStream = preload("res://assets/sfx/tree-falling.wav")
 @export var sink_time: float = 0.7
 @export var fall_volume_db: float = 0.0
 @export var fall_sfx_start: float = 3.6
+## Loudness of the looping chew sound, in decibels.
+@export var chew_volume_db: float = -6.0
 
 var chew_progress: float = 0.0
 
@@ -43,6 +46,7 @@ var _bar_fill: Range
 var _fx: Node3D
 var _chips: CPUParticles3D
 var _leaves: CPUParticles3D
+var _chew_player: AudioStreamPlayer3D
 
 func _ready() -> void:
 	if prompt_text == "":
@@ -50,6 +54,10 @@ func _ready() -> void:
 	super._ready()
 	scale = Vector3.ONE * size_scale
 	_apply_sway_base()
+	_chew_player = AudioStreamPlayer3D.new()
+	_chew_player.stream = CHEW_SFX
+	_chew_player.volume_db = chew_volume_db
+	add_child(_chew_player)
 
 func _apply_sway_base() -> void:
 	# Tell the toon sway shader where this tree's base is, so the canopy sways the
@@ -73,6 +81,9 @@ func chew(delta: float) -> void:
 	_ensure_bar()
 	_ensure_fx()
 	_set_emitting(true)
+	# Re-arm the chew loop as soon as the one-shot clip ends, so it repeats while held.
+	if _chew_player != null and not _chew_player.playing:
+		_chew_player.play()
 	_update_visuals()
 
 	_shake_cooldown -= delta
@@ -87,6 +98,8 @@ func cancel_chew() -> void:
 	# Let progress decay (see _process); stop new particles but let airborne ones fall.
 	_decaying = true
 	_set_emitting(false)
+	if _chew_player != null:
+		_chew_player.stop()
 
 func _process(delta: float) -> void:
 	if _cutting or not _decaying:
@@ -150,6 +163,8 @@ func _cut() -> void:
 		return
 	_cutting = true
 	is_interactable = false
+	if _chew_player != null:
+		_chew_player.stop()
 	if _collision != null:
 		_collision.set_deferred("disabled", true)
 	_free_bar()

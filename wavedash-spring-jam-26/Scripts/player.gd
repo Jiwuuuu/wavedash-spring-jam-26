@@ -40,7 +40,7 @@ var _dead: bool = false
 @export var footstep_interval_walk: float = 0.45
 @export var footstep_interval_run: float = 0.30
 
-const STEP_SFX := preload("res://assets/sfx/grass_step.wav")
+const STEP_SFX := preload("uid://drswenjhxgnx1")  # grass_step.wav — uid ref is case-proof for web export
 var _footstep_player: AudioStreamPlayer3D
 var _step_timer: float = 0.0
 

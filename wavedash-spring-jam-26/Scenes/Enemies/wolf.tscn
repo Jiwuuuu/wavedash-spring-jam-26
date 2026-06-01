@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://c7grmqhd8u2b1"]
 
 [ext_resource type="Script" uid="uid://bf6gphy22hrhk" path="res://Scripts/Enemies/wolf.gd" id="1_wolf"]
-[ext_resource type="AudioStream" uid="uid://cnh0kdmv0mhwv" path="res://Assets/Sounds/Wolf/dogwhine.mp3" id="2_ciuay"]
-[ext_resource type="AudioStream" uid="uid://7pve7wet4aqi" path="res://Assets/Sounds/Wolf/doggrowl.wav" id="3_rp2qy"]
-[ext_resource type="AudioStream" uid="uid://c0dadl7ejbju" path="res://Assets/Sounds/Wolf/dogrun.wav" id="4_q8yjs"]
-[ext_resource type="AudioStream" uid="uid://dungpdbue8dm4" path="res://Assets/Sounds/Wolf/dogidle.wav" id="5_ai1lb"]
-[ext_resource type="AudioStream" uid="uid://b0ogcju01gbf5" path="res://Assets/Sounds/Wolf/dogbark.mp3" id="6_tjpw4"]
+[ext_resource type="AudioStream" uid="uid://cnh0kdmv0mhwv" path="res://assets/Sounds/Wolf/dogwhine.mp3" id="2_ciuay"]
+[ext_resource type="AudioStream" uid="uid://7pve7wet4aqi" path="res://assets/Sounds/Wolf/doggrowl.wav" id="3_rp2qy"]
+[ext_resource type="AudioStream" uid="uid://c0dadl7ejbju" path="res://assets/Sounds/Wolf/dogrun.wav" id="4_q8yjs"]
+[ext_resource type="AudioStream" uid="uid://dungpdbue8dm4" path="res://assets/Sounds/Wolf/dogidle.wav" id="5_ai1lb"]
+[ext_resource type="AudioStream" uid="uid://b0ogcju01gbf5" path="res://assets/Sounds/Wolf/dogbark.mp3" id="6_tjpw4"]
 
 [sub_resource type="StandardMaterial3D" id="fur"]
 albedo_color = Color(0.28, 0.28, 0.31, 1)

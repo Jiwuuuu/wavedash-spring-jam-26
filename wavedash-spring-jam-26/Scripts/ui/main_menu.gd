@@ -9,8 +9,18 @@ extends Control
 @export var asset_credits_box: Control
 @export var end_screen: Node   # end_screen.tscn (CanvasLayer)
 
+const BG_SFX := preload("uid://11he370pr5gc")  # bg_sfx.mp3 — looping background music
+
+## Background music loudness, in decibels (0 = full, negative = quieter). Tune in the Inspector.
+@export var music_volume_db: float = -18.0:
+	set(value):
+		music_volume_db = value
+		if _music != null:
+			_music.volume_db = value
+
 var scene = preload("res://scenes/world.tscn")
 var instance
+var _music: AudioStreamPlayer
 
 @onready var play_button: Button = button_box.get_node("Play")
 
@@ -19,6 +29,15 @@ func _ready() -> void:
 	if end_screen != null:
 		end_screen.retry_pressed.connect(_on_retry)
 		end_screen.menu_pressed.connect(_on_return_to_menu)
+	# The menu owns the whole session, so its music loops through menu + gameplay.
+	var stream: AudioStream = BG_SFX
+	if stream is AudioStreamMP3:
+		stream.loop = true
+	_music = AudioStreamPlayer.new()
+	_music.stream = stream
+	_music.volume_db = music_volume_db
+	add_child(_music)
+	_music.play()
 
 
 func _physics_process(_delta: float) -> void:

@@ -12,7 +12,8 @@ signal shelter_upgraded(new_stage: int)
 signal shelter_complete
 
 const TOON := preload("res://shaders/toon.gdshader")
-const BUILD_SFX := preload("res://assets/sfx/dam_wood_pilling.mp3")
+const BUILD_SFX := preload("uid://bm5kg2ku5uq08")  # dam_wood_pilling.mp3 — uid ref is case-proof for web export
+const NOT_ENOUGH_SFX := preload("uid://dx2h0pi6a4rpu")  # not_enough_wood_sfx.mp3
 
 ## Wood spent to advance from each stage to the next. This array's length drives the
 ## number of build stages: stage 0 is the lodge, then one stage per entry, so a finished
@@ -37,6 +38,12 @@ func stage_count() -> int:
 ## Used only when `river` is unset.
 @export var barrier_width: float = 4.0
 
+@export_group("Audio")
+## Loudness of the dam-build sound, in decibels.
+@export var build_volume_db: float = 0.0
+## Loudness of the "not enough wood" sound, in decibels.
+@export var deny_volume_db: float = 0.0
+
 var current_stage: int = 0
 
 var _stages: Array[Node3D] = []
@@ -45,6 +52,7 @@ var _mat_mud: ShaderMaterial
 var _mat_log: ShaderMaterial
 var _mat_ghost: StandardMaterial3D
 var _build_player: AudioStreamPlayer3D
+var _deny_player: AudioStreamPlayer3D
 
 
 func _ready() -> void:
@@ -55,7 +63,12 @@ func _ready() -> void:
 	if not Engine.is_editor_hint():
 		_build_player = AudioStreamPlayer3D.new()
 		_build_player.stream = BUILD_SFX
+		_build_player.volume_db = build_volume_db
 		add_child(_build_player)
+		_deny_player = AudioStreamPlayer3D.new()
+		_deny_player.stream = NOT_ENOUGH_SFX
+		_deny_player.volume_db = deny_volume_db
+		add_child(_deny_player)
 
 
 # --- Gameplay --------------------------------------------------------------------
@@ -104,6 +117,8 @@ func _update_ghost() -> void:
 
 
 func _flash_not_enough_wood() -> void:
+	if _deny_player != null:
+		_deny_player.play()
 	if current_stage >= _stages.size() or not is_instance_valid(_stages[current_stage]):
 		return
 	var node := _stages[current_stage]

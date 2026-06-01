@@ -17,10 +17,16 @@ extends MultiMeshInstance3D
 @export_group("Grass types")
 ## The kinds of grass that can appear. Add/remove entries to change how many types
 ## pop up; `variant_weights[i]` sets each one's relative odds (lower = rarer).
+# Path is ALL-LOWERCASE on purpose. The web export is case-sensitive and stores the
+# folder lowercased, so the original capital "StylizedCartoonGrass" path threw
+# "Preload file does not exist" on web and dropped the whole grass script to a fallback
+# plane. Lowercase resolves in both places: case-insensitive in the Windows editor,
+# exact-match on web. (UIDs can't be used here — this @tool script compiles before the
+# UID registry is ready, so preload("uid://…") fails to parse on editor startup.)
 @export var variants: Array[Texture2D] = [
-	preload("res://assets/StylizedCartoonGrass/landscaper/default_grass_v0.svg"),
-	preload("res://assets/StylizedCartoonGrass/landscaper/default_grass_v1.svg"),
-	preload("res://assets/StylizedCartoonGrass/landscaper/default_grass_v2.svg"),
+	preload("res://assets/stylizedcartoongrass/landscaper/default_grass_v0.svg"),
+	preload("res://assets/stylizedcartoongrass/landscaper/default_grass_v1.svg"),
+	preload("res://assets/stylizedcartoongrass/landscaper/default_grass_v2.svg"),
 ]:
 	set(value):
 		variants = value
@@ -158,8 +164,13 @@ func _rescatter() -> void:
 			if data != null:
 				var h: float = data.call("get_height", world_pos)
 				if is_nan(h):
-					continue # outside a sculpted region — skip
-				world_pos.y = h + surface_offset
+					# Height unavailable here — on web the Terrain3D region may not be
+					# resolved yet at scatter time, which left whole patches empty (just
+					# bare ground). Fall back to the patch's own height so the tuft still
+					# shows, snapped roughly to where the node was placed on the surface.
+					world_pos.y += surface_offset
+				else:
+					world_pos.y = h + surface_offset
 			else:
 				world_pos.y += surface_offset
 

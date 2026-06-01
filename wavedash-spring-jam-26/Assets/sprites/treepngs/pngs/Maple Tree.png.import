@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://2qv712ttp8et"
-path="res://.godot/imported/Maple Tree.png-3de399e77bd1b113d22a58f7c3ef5eae.ctex"
+path="res://.godot/imported/Maple Tree.png-eb6beefbd1af8a34de6a9e3bcd3a6e8d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/sprites/treepngs/pngs/Maple Tree.png"
-dest_files=["res://.godot/imported/Maple Tree.png-3de399e77bd1b113d22a58f7c3ef5eae.ctex"]
+source_file="res://assets/sprites/treepngs/pngs/Maple Tree.png"
+dest_files=["res://.godot/imported/Maple Tree.png-eb6beefbd1af8a34de6a9e3bcd3a6e8d.ctex"]
 
 [params]
 
