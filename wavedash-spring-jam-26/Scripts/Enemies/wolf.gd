@@ -62,6 +62,7 @@ var _detection_level: float = 0.0
 var _detected: bool = false  
 
 func _ready() -> void:
+	GameState.wood_increased.connect(_tree_fall_agro)
 	_home_position = global_position
 	_start_idle()
 
@@ -72,8 +73,8 @@ func _physics_process(delta: float) -> void:
 	#detection bar
 	var was_seeing: bool = _can_see_player
 	var hidden: bool = _is_player_hidden()
-	_can_see_player = _can_detect_player() and not hidden
-	if _can_see_player:
+	_can_see_player = _can_detect_player() 
+	if _can_see_player and not hidden:
 		var to_player: Vector3 = player.global_position - global_position
 		to_player.y = 0.0
 		var dist: float = to_player.length()
@@ -83,11 +84,19 @@ func _physics_process(delta: float) -> void:
 		if _detection_level >= 100.0 and not _detected:
 			_detected = true
 			player_detected.emit()
+			$Bark.play()
 			print("Player fully detected!")
-	else:
+	elif hidden or _detected == false:
+		
 		_detection_level = maxf(_detection_level - detection_decay * delta, 0.0)
 		if _detection_level <= 0.0:
+			if _detected == true:
+				$Whine.play()
+				
+				print("end")
+
 			_detected = false
+	
 	detect_bar.value = _detection_level
 	
 	if _detected and (_state == State.IDLE or _state == State.WANDER):
@@ -106,6 +115,15 @@ func _physics_process(delta: float) -> void:
 			_process_orbit(delta)
 		State.POUNCE:
 			_process_pounce(delta)
+	var aggressive: bool = _state == State.CHASE or _state == State.ORBIT or _state == State.POUNCE
+	if aggressive:
+		if not $Run.playing:
+			$Run.play()
+		$Idle.stop()
+	else:
+		if not $Idle.playing:
+			$Idle.play()
+		$Run.stop()
 
 	move_and_slide()
 
@@ -251,7 +269,7 @@ func _process_orbit(delta: float) -> void:
 	_face_direction(to_dir, delta) 
 	if _can_see_player:
 		_orbit_timer -= delta
-		if _orbit_timer <= 0.0:
+		if _orbit_timer <= 0.0 and _is_player_hidden() == false:
 			_start_pounce()
 
 func _start_pounce() -> void:
@@ -279,4 +297,13 @@ func _process_pounce(delta: float) -> void:
 		
 		
 func _is_player_hidden() -> bool:
-	return player != null and player.get_meta("hidden_count", 0) > 0
+	var ret = player != null and player.get_meta("hidden_count", 0) > 0
+	if ret and not $Growl.playing and _state == State.ORBIT:
+		$Growl.play()
+	return ret
+	
+func _tree_fall_agro():
+	_detection_level = 100
+	_detected = true
+	$Bark.play()
+	pass

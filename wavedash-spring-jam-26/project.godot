@@ -20,6 +20,10 @@ config/icon="res://Scripts/icon.svg"
 WavedashSDK="*res://addons/wavedash/WavedashSDK.gd"
 GameState="*res://Scripts/game_state.gd"
 
+[display]
+
+window/stretch/mode="viewport"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/terrain_3d/plugin.cfg")

@@ -7,7 +7,7 @@ class_name WoodChewable extends InteractableBody
 const CHEW_BAR: PackedScene = preload("res://scenes/ui/chew_bar.tscn")
 const CHEW_FX: PackedScene = preload("res://scenes/fx/chew_fx.tscn")
 
-@export var wood_amount: int = 2
+@export var wood_amount: int = 1
 @export var chew_duration: float = 1.2
 @export var decay_rate: float = 1.5
 @export var bar_height: float = 1.0
