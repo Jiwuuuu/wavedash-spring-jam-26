@@ -13,11 +13,23 @@ signal shelter_complete
 
 const TOON := preload("res://shaders/toon.gdshader")
 
-## Build stages (stage 0 lodge → stage 4 full dam wall).
-const STAGES := 5
+## Wood spent to advance from each stage to the next. This array's length drives the
+## number of build stages: stage 0 is the lodge, then one stage per entry, so a finished
+## dam has `wood_costs.size() + 1` stages. Add or remove entries in the inspector to add
+## or remove dam stages — the model, prompts and win condition all follow automatically.
+@export var wood_costs: Array[int] = [3, 5, 8, 12]:
+	set(value):
+		wood_costs = value
+		# Live-rebuild the procedural model so stage changes preview in the editor.
+		if is_inside_tree():
+			current_stage = clampi(current_stage, 0, max_stage())
+			_build_model()
+			_apply_stage_visual()
 
-## Wood spent to advance from each stage to the next. Length = STAGES - 1.
-@export var wood_costs: Array[int] = [3, 5, 8, 12]
+
+## Total dam stages = lodge (stage 0) + one stage per wood cost entry.
+func stage_count() -> int:
+	return wood_costs.size() + 1
 
 ## River this dam spans. The log wall auto-aligns across its flow and matches its width.
 @export var river: River
@@ -45,7 +57,7 @@ func _ready() -> void:
 func on_interact() -> void:
 	if not is_interactable:
 		return
-	var last_stage := STAGES - 1
+	var last_stage := stage_count() - 1
 	if current_stage >= last_stage:
 		return
 	var cost: int = wood_costs[current_stage] if current_stage < wood_costs.size() else 0
@@ -100,11 +112,11 @@ func wood_needed_for_next() -> int:
 
 
 func is_complete() -> bool:
-	return current_stage >= STAGES - 1
+	return current_stage >= stage_count() - 1
 
 
 func max_stage() -> int:
-	return STAGES - 1
+	return stage_count() - 1
 
 
 # --- Procedural model ------------------------------------------------------------
@@ -124,11 +136,11 @@ func _build_model() -> void:
 	_mat_ghost.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
 	_mat_ghost.cull_mode = BaseMaterial3D.CULL_DISABLED
 
-	for stage in STAGES:
+	for stage in stage_count():
 		var s := _build_stage(stage, false)
 		add_child(s)
 		_stages.append(s)
-	for stage in STAGES:
+	for stage in stage_count():
 		var g := _build_stage(stage, true)
 		g.visible = false
 		add_child(g)
