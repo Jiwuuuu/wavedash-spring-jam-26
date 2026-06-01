@@ -1,0 +1,119 @@
+{ "frames": {
+   "Beaver64x64 #downLWalk 0.aseprite": {
+    "frame": { "x": 1, "y": 1, "w": 56, "h": 43 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 2, "y": 11, "w": 54, "h": 41 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 100
+   },
+   "Beaver64x64 #downLWalk 1.aseprite": {
+    "frame": { "x": 58, "y": 1, "w": 56, "h": 42 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 2, "y": 11, "w": 54, "h": 40 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 100
+   },
+   "Beaver64x64 #downLWalk 2.aseprite": {
+    "frame": { "x": 115, "y": 1, "w": 56, "h": 40 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 2, "y": 11, "w": 54, "h": 38 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 100
+   },
+   "Beaver64x64 #downLWalk 3.aseprite": {
+    "frame": { "x": 172, "y": 1, "w": 56, "h": 41 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 2, "y": 11, "w": 54, "h": 39 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 100
+   },
+   "Beaver64x64 #downLWalk 4.aseprite": {
+    "frame": { "x": 229, "y": 1, "w": 56, "h": 43 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 2, "y": 11, "w": 54, "h": 41 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 100
+   },
+   "Beaver64x64 #downLWalk 5.aseprite": {
+    "frame": { "x": 286, "y": 1, "w": 56, "h": 43 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 2, "y": 11, "w": 54, "h": 41 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 100
+   },
+   "Beaver64x64 #downLWalk 6.aseprite": {
+    "frame": { "x": 343, "y": 1, "w": 56, "h": 43 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 2, "y": 11, "w": 54, "h": 41 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 100
+   },
+   "Beaver64x64 #downLWalk 7.aseprite": {
+    "frame": { "x": 400, "y": 1, "w": 56, "h": 43 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 2, "y": 11, "w": 54, "h": 41 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 100
+   },
+   "Beaver64x64 #downLWalk 8.aseprite": {
+    "frame": { "x": 457, "y": 1, "w": 56, "h": 43 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 2, "y": 11, "w": 54, "h": 41 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 100
+   },
+   "Beaver64x64 #downLWalk 9.aseprite": {
+    "frame": { "x": 514, "y": 1, "w": 56, "h": 43 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 2, "y": 11, "w": 54, "h": 41 },
+    "sourceSize": { "w": 64, "h": 64 },
+    "duration": 100
+   }
+ },
+ "meta": {
+  "app": "https://www.aseprite.org/",
+  "version": "1.3.17.2-x64",
+  "image": "BeaverDLWalk.png",
+  "format": "RGBA8888",
+  "size": { "w": 571, "h": 45 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "chewingR", "from": 0, "to": 4, "direction": "forward", "color": "#000000ff" },
+   { "name": "upWalk", "from": 5, "to": 13, "direction": "forward", "color": "#000000ff" },
+   { "name": "chewingL", "from": 14, "to": 18, "direction": "forward", "color": "#000000ff" },
+   { "name": "Lsimple", "from": 19, "to": 26, "direction": "forward", "color": "#000000ff" },
+   { "name": "LeftWalk", "from": 27, "to": 38, "direction": "forward", "color": "#000000ff" },
+   { "name": "Rsimple", "from": 39, "to": 43, "direction": "forward", "color": "#000000ff" },
+   { "name": "RightWalk", "from": 44, "to": 55, "direction": "forward", "color": "#000000ff" },
+   { "name": "downLWalk", "from": 56, "to": 65, "direction": "forward", "color": "#000000ff" },
+   { "name": "downRWalk", "from": 66, "to": 75, "direction": "forward", "color": "#000000ff" },
+   { "name": "downWalk", "from": 76, "to": 84, "direction": "forward", "color": "#000000ff" }
+  ],
+  "layers": [
+   { "name": "floor", "opacity": 255, "blendMode": "normal" },
+   { "name": "tail", "opacity": 255, "blendMode": "normal" },
+   { "name": "body", "opacity": 255, "blendMode": "normal" },
+   { "name": "shading", "opacity": 255, "blendMode": "normal" },
+   { "name": "legs", "opacity": 255, "blendMode": "normal" },
+   { "name": "head" },
+   { "name": "head", "group": "head", "opacity": 255, "blendMode": "normal" },
+   { "name": "ears", "group": "head", "opacity": 255, "blendMode": "normal" },
+   { "name": "mouth", "group": "head", "opacity": 255, "blendMode": "normal" },
+   { "name": "teeth", "group": "head", "opacity": 255, "blendMode": "normal" },
+   { "name": "nose", "group": "head", "opacity": 255, "blendMode": "normal" },
+   { "name": "eyes", "group": "head", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}
