@@ -8,7 +8,7 @@ signal harvested
 const CHEW_BAR: PackedScene = preload("res://scenes/ui/chew_bar.tscn")
 # Fallback when a tree has no authored "ChewFx" child.
 const CHEW_FX: PackedScene = preload("res://scenes/fx/chew_fx.tscn")
-const FALL_SFX: AudioStream = preload("res://assets/sfx/tree-falling.flac")
+const FALL_SFX: AudioStream = preload("res://assets/sfx/tree-falling.wav")
 
 @export var chew_duration: float = 2.0
 @export var decay_rate: float = 1.5
@@ -19,6 +19,14 @@ const FALL_SFX: AudioStream = preload("res://assets/sfx/tree-falling.flac")
 @export var size_scale: float = 2.0
 ## Spawn offset for a fallback ChewFx.
 @export var fallback_fx_offset: Vector3 = Vector3(0.0, 0.4, 0.0)
+
+@export_group("Topple")
+
+@export var fall_time: float = 1.2
+@export var fall_rest: float = 0.8
+@export var sink_time: float = 0.7
+@export var fall_volume_db: float = 0.0
+@export var fall_sfx_start: float = 3.6
 
 var chew_progress: float = 0.0
 
@@ -161,25 +169,28 @@ func _cut() -> void:
 
 	var tw: Tween = create_tween()
 	if _trunk != null:
-		# Topple, then sink + shrink away.
-		tw.tween_property(self, "rotation:x", deg_to_rad(82.0), 0.6).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
-		tw.tween_interval(0.15)
-	tw.tween_property(self, "position:y", position.y - 2.5, 0.6).set_ease(Tween.EASE_IN)
-	tw.parallel().tween_property(self, "scale", scale * 0.5, 0.6)
+		# Swing down with an accelerating (gravity-like) ease so it lands hard, then
+		# lie on the ground a beat before sinking + shrinking away.
+		tw.tween_property(self, "rotation:x", deg_to_rad(88.0), fall_time).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+		tw.tween_interval(fall_rest)
+	tw.tween_property(self, "position:y", position.y - 2.5, sink_time).set_ease(Tween.EASE_IN)
+	tw.parallel().tween_property(self, "scale", scale * 0.5, sink_time)
 	tw.tween_callback(queue_free)
 
-# Spawn the topple sound on a node that outlives this tree (it queue_frees in ~2s,
-# which would cut the clip short). Self-frees when the clip finishes.
+# Spawn the topple sound on a node that outlives this tree (it queue_frees after the
+# topple, which would cut the clip short). Positional 3D so it fades with distance.
+# Self-frees when the clip finishes.
 func _play_fall_sfx() -> void:
 	var host: Node = get_parent()
 	if host == null:
 		return
 	var p := AudioStreamPlayer3D.new()
 	p.stream = FALL_SFX
+	p.volume_db = fall_volume_db
 	host.add_child(p)
 	p.global_position = global_position
 	p.finished.connect(p.queue_free)
-	p.play()
+	p.play(fall_sfx_start)
 
 
 # Trees use chew() instead of single-press.
