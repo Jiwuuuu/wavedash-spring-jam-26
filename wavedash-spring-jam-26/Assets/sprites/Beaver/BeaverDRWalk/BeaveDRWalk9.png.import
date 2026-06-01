@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cwmb3yejsu1ba"
-path="res://.godot/imported/BeaveDRWalk9.png-72374f08f471d5a0ba4b9158030d1269.ctex"
+path="res://.godot/imported/BeaveDRWalk9.png-4727ab75d7b106af5e0005a9533b8a06.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/sprites/Beaver/BeaverDRWalk/BeaveDRWalk9.png"
-dest_files=["res://.godot/imported/BeaveDRWalk9.png-72374f08f471d5a0ba4b9158030d1269.ctex"]
+source_file="res://assets/sprites/Beaver/BeaverDRWalk/BeaveDRWalk9.png"
+dest_files=["res://.godot/imported/BeaveDRWalk9.png-4727ab75d7b106af5e0005a9533b8a06.ctex"]
 
 [params]
 

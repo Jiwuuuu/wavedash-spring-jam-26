@@ -243,10 +243,17 @@ horizontal_alignment = 1
 
 [node name="Names" type="Label" parent="CreditsBox/VBox" unique_id=1340219771]
 layout_mode = 2
-text = "Team Member 1
-Team Member 2
-Team Member 3
-Team Member 4"
+text = "Andrei  (.jiwuu)
+Programming / Original Concept / Design
+jiwuu.itch.io
+
+Shadowwolf  (shadowwolfk)
+Programming / Enemy Design
+shadowolfk9.itch.io
+
+Abel  (agarlic2)
+Pixel Art / Design
+abelgamedev.itch.io"
 label_settings = SubResource("body_settings")
 horizontal_alignment = 1
 
@@ -291,7 +298,11 @@ horizontal_alignment = 1
 
 [node name="Attributions" type="Label" parent="AssetCreditsBox/VBox" unique_id=195210199]
 layout_mode = 2
-text = "Font: Architects Daughter (Kimberly Geswein)
+text = "Music: \"The 25th Hour - Schlatt Crossing\"
+Composed by Philip Milman (pmmusic.pro)
+SFX: free-use sound effects
+
+Font: Architects Daughter (Kimberly Geswein)
 Terrain: Terrain3D addon
 Platform: Wavedash SDK
 Tree & beaver sprites: asset pack
