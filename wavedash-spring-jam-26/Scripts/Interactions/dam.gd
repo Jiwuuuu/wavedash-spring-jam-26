@@ -12,6 +12,7 @@ signal shelter_upgraded(new_stage: int)
 signal shelter_complete
 
 const TOON := preload("res://shaders/toon.gdshader")
+const BUILD_SFX := preload("res://assets/sfx/dam_wood_pilling.mp3")
 
 ## Wood spent to advance from each stage to the next. This array's length drives the
 ## number of build stages: stage 0 is the lodge, then one stage per entry, so a finished
@@ -43,6 +44,7 @@ var _ghosts: Array[Node3D] = []
 var _mat_mud: ShaderMaterial
 var _mat_log: ShaderMaterial
 var _mat_ghost: StandardMaterial3D
+var _build_player: AudioStreamPlayer3D
 
 
 func _ready() -> void:
@@ -50,6 +52,10 @@ func _ready() -> void:
 	_build_model()
 	is_interactable = true
 	_apply_stage_visual()
+	if not Engine.is_editor_hint():
+		_build_player = AudioStreamPlayer3D.new()
+		_build_player.stream = BUILD_SFX
+		add_child(_build_player)
 
 
 # --- Gameplay --------------------------------------------------------------------
@@ -67,6 +73,8 @@ func on_interact() -> void:
 	GameState.add_wood(-cost)
 	current_stage += 1
 	_apply_stage_visual()
+	if _build_player != null:
+		_build_player.play()
 	shelter_upgraded.emit(current_stage)
 	if current_stage >= last_stage:
 		is_interactable = false

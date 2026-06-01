@@ -8,6 +8,7 @@ signal harvested
 const CHEW_BAR: PackedScene = preload("res://scenes/ui/chew_bar.tscn")
 # Fallback when a tree has no authored "ChewFx" child.
 const CHEW_FX: PackedScene = preload("res://scenes/fx/chew_fx.tscn")
+const FALL_SFX: AudioStream = preload("res://assets/sfx/tree-falling.flac")
 
 @export var chew_duration: float = 2.0
 @export var decay_rate: float = 1.5
@@ -155,6 +156,7 @@ func _cut() -> void:
 		_leaves.restart()
 	if _game_state != null:
 		_game_state.add_wood(1)
+	_play_fall_sfx()
 	harvested.emit()
 
 	var tw: Tween = create_tween()
@@ -165,6 +167,20 @@ func _cut() -> void:
 	tw.tween_property(self, "position:y", position.y - 2.5, 0.6).set_ease(Tween.EASE_IN)
 	tw.parallel().tween_property(self, "scale", scale * 0.5, 0.6)
 	tw.tween_callback(queue_free)
+
+# Spawn the topple sound on a node that outlives this tree (it queue_frees in ~2s,
+# which would cut the clip short). Self-frees when the clip finishes.
+func _play_fall_sfx() -> void:
+	var host: Node = get_parent()
+	if host == null:
+		return
+	var p := AudioStreamPlayer3D.new()
+	p.stream = FALL_SFX
+	host.add_child(p)
+	p.global_position = global_position
+	p.finished.connect(p.queue_free)
+	p.play()
+
 
 # Trees use chew() instead of single-press.
 func on_interact() -> void:

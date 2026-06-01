@@ -34,6 +34,16 @@ var health: float = 0.0
 var _invuln_timer: float = 0.0
 var _dead: bool = false
 
+@export_group("Audio")
+@export var footstep_volume_db: float = -6.0
+## Seconds between footsteps while walking / sprinting.
+@export var footstep_interval_walk: float = 0.45
+@export var footstep_interval_run: float = 0.30
+
+const STEP_SFX := preload("res://assets/sfx/grass_step.wav")
+var _footstep_player: AudioStreamPlayer3D
+var _step_timer: float = 0.0
+
 
 const TEX := {
 	"down": "BeaverDownWalk",
@@ -65,6 +75,7 @@ func _ready() -> void:
 	health = max_health
 	health_changed.emit(health, max_health)
 	_setup_camera()
+	_setup_footsteps()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 	# The pixel-outline post-process reads Forward+-only screen buffers
@@ -195,3 +206,25 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 	_update_camera(delta)
+	_update_footsteps(delta)
+
+
+# --- Footstep audio ---------------------------------------------------------------
+
+func _setup_footsteps() -> void:
+	_footstep_player = AudioStreamPlayer3D.new()
+	_footstep_player.stream = STEP_SFX
+	_footstep_player.volume_db = footstep_volume_db
+	add_child(_footstep_player)
+
+
+func _update_footsteps(delta: float) -> void:
+	var planar_speed: float = Vector2(velocity.x, velocity.z).length()
+	if not is_on_floor() or planar_speed < 0.3:
+		_step_timer = 0.0   # so the next step fires immediately on the move
+		return
+	_step_timer -= delta
+	if _step_timer <= 0.0:
+		_step_timer = footstep_interval_run if current_speed >= sprinting_speed else footstep_interval_walk
+		_footstep_player.pitch_scale = randf_range(0.9, 1.1)
+		_footstep_player.play()
