@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://44mw3f1x66ra"
-path="res://.godot/imported/ground_leaves.png-31889201cff0d47b63584d28372bd928.ctex"
+path="res://.godot/imported/ground_leaves.png-7f1d8cee459da581a16a891b12837da6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/terrain_textures/ground_leaves.png"
-dest_files=["res://.godot/imported/ground_leaves.png-31889201cff0d47b63584d28372bd928.ctex"]
+source_file="res://assets/terrain_textures/ground_leaves.png"
+dest_files=["res://.godot/imported/ground_leaves.png-7f1d8cee459da581a16a891b12837da6.ctex"]
 
 [params]
 

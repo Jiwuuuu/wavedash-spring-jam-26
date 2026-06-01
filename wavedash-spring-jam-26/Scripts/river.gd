@@ -203,8 +203,11 @@ func _tangent_at(curve: Curve3D, off: float) -> Vector3:
 # --- Flow / player push -----------------------------------------------------------
 
 func _on_body_entered(body: Node3D) -> void:
-	# Filter to the CharacterBody3D (the beaver); ignore the static ground/terrain.
-	if body is CharacterBody3D:
+	# Only the beaver is carried by the current. Enemies (wolf/huntsman) are also
+	# CharacterBody3D, so filter by the "player" group — otherwise a wolf circling
+	# through the water would hijack _player and leave the real player's
+	# water_current frozen (never cleared on exit), pushing it forever.
+	if body is CharacterBody3D and body.is_in_group("player"):
 		_player = body
 
 func _on_body_exited(body: Node3D) -> void:

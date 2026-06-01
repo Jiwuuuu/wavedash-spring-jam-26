@@ -17,6 +17,23 @@ extends CharacterBody3D
 ## Where the camera looks vertically (world-Y above the player origin).
 @export var look_height: float = 1.0
 
+# Survival: the wolf bites chunks off; eat carried wood (F) to heal.
+@export_group("Health")
+@export var max_health: float = 100.0
+## HP restored per wood eaten (press "eat"). Costs 1 wood from the shared pool.
+@export var eat_heal: float = 25.0
+## Seconds of damage immunity after a hit (prevents multi-hit pounce chains).
+@export var invuln_time: float = 0.6
+
+## Emitted whenever health changes (HUD listens). Also fired once on _ready.
+signal health_changed(health: float, max_health: float)
+## Emitted once when health reaches 0.
+signal died
+
+var health: float = 0.0
+var _invuln_timer: float = 0.0
+var _dead: bool = false
+
 
 const TEX := {
 	"down": "BeaverDownWalk",
@@ -45,6 +62,8 @@ var water_drag: float = 1.0
 
 func _ready() -> void:
 	current_speed = walking_speed
+	health = max_health
+	health_changed.emit(health, max_health)
 	_setup_camera()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
@@ -118,7 +137,38 @@ func _update_facing_sprite() -> void:
 
 	sprite.play(TEX[key])
 
+# --- Health ----------------------------------------------------------------------
+
+func take_damage(amount: float) -> void:
+	if _dead or _invuln_timer > 0.0:
+		return
+	health = maxf(health - amount, 0.0)
+	_invuln_timer = invuln_time
+	health_changed.emit(health, max_health)
+	if health <= 0.0:
+		_dead = true
+		died.emit()
+
+
+func heal(amount: float) -> void:
+	if _dead:
+		return
+	health = minf(health + amount, max_health)
+	health_changed.emit(health, max_health)
+
+
+# Spend one carried wood to heal. Trades dam-building progress for survival.
+func _try_eat() -> void:
+	if Input.is_action_just_pressed("eat") and GameState.wood > 0 and health < max_health:
+		GameState.add_wood(-1)
+		heal(eat_heal)
+
+
 func _physics_process(delta: float) -> void:
+	if _invuln_timer > 0.0:
+		_invuln_timer -= delta
+	_try_eat()
+
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 

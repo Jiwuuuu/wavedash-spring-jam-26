@@ -10,7 +10,7 @@ size = Vector3(1.6, 1.0, 1.6)
 
 [node name="Dam" type="StaticBody3D"]
 script = ExtResource("1_vtrub")
-wood_costs = Array[int]([1, 1, 1, 1])
+wood_costs = Array[int]([3, 5, 8, 12])
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)

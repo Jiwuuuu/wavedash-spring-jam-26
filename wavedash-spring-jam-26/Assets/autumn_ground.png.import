@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dartkmm8owg14"
-path.s3tc="res://.godot/imported/autumn_ground.png-990a2e5f5a5f775281ae250bdac274ca.s3tc.ctex"
+path.s3tc="res://.godot/imported/autumn_ground.png-febdf4f8126f8bd9d4f17250b1355c39.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Assets/autumn_ground.png"
-dest_files=["res://.godot/imported/autumn_ground.png-990a2e5f5a5f775281ae250bdac274ca.s3tc.ctex"]
+source_file="res://assets/autumn_ground.png"
+dest_files=["res://.godot/imported/autumn_ground.png-febdf4f8126f8bd9d4f17250b1355c39.s3tc.ctex"]
 
 [params]
 

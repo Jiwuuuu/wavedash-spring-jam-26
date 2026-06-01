@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://w24iikpadw0i" path="res://Scenes/world.gd" id="1_0pcbe"]
 [ext_resource type="PackedScene" uid="uid://gskoscpb10cw" path="res://Scenes/player.tscn" id="1_player"]
 [ext_resource type="PackedScene" uid="uid://uebb6ky81awt" path="res://Scenes/ui/shelterhud.tscn" id="1_t2t4p"]
+[ext_resource type="PackedScene" uid="uid://bphud00player1" path="res://Scenes/ui/player_hud.tscn" id="1_phud"]
 [ext_resource type="PackedScene" uid="uid://c7grmqhd8u2b1" path="res://Scenes/Enemies/wolf.tscn" id="4_k0juu"]
 [ext_resource type="Texture2D" uid="uid://dartkmm8owg14" path="res://Assets/autumn_ground.png" id="4_w7kh3"]
 [ext_resource type="PackedScene" uid="uid://dsegyqxkg2kfo" path="res://Scenes/Interactables/dam.tscn" id="10_c5t2i"]
@@ -1234,6 +1235,9 @@ shadow_enabled = true
 [node name="ShelterHud" parent="." unique_id=334802562 node_paths=PackedStringArray("shelter") instance=ExtResource("1_t2t4p")]
 shelter = NodePath("../Dam")
 
+[node name="PlayerHud" parent="." node_paths=PackedStringArray("player") instance=ExtResource("1_phud")]
+player = NodePath("../Player")
+
 [node name="Player" parent="." unique_id=1360178897 instance=ExtResource("1_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.125826, 7.059342, -32.01088)
 
@@ -1257,7 +1261,7 @@ terrain = NodePath("../Terrain3D")
 [node name="Dam" parent="." unique_id=486108224 instance=ExtResource("10_c5t2i")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.2682214, 7.569531, -33.334877)
 collision_layer = 3
-prompt_text = "Press E to build (1 wood)"
+prompt_text = "Press E to build (3 wood)"
 
 [node name="Rivers" type="Node3D" parent="." unique_id=815749038]
 

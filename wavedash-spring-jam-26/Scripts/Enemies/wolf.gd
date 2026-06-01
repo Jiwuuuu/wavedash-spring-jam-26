@@ -37,7 +37,11 @@ extends CharacterBody3D
 
 @export_group("Pounce")
 @export var pounce_speed: float = 8.0
-@export var pounce_time: float = 0.4      
+@export var pounce_time: float = 0.4
+## Damage dealt to the player on a connecting pounce.
+@export var pounce_damage: float = 40.0
+## How close (horizontal metres) the pounce must land to bite the player.
+@export var pounce_hit_range: float = 0.8
 
 enum State { IDLE, WANDER, CHASE, ORBIT, POUNCE }
 
@@ -51,6 +55,7 @@ var _orbit_dir: float = 1.0
 var _orbit_timer: float = 0.0
 var _pounce_dir: Vector3 = Vector3.ZERO
 var _pounce_timer: float = 0.0
+var _pounce_hit: bool = false   # one bite per pounce
 
 signal player_detected
 var _detection_level: float = 0.0
@@ -252,17 +257,25 @@ func _process_orbit(delta: float) -> void:
 func _start_pounce() -> void:
 	_state = State.POUNCE
 	_pounce_timer = pounce_time
+	_pounce_hit = false
 	var to_player: Vector3 = player.global_position - global_position
 	to_player.y = 0.0
 	_pounce_dir = to_player.normalized()
-	rotation.y = atan2(-_pounce_dir.x, -_pounce_dir.z)   
+	rotation.y = atan2(-_pounce_dir.x, -_pounce_dir.z)
 
 func _process_pounce(delta: float) -> void:
 	velocity.x = _pounce_dir.x * pounce_speed
 	velocity.z = _pounce_dir.z * pounce_speed
+	# Bite once if the lunge lands close enough.
+	if not _pounce_hit and player != null and player.has_method("take_damage"):
+		var to_player: Vector3 = player.global_position - global_position
+		to_player.y = 0.0
+		if to_player.length() <= pounce_hit_range:
+			player.take_damage(pounce_damage)
+			_pounce_hit = true
 	_pounce_timer -= delta
 	if _pounce_timer <= 0.0:
-		_start_chase()   
+		_start_chase()
 		
 		
 func _is_player_hidden() -> bool:

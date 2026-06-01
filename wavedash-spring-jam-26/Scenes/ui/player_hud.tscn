@@ -1,0 +1,94 @@
+[gd_scene load_steps=6 format=3 uid="uid://bphud00player1"]
+
+[ext_resource type="Script" path="res://Scripts/ui/player_hud.gd" id="1_phud"]
+[ext_resource type="FontFile" uid="uid://4erwlq5ep5no" path="res://ArchitectsDaughter.ttf" id="2_font"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hbg"]
+bg_color = Color(0.18, 0.12, 0.08, 0.85)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.32, 0.2, 0.1, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hfill"]
+bg_color = Color(0.55, 0.65, 0.22, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_hp"]
+font = ExtResource("2_font")
+font_size = 18
+font_color = Color(0.95, 0.85, 0.6, 1)
+outline_size = 4
+outline_color = Color(0.15, 0.08, 0.04, 1)
+
+[node name="PlayerHud" type="CanvasLayer" node_paths=PackedStringArray("player")]
+script = ExtResource("1_phud")
+player = NodePath("")
+
+[node name="Root" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Health" type="VBoxContainer" parent="Root"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -120.0
+offset_right = 280.0
+offset_bottom = -62.0
+grow_vertical = 0
+
+[node name="HealthLabel" type="Label" parent="Root/Health"]
+layout_mode = 2
+text = "Health"
+label_settings = SubResource("LabelSettings_hp")
+
+[node name="HealthBar" type="ProgressBar" parent="Root/Health"]
+custom_minimum_size = Vector2(240, 22)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_hbg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_hfill")
+max_value = 100.0
+value = 100.0
+show_percentage = false
+
+[node name="WoodLabel" type="Label" parent="Root"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -56.0
+offset_right = 280.0
+offset_bottom = -30.0
+grow_vertical = 0
+text = "Wood: 0"
+label_settings = SubResource("LabelSettings_hp")
+
+[node name="EatHint" type="Label" parent="Root"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -28.0
+offset_right = 460.0
+offset_bottom = -4.0
+grow_vertical = 0
+text = "Press F to eat wood (heal 25)"
+label_settings = SubResource("LabelSettings_hp")
