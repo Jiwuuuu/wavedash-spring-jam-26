@@ -179,6 +179,7 @@ func _cut() -> void:
 		_leaves.restart()
 	if _game_state != null:
 		_game_state.add_wood(1)
+		_game_state.record_tree_cut()
 	_play_fall_sfx()
 	harvested.emit()
 

@@ -59,7 +59,10 @@ var _pounce_hit: bool = false   # one bite per pounce
 
 signal player_detected
 var _detection_level: float = 0.0
-var _detected: bool = false  
+var _detected: bool = false
+
+# Big numeric "%" drawn on the floating detection bar (see wolf.tscn).
+@onready var _percent_label: Label = get_node_or_null("SubViewport/ProgressBar/PercentLabel")
 
 func _ready() -> void:
 	GameState.wood_increased.connect(_tree_fall_agro)
@@ -98,7 +101,16 @@ func _physics_process(delta: float) -> void:
 			_detected = false
 	
 	detect_bar.value = _detection_level
-	
+	# Mirror the detection level onto the player's screen HUD danger meter.
+	GameState.set_threat(_detection_level)
+	if _percent_label != null:
+		var pct: int = int(round(_detection_level))
+		_percent_label.text = ("! %d%%" % pct) if _detected else ("%d%%" % pct)
+	# "Hide from the wolf successfully": the player ducked into cover while the
+	# wolf had them. The achievement guard makes this idempotent per run.
+	if hidden and _detected:
+		GameState.unlock_achievement(GameState.ACH_HIDE)
+
 	if _detected and (_state == State.IDLE or _state == State.WANDER):
 		_start_chase()
 	elif not _detected and (_state == State.CHASE or _state == State.ORBIT or _state == State.POUNCE):

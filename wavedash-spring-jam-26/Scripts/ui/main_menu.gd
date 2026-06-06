@@ -21,8 +21,11 @@ const BG_SFX := preload("uid://11he370pr5gc")  # bg_sfx.mp3 — looping backgrou
 var scene = preload("res://scenes/world.tscn")
 var instance
 var _music: AudioStreamPlayer
+## True while a slide/wipe is mid-flight; blocks re-entrant world swaps.
+var _transitioning: bool = false
 
 @onready var play_button: Button = button_box.get_node("Play")
+@onready var transition: CanvasLayer = $Transition
 
 
 func _ready() -> void:
@@ -43,7 +46,9 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	if not Input.is_action_just_pressed("escape"):
 		return
-	# No pause toggling while a win/lose screen is up.
+	# No pause toggling while a win/lose screen is up or a wipe is mid-flight.
+	if _transitioning:
+		return
 	if instance == null or (end_screen != null and end_screen.visible):
 		return
 	if visible:
@@ -115,25 +120,46 @@ func _freeze_world() -> void:
 
 
 func _on_retry() -> void:
+	if _transitioning:
+		return
+	_transitioning = true
+	await transition.cover()
+	end_screen.hide()
 	_clear_instance()
 	_start_game()
+	await transition.reveal()
+	_transitioning = false
 
 
 func _on_return_to_menu() -> void:
+	if _transitioning:
+		return
+	_transitioning = true
+	await transition.cover()
+	end_screen.hide()
 	_clear_instance()
 	_reset_wood()
 	play_button.text = "Play"
 	_show_main_buttons()
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	await transition.reveal()
+	_transitioning = false
 
 
 # --- Buttons ----------------------------------------------------------------------
 
 func _on_play_pressed() -> void:
-	if instance == null:
-		_start_game()
-	else:
+	# Resuming a paused run is not a world swap — keep it instant.
+	if instance != null:
 		_resume_game()
+		return
+	if _transitioning:
+		return
+	_transitioning = true
+	await transition.cover()
+	_start_game()
+	await transition.reveal()
+	_transitioning = false
 
 
 func _on_settings_pressed() -> void:

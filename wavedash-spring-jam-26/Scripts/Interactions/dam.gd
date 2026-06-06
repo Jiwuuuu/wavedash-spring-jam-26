@@ -92,6 +92,7 @@ func on_interact() -> void:
 	if current_stage >= last_stage:
 		is_interactable = false
 		shelter_complete.emit()
+		GameState.unlock_achievement(GameState.ACH_DAM)
 
 
 func set_focused(focused: bool) -> void:

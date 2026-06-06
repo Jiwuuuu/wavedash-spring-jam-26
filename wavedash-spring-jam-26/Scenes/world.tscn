@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dlvefhpct50to" path="res://scenes/tree3d_oak.tscn" id="13_o8fc1"]
 [ext_resource type="PackedScene" uid="uid://bfsdur4v5jgou" path="res://scenes/tree3d_birch.tscn" id="14_xo05s"]
 [ext_resource type="Script" uid="uid://d1pwttnpid4p1" path="res://Scripts/tools/world_boundary.gd" id="15_wbound"]
+[ext_resource type="Script" path="res://Scripts/tools/tree_fade.gd" id="30_tfade"]
 [ext_resource type="PackedScene" uid="uid://drpjw482tswcd" path="res://scenes/bush.tscn" id="15_xo05s"]
 [ext_resource type="PackedScene" uid="uid://b0wdbundl3log" path="res://scenes/wood_bundle.tscn" id="16_7t5mc"]
 [ext_resource type="PackedScene" uid="uid://b0wdl0gchew01" path="res://scenes/wood.tscn" id="17_lakw3"]
@@ -1554,7 +1555,9 @@ multimesh = SubResource("MultiMesh_hl1kq")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.308685, 0, -25.099052)
 multimesh = SubResource("MultiMesh_edwmm")
 
-[node name="Trees" type="Node3D" parent="." unique_id=1125686035]
+[node name="Trees" type="Node3D" parent="." unique_id=1125686035 node_paths=PackedStringArray("target")]
+script = ExtResource("30_tfade")
+target = NodePath("../Player")
 
 [node name="TreePine2" parent="Trees" unique_id=1925086027 instance=ExtResource("10_q5onr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15439034, 7.5920506, -27.16341)

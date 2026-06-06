@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://506abjlmjb6u"
-path="res://.godot/imported/Hazel Tree.png-244eae9483980e00f8d5d855bc0e2a74.ctex"
+path="res://.godot/imported/Hazel Tree.png-f4e42d243297f4ead6895fe9f209d865.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/sprites/treepngs/pngs/Hazel Tree.png"
-dest_files=["res://.godot/imported/Hazel Tree.png-244eae9483980e00f8d5d855bc0e2a74.ctex"]
+source_file="res://assets/sprites/treepngs/pngs/Hazel Tree.png"
+dest_files=["res://.godot/imported/Hazel Tree.png-f4e42d243297f4ead6895fe9f209d865.ctex"]
 
 [params]
 

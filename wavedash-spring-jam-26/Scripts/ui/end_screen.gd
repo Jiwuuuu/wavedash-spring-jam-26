@@ -39,9 +39,8 @@ func _play(stream: AudioStream) -> void:
 	_sfx.play()
 
 func _on_retry_pressed() -> void:
-	visible = false
+	# main_menu hides this once the wipe covers the screen, so the swap stays hidden.
 	retry_pressed.emit()
 
 func _on_menu_pressed() -> void:
-	visible = false
 	menu_pressed.emit()

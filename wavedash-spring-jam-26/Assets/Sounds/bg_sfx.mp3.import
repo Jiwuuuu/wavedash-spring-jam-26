@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://11he370pr5gc"
-path="res://.godot/imported/bg_sfx.mp3-d5579e9361467bb0769a0609797d0522.mp3str"
+path="res://.godot/imported/bg_sfx.mp3-628db72f53f3e33baf266d153fc38224.mp3str"
 
 [deps]
 
-source_file="res://Assets/Sounds/bg_sfx.mp3"
-dest_files=["res://.godot/imported/bg_sfx.mp3-d5579e9361467bb0769a0609797d0522.mp3str"]
+source_file="res://assets/Sounds/bg_sfx.mp3"
+dest_files=["res://.godot/imported/bg_sfx.mp3-628db72f53f3e33baf266d153fc38224.mp3str"]
 
 [params]
 

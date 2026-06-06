@@ -44,6 +44,20 @@ height = 1.0
 [sub_resource type="ViewportTexture" id="ViewportTexture_i6k80"]
 viewport_path = NodePath("SubViewport")
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_detbg"]
+bg_color = Color(0.05, 0.03, 0.03, 0.7)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_detfill"]
+bg_color = Color(0.85, 0.12, 0.1, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+
 [node name="Wolf" type="CharacterBody3D" unique_id=1280497630 node_paths=PackedStringArray("head", "detect_bar", "eye")]
 script = ExtResource("1_wolf")
 head = NodePath("Model/Face")
@@ -102,14 +116,34 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("body_shape")
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=1227396162]
-size = Vector2i(300, 20)
+transparent_bg = true
+size = Vector2i(360, 56)
 
 [node name="ProgressBar" type="ProgressBar" parent="SubViewport" unique_id=1727376338]
-offset_right = 300.0
-offset_bottom = 27.0
+offset_right = 360.0
+offset_bottom = 56.0
+theme_override_styles/background = SubResource("StyleBoxFlat_detbg")
+theme_override_styles/fill = SubResource("StyleBoxFlat_detfill")
+show_percentage = false
+
+[node name="PercentLabel" type="Label" parent="SubViewport/ProgressBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 40
+text = "0%"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Sprite3D" type="Sprite3D" parent="." unique_id=1792026589]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3668013, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.85, 0)
+pixel_size = 0.009
 billboard = 1
 texture = SubResource("ViewportTexture_i6k80")
 
