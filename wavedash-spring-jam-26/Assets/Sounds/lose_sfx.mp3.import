@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://c65nivnewutis"
-path="res://.godot/imported/lose_sfx.mp3-a040571a39fab6afb0b0bba6d2413f15.mp3str"
+path="res://.godot/imported/lose_sfx.mp3-bebc8c9b10e13d3d073af90f0231b620.mp3str"
 
 [deps]
 
-source_file="res://assets/Sounds/lose_sfx.mp3"
-dest_files=["res://.godot/imported/lose_sfx.mp3-a040571a39fab6afb0b0bba6d2413f15.mp3str"]
+source_file="res://Assets/Sounds/lose_sfx.mp3"
+dest_files=["res://.godot/imported/lose_sfx.mp3-bebc8c9b10e13d3d073af90f0231b620.mp3str"]
 
 [params]
 

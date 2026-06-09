@@ -116,6 +116,11 @@ func _physics_process(delta: float) -> void:
 	elif not _detected and (_state == State.CHASE or _state == State.ORBIT or _state == State.POUNCE):
 		_start_idle()
 
+	if player != null and player.get_meta("hidden_count", 0) > 0:
+		print("hide")
+	else:
+		print("found")
+
 	match _state:
 		State.IDLE:
 			_process_idle(delta)

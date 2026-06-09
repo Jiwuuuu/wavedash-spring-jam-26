@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://w38bfb42yh8l"
-path.s3tc="res://.godot/imported/BeaveDownWalk7.png-c1ad55a31b2cd6593c553a6098de996d.s3tc.ctex"
+path.s3tc="res://.godot/imported/BeaveDownWalk7.png-b89fbc3cc00a4ffb3c172ecf4a6a6e64.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://assets/sprites/Beaver/DownWalkSeperate/BeaveDownWalk7.png"
-dest_files=["res://.godot/imported/BeaveDownWalk7.png-c1ad55a31b2cd6593c553a6098de996d.s3tc.ctex"]
+source_file="res://Assets/sprites/Beaver/DownWalkSeperate/BeaveDownWalk7.png"
+dest_files=["res://.godot/imported/BeaveDownWalk7.png-b89fbc3cc00a4ffb3c172ecf4a6a6e64.s3tc.ctex"]
 
 [params]
 

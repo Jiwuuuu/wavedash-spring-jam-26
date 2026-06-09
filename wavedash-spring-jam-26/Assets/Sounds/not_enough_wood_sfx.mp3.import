@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://dx2h0pi6a4rpu"
-path="res://.godot/imported/not_enough_wood_sfx.mp3-d17e235058295c2974cd78089a4dccc7.mp3str"
+path="res://.godot/imported/not_enough_wood_sfx.mp3-9f9e62986e37936f12b94ebba027126d.mp3str"
 
 [deps]
 
-source_file="res://assets/Sounds/not_enough_wood_sfx.mp3"
-dest_files=["res://.godot/imported/not_enough_wood_sfx.mp3-d17e235058295c2974cd78089a4dccc7.mp3str"]
+source_file="res://Assets/Sounds/not_enough_wood_sfx.mp3"
+dest_files=["res://.godot/imported/not_enough_wood_sfx.mp3-9f9e62986e37936f12b94ebba027126d.mp3str"]
 
 [params]
 

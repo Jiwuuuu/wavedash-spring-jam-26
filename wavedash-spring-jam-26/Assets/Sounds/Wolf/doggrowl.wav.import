@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://7pve7wet4aqi"
-path="res://.godot/imported/doggrowl.wav-b3339f727f89fda3e6aa381a90db7818.sample"
+path="res://.godot/imported/doggrowl.wav-8d8565f8c83344395aee31694601ecaa.sample"
 
 [deps]
 
-source_file="res://assets/Sounds/Wolf/doggrowl.wav"
-dest_files=["res://.godot/imported/doggrowl.wav-b3339f727f89fda3e6aa381a90db7818.sample"]
+source_file="res://Assets/Sounds/Wolf/doggrowl.wav"
+dest_files=["res://.godot/imported/doggrowl.wav-8d8565f8c83344395aee31694601ecaa.sample"]
 
 [params]
 

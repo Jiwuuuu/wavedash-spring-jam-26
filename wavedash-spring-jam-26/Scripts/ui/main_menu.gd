@@ -29,6 +29,7 @@ var _transitioning: bool = false
 
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	if end_screen != null:
 		end_screen.retry_pressed.connect(_on_retry)
 		end_screen.menu_pressed.connect(_on_return_to_menu)
@@ -63,6 +64,7 @@ func _start_game() -> void:
 	_reset_wood()
 	instance = scene.instantiate()
 	add_child(instance)
+	instance.process_mode = Node.PROCESS_MODE_PAUSABLE
 	instance.dam.shelter_complete.connect(_on_shelter_complete)
 	var player: Node = instance.get_node_or_null("Player")
 	if player != null and player.has_signal("died"):
@@ -73,13 +75,13 @@ func _start_game() -> void:
 
 func _resume_game() -> void:
 	hide()
-	instance.process_mode = Node.PROCESS_MODE_ALWAYS
+	get_tree().paused = false
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
 func _pause_to_menu() -> void:
 	_show_main_buttons()
-	instance.process_mode = Node.PROCESS_MODE_DISABLED
+	get_tree().paused = true
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 
