@@ -4,7 +4,7 @@ A short 3D game made for the Wavedash Spring Jam. You play a beaver: chop trees 
 
 ## Play it
 
-**▶ Play in the browser:** _<add link here>_
+**▶ Play in the browser:** _<[play here!](https://wavedash.com/games/beaver-fever)>_
 
 ## How to play
 
