@@ -1,0 +1,45 @@
+[gd_scene load_steps=6 format=3 uid="uid://cwindgust00001"]
+
+[ext_resource type="Script" path="res://scripts/fx/wind_gust.gd" id="1_wg"]
+
+[sub_resource type="StandardMaterial3D" id="mat"]
+shading_mode = 0
+vertex_color_use_as_albedo = true
+billboard_mode = 3
+billboard_keep_scale = true
+cull_mode = 2
+
+[sub_resource type="QuadMesh" id="quad"]
+material = SubResource("mat")
+size = Vector2(0.16, 0.16)
+
+[sub_resource type="Gradient" id="autumn_grad"]
+offsets = PackedFloat32Array(0, 0.4, 0.7, 1)
+colors = PackedColorArray(0.55, 0.15, 0.05, 1, 0.8, 0.35, 0.08, 1, 0.85, 0.6, 0.15, 1, 0.4, 0.22, 0.08, 1)
+
+[sub_resource type="GradientTexture1D" id="autumn_ramp"]
+gradient = SubResource("autumn_grad")
+
+[node name="WindGustLeaves" type="CPUParticles3D"]
+emitting = false
+amount = 25
+lifetime = 2.0
+one_shot = true
+explosiveness = 0.6
+randomness = 0.4
+mesh = SubResource("quad")
+local_coords = false
+emission_shape = 3
+emission_box_extents = Vector3(1, 4, 12)
+direction = Vector3(1, 0, 0)
+spread = 25.0
+gravity = Vector3(0, -1, 0)
+initial_velocity_min = 8.0
+initial_velocity_max = 14.0
+angular_velocity_min = -300.0
+angular_velocity_max = 300.0
+angle_min = -180.0
+angle_max = 180.0
+color = Color(1, 1, 1, 1)
+color_initial_ramp = SubResource("autumn_ramp")
+script = ExtResource("1_wg")

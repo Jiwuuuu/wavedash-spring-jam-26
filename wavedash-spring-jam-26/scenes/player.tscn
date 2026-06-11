@@ -1,0 +1,403 @@
+[gd_scene format=3 uid="uid://gskoscpb10cw"]
+
+[ext_resource type="Script" uid="uid://c3s2rh2hnp0mb" path="res://scripts/player.gd" id="1_cvnsp"]
+[ext_resource type="Script" uid="uid://dq2xu7b0o1in2" path="res://scripts/player_interaction_component.gd" id="3_6t5aa"]
+[ext_resource type="Shader" uid="uid://c8yewie3ldu7t" path="res://shaders/pixel_outline.gdshader" id="4_pp"]
+[ext_resource type="PackedScene" uid="uid://cwdsdb837k441" path="res://scenes/fx/ambient_leaves.tscn" id="5_aleaves"]
+[ext_resource type="PackedScene" uid="uid://cbg50oauneaea" path="res://scenes/fx/dust_motes.tscn" id="6_dust"]
+[ext_resource type="PackedScene" uid="uid://bmacvkn11dvlg" path="res://scenes/fx/wind_gust_leaves.tscn" id="7_gust"]
+[ext_resource type="Texture2D" uid="uid://35rx4laoefxq" path="res://assets/sprites/Beaver/BeaveDLWalk/BeaveDLWalk1.png" id="7_nj1g2"]
+[ext_resource type="Texture2D" uid="uid://d2gdkf544dfxi" path="res://assets/sprites/Beaver/BeaveDLWalk/BeaveDLWalk2.png" id="8_usbl8"]
+[ext_resource type="Texture2D" uid="uid://bqn3bsmlrenqk" path="res://assets/sprites/Beaver/BeaveDLWalk/BeaveDLWalk3.png" id="9_dtg1u"]
+[ext_resource type="Texture2D" uid="uid://ckdsqjx0u85o4" path="res://assets/sprites/Beaver/BeaveDLWalk/BeaveDLWalk4.png" id="10_nuaet"]
+[ext_resource type="Texture2D" uid="uid://8d7gmemy1twt" path="res://assets/sprites/Beaver/DownWalkSeperate/BeaveDownWalk1.png" id="10_p1odr"]
+[ext_resource type="Texture2D" uid="uid://clm6n02hkva47" path="res://assets/sprites/Beaver/DownWalkSeperate/BeaveDownWalk2.png" id="11_0gysh"]
+[ext_resource type="Texture2D" uid="uid://c4fv58tflb3ik" path="res://assets/sprites/Beaver/BeaveDLWalk/BeaveDLWalk5.png" id="11_bqbau"]
+[ext_resource type="Texture2D" uid="uid://cfsktedxjno1q" path="res://assets/sprites/Beaver/BeaveDLWalk/BeaveDLWalk6.png" id="12_f5f5t"]
+[ext_resource type="Texture2D" uid="uid://nv0hg28q6nkg" path="res://assets/sprites/Beaver/DownWalkSeperate/BeaveDownWalk3.png" id="12_vfarp"]
+[ext_resource type="Texture2D" uid="uid://be5qbbyq0q7sx" path="res://assets/sprites/Beaver/BeaveDLWalk/BeaveDLWalk7.png" id="13_qvbpb"]
+[ext_resource type="Texture2D" uid="uid://bfvqfdirrwgir" path="res://assets/sprites/Beaver/DownWalkSeperate/BeaveDownWalk4.png" id="13_y6uwr"]
+[ext_resource type="Texture2D" uid="uid://diihm4bu8ofed" path="res://assets/sprites/Beaver/DownWalkSeperate/BeaveDownWalk5.png" id="14_83xs0"]
+[ext_resource type="Texture2D" uid="uid://drogrbgwxhvf3" path="res://assets/sprites/Beaver/BeaveDLWalk/BeaveDLWalk8.png" id="14_sscpr"]
+[ext_resource type="Texture2D" uid="uid://dxp7dolipt33m" path="res://assets/sprites/Beaver/BeaveDLWalk/BeaveDLWalk9.png" id="15_by7i4"]
+[ext_resource type="Texture2D" uid="uid://r251vdcrhjpq" path="res://assets/sprites/Beaver/DownWalkSeperate/BeaveDownWalk6.png" id="15_ypfnu"]
+[ext_resource type="Texture2D" uid="uid://drejpdoge7hhx" path="res://assets/sprites/Beaver/BeaveDLWalk/BeaveDLWalk10.png" id="16_3uvy8"]
+[ext_resource type="Texture2D" uid="uid://w38bfb42yh8l" path="res://assets/sprites/Beaver/DownWalkSeperate/BeaveDownWalk7.png" id="16_xuaoq"]
+[ext_resource type="Texture2D" uid="uid://ccv8uebkwokjj" path="res://assets/sprites/Beaver/BeaverDRWalk/BeaveDRWalk1.png" id="17_ss172"]
+[ext_resource type="Texture2D" uid="uid://dylgslkwmc2dy" path="res://assets/sprites/Beaver/DownWalkSeperate/BeaveDownWalk8.png" id="17_wohnl"]
+[ext_resource type="Texture2D" uid="uid://cngh0xiu1m1i" path="res://assets/sprites/Beaver/DownWalkSeperate/BeaveDownWalk9.png" id="18_36dho"]
+[ext_resource type="Texture2D" uid="uid://p7w6o8m3j0dg" path="res://assets/sprites/Beaver/BeaverDRWalk/BeaveDRWalk2.png" id="18_jmelf"]
+[ext_resource type="Texture2D" uid="uid://0hget84drio3" path="res://assets/sprites/Beaver/BeaverDRWalk/BeaveDRWalk3.png" id="19_bjdqd"]
+[ext_resource type="Texture2D" uid="uid://8fvt30rhpo62" path="res://assets/sprites/Beaver/BeaverDRWalk/BeaveDRWalk4.png" id="20_feq18"]
+[ext_resource type="Texture2D" uid="uid://cr5q4j0w7vd4x" path="res://assets/sprites/Beaver/BeaverUpLeft.png" id="21_8gxox"]
+[ext_resource type="Texture2D" uid="uid://c4ccr6smf3q5d" path="res://assets/sprites/Beaver/BeaverDRWalk/BeaveDRWalk5.png" id="21_wcnj3"]
+[ext_resource type="Texture2D" uid="uid://vwgcajrlh57c" path="res://assets/sprites/Beaver/BeaverUpRight.png" id="22_11gg7"]
+[ext_resource type="Texture2D" uid="uid://du6w12oclu81e" path="res://assets/sprites/Beaver/BeaverDRWalk/BeaveDRWalk6.png" id="22_jsob3"]
+[ext_resource type="Texture2D" uid="uid://bd4ylbit7vpo" path="res://assets/sprites/Beaver/BeaverDRWalk/BeaveDRWalk7.png" id="23_pg0gw"]
+[ext_resource type="Texture2D" uid="uid://b75fay03p8a5u" path="res://assets/sprites/Beaver/BeaverUpWalk.png" id="23_qpa8y"]
+[ext_resource type="Texture2D" uid="uid://byw2240ps1ajl" path="res://assets/sprites/Beaver/BeaverDRWalk/BeaveDRWalk8.png" id="24_qavoy"]
+[ext_resource type="Texture2D" uid="uid://cwmb3yejsu1ba" path="res://assets/sprites/Beaver/BeaverDRWalk/BeaveDRWalk9.png" id="25_w4w4b"]
+[ext_resource type="Texture2D" uid="uid://cd546gbiswodb" path="res://assets/sprites/Beaver/BeaverDRWalk/BeaveDRWalk10.png" id="26_h5cax"]
+[ext_resource type="Texture2D" uid="uid://c3qwni6qbhjyv" path="res://assets/sprites/Beaver/BeaverLeftWalk/BeaveLeftWalk1.png" id="36_dj0x0"]
+[ext_resource type="Texture2D" uid="uid://qpv5dvklfvy" path="res://assets/sprites/Beaver/BeaverLeftWalk/BeaveLeftWalk2.png" id="37_f1uaf"]
+[ext_resource type="Texture2D" uid="uid://du3reiojnjk3d" path="res://assets/sprites/Beaver/BeaverLeftWalk/BeaveLeftWalk3.png" id="38_6hq81"]
+[ext_resource type="Texture2D" uid="uid://sv2djddwjdt1" path="res://assets/sprites/Beaver/BeaverLeftWalk/BeaveLeftWalk4.png" id="39_5cld6"]
+[ext_resource type="Texture2D" uid="uid://btlcbyx4kyw4q" path="res://assets/sprites/Beaver/BeaverLeftWalk/BeaveLeftWalk5.png" id="40_o736f"]
+[ext_resource type="Texture2D" uid="uid://c7bm2016n8ctl" path="res://assets/sprites/Beaver/BeaverLeftWalk/BeaveLeftWalk6.png" id="41_ketbw"]
+[ext_resource type="Texture2D" uid="uid://roe55hdlfi1n" path="res://assets/sprites/Beaver/BeaverLeftWalk/BeaveLeftWalk7.png" id="42_4grkl"]
+[ext_resource type="Texture2D" uid="uid://blgryn47eoddx" path="res://assets/sprites/Beaver/BeaverLeftWalk/BeaveLeftWalk8.png" id="43_6yrdb"]
+[ext_resource type="Texture2D" uid="uid://bylqhbrqfqlov" path="res://assets/sprites/Beaver/BeaverLeftWalk/BeaveLeftWalk9.png" id="44_ue0p1"]
+[ext_resource type="Texture2D" uid="uid://bschltrfd7fkj" path="res://assets/sprites/Beaver/BeaverLeftWalk/BeaveLeftWalk10.png" id="45_isbcs"]
+[ext_resource type="Texture2D" uid="uid://cdg33y1ddww71" path="res://assets/sprites/Beaver/BeaverLeftWalk/BeaveLeftWalk11.png" id="46_142e3"]
+[ext_resource type="Texture2D" uid="uid://0px3y5qqs2bg" path="res://assets/sprites/Beaver/BeaverLeftWalk/BeaveLeftWalk12.png" id="47_ts2c8"]
+[ext_resource type="Texture2D" uid="uid://dqr0ck53ehuk6" path="res://assets/sprites/Beaver/BeaveRightWalk/BeaveRightWalk1.png" id="48_hcgbs"]
+[ext_resource type="Texture2D" uid="uid://bhyswnn30ybg5" path="res://assets/sprites/Beaver/BeaveRightWalk/BeaveRightWalk2.png" id="49_mpfyg"]
+[ext_resource type="Texture2D" uid="uid://boposgwk03w0g" path="res://assets/sprites/Beaver/BeaveRightWalk/BeaveRightWalk3.png" id="50_un823"]
+[ext_resource type="Texture2D" uid="uid://chiokimyut5fi" path="res://assets/sprites/Beaver/BeaveRightWalk/BeaveRightWalk4.png" id="51_aclic"]
+[ext_resource type="Texture2D" uid="uid://vprs5dlv01ra" path="res://assets/sprites/Beaver/BeaveRightWalk/BeaveRightWalk5.png" id="52_0y64g"]
+[ext_resource type="Texture2D" uid="uid://lmpjefk0tf3q" path="res://assets/sprites/Beaver/BeaveRightWalk/BeaveRightWalk6.png" id="53_ramv3"]
+[ext_resource type="Texture2D" uid="uid://buwq6ahjtcilt" path="res://assets/sprites/Beaver/BeaveRightWalk/BeaveRightWalk7.png" id="54_hseb1"]
+[ext_resource type="Texture2D" uid="uid://3dixsewj0jfr" path="res://assets/sprites/Beaver/BeaveRightWalk/BeaveRightWalk8.png" id="55_vinow"]
+[ext_resource type="Texture2D" uid="uid://cimbcj24h5mgc" path="res://assets/sprites/Beaver/BeaveRightWalk/BeaveRightWalk9.png" id="56_awsf5"]
+[ext_resource type="Texture2D" uid="uid://bcxo01mpb6cbl" path="res://assets/sprites/Beaver/BeaveRightWalk/BeaveRightWalk10.png" id="57_v84ne"]
+[ext_resource type="Texture2D" uid="uid://cof6tcn8wvp1w" path="res://assets/sprites/Beaver/BeaveRightWalk/BeaveRightWalk11.png" id="58_4pcjl"]
+[ext_resource type="Texture2D" uid="uid://bfgt4qvapqkqc" path="res://assets/sprites/Beaver/BeaveRightWalk/BeaveRightWalk12.png" id="59_3ath1"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_f1ek2"]
+radius = 0.24308042
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_6t5aa"]
+radius = 2.0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_pp"]
+size = Vector2(10, 10)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pp"]
+render_priority = 0
+shader = ExtResource("4_pp")
+shader_parameter/shadows_enabled = true
+shader_parameter/highlights_enabled = true
+shader_parameter/shadow_strength = 0.4
+shader_parameter/highlight_strength = 0.1
+shader_parameter/highlight_color = Color(1, 1, 1, 1)
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sbwqj"]
+atlas = ExtResource("23_qpa8y")
+region = Rect2(0, 0, 40, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xwi16"]
+atlas = ExtResource("23_qpa8y")
+region = Rect2(40, 0, 40, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sweqm"]
+atlas = ExtResource("23_qpa8y")
+region = Rect2(80, 0, 40, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ph33w"]
+atlas = ExtResource("23_qpa8y")
+region = Rect2(120, 0, 40, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ldla"]
+atlas = ExtResource("23_qpa8y")
+region = Rect2(160, 0, 40, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r7t2e"]
+atlas = ExtResource("23_qpa8y")
+region = Rect2(240, 0, 40, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nmr2m"]
+atlas = ExtResource("23_qpa8y")
+region = Rect2(200, 0, 40, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ax3m3"]
+atlas = ExtResource("23_qpa8y")
+region = Rect2(280, 0, 40, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3vlem"]
+atlas = ExtResource("23_qpa8y")
+region = Rect2(320, 0, 40, 45)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8eeqe"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_nj1g2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_usbl8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_dtg1u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_nuaet")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_bqbau")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_f5f5t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_qvbpb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_sscpr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_by7i4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_3uvy8")
+}],
+"loop": true,
+"name": &"BeaverDownLeft",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_ss172")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_jmelf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_bjdqd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_feq18")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_wcnj3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_jsob3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_pg0gw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_qavoy")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_w4w4b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_h5cax")
+}],
+"loop": true,
+"name": &"BeaverDownRight",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_p1odr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_0gysh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_vfarp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_y6uwr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_83xs0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_ypfnu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_xuaoq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_wohnl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_36dho")
+}],
+"loop": true,
+"name": &"BeaverDownWalk",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("36_dj0x0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_f1uaf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_6hq81")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_5cld6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_o736f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_ketbw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_4grkl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_6yrdb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_ue0p1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_isbcs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_142e3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_ts2c8")
+}],
+"loop": true,
+"name": &"BeaverLeft",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("48_hcgbs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("49_mpfyg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("50_un823")
+}, {
+"duration": 1.0,
+"texture": ExtResource("51_aclic")
+}, {
+"duration": 1.0,
+"texture": ExtResource("52_0y64g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("53_ramv3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("54_hseb1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("55_vinow")
+}, {
+"duration": 1.0,
+"texture": ExtResource("56_awsf5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("57_v84ne")
+}, {
+"duration": 1.0,
+"texture": ExtResource("58_4pcjl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("59_3ath1")
+}],
+"loop": true,
+"name": &"BeaverRight",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("21_8gxox")
+}],
+"loop": true,
+"name": &"BeaverUpLeft",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("22_11gg7")
+}],
+"loop": true,
+"name": &"BeaverUpRight",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sbwqj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xwi16")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sweqm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ph33w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ldla")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r7t2e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nmr2m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ax3m3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3vlem")
+}],
+"loop": true,
+"name": &"BeaverUpWalk",
+"speed": 5.0
+}]
+
+[node name="Player" type="CharacterBody3D" unique_id=1112257171 groups=["player"]]
+script = ExtResource("1_cvnsp")
+acceleration = 9.0
+friction = 40.0
+directional_sprites = false
+camera_follow_speed = 30.0
+footstep_volume_db = -20.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=98548090]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0034179688, 0.005065918, 0)
+shape = SubResource("SphereShape3D_f1ek2")
+
+[node name="InteractionArea" type="Area3D" parent="." unique_id=2130641661]
+visible = false
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractionArea" unique_id=944061481]
+shape = SubResource("SphereShape3D_6t5aa")
+
+[node name="InteractionComponent" type="Node" parent="." unique_id=409073183]
+script = ExtResource("3_6t5aa")
+
+[node name="AmbientFX" type="Node3D" parent="." unique_id=833818361]
+
+[node name="AmbientLeaves" parent="AmbientFX" unique_id=249032586 instance=ExtResource("5_aleaves")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8, 0)
+color_initial_ramp = null
+
+[node name="DustMotes" parent="AmbientFX" unique_id=2001713718 instance=ExtResource("6_dust")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="WindGust" parent="AmbientFX" unique_id=1700724641 instance=ExtResource("7_gust")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 4, 0)
+color_initial_ramp = null
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=1310406389]
+transform = Transform3D(1, 0, 0, 0, 0.9936015, 0.11294313, 0, -0.11294313, 0.9936015, 0, 1.3301396, 3.733739)
+fov = 50.0
+
+[node name="Postprocess" type="MeshInstance3D" parent="Camera3D" unique_id=1521573945]
+transform = Transform3D(1, 0, 0, 0, -4.4703484e-08, -1, 0, 1, -4.4703484e-08, -0.0015186071, 0.0052604675, -0.87437034)
+mesh = SubResource("PlaneMesh_pp")
+surface_material_override/0 = SubResource("ShaderMaterial_pp")
+
+[node name="AnimatedSprite3D" type="AnimatedSprite3D" parent="." unique_id=1967591246]
+texture_filter = 0
+sprite_frames = SubResource("SpriteFrames_8eeqe")
+animation = &"BeaverRight"

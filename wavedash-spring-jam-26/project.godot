@@ -13,12 +13,12 @@ config_version=5
 config/name="wavedash-spring-jam-26"
 run/main_scene="uid://crqg3egv0agje"
 config/features=PackedStringArray("4.6", "Forward Plus")
-config/icon="res://Scripts/icon.svg"
+config/icon="res://scripts/icon.svg"
 
 [autoload]
 
 WavedashSDK="*res://addons/wavedash/WavedashSDK.gd"
-GameState="*res://Scripts/game_state.gd"
+GameState="*res://scripts/game_state.gd"
 
 [display]
 

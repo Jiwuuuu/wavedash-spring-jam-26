@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://b0wdbundl3log"]
+
+[ext_resource type="Script" uid="uid://dlw57omj5kj1k" path="res://scripts/Interactions/wood_chewable.gd" id="1_wood"]
+[ext_resource type="Shader" uid="uid://drr2ts8boff1i" path="res://shaders/toon.gdshader" id="2_toon"]
+[ext_resource type="Script" uid="uid://cruvqsr81s0bc" path="res://scripts/tools/terrain_snap.gd" id="3_snap"]
+
+[sub_resource type="ShaderMaterial" id="log_mat"]
+render_priority = 0
+shader = ExtResource("2_toon")
+shader_parameter/albedo = Color(0.45, 0.31, 0.2, 1)
+shader_parameter/bands = 3
+shader_parameter/band_softness = 0.03
+shader_parameter/ambient_tint = Color(0.35, 0.4, 0.45, 1)
+shader_parameter/wind_strength = 0.0
+shader_parameter/sway_speed = 1.5
+shader_parameter/wind_direction = 90.0
+shader_parameter/base_y = 0.0
+
+[sub_resource type="CylinderMesh" id="log_mesh"]
+top_radius = 0.13
+bottom_radius = 0.13
+height = 1.5
+radial_segments = 7
+
+[sub_resource type="BoxShape3D" id="bundle_col"]
+size = Vector3(1.5028076, 0.55, 0.27890626)
+
+[node name="Wood" type="StaticBody3D" unique_id=1834675005]
+script = ExtResource("1_wood")
+wood_amount = 5
+chew_duration = 2.0
+
+[node name="Log1" type="MeshInstance3D" parent="." unique_id=1641777618]
+transform = Transform3D(0, -1, 0, 1, 0, 0, 0, 0, 1, 0, 0.14, -0.16)
+material_override = SubResource("log_mat")
+mesh = SubResource("log_mesh")
+
+[node name="Log2" type="MeshInstance3D" parent="." unique_id=286416189]
+transform = Transform3D(-0.278017, -0.57686067, -0.7708408, 0.96037644, -0.15257606, -0.23702115, 0.019587142, -0.70692533, 0.6801729, -0.022669315, 0.36, -0.2663448)
+material_override = SubResource("log_mat")
+mesh = SubResource("log_mesh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1126547871]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24, -0.16054688)
+shape = SubResource("bundle_col")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1136751264]
+transform = Transform3D(0.5830025, 0, -0.8124704, 0, 1, 0, 0.8124704, 0, 0.5830025, -0.026509818, 0.24, -0.19749087)
+shape = SubResource("bundle_col")
+
+[node name="TerrainSnap" type="Node3D" parent="." unique_id=886553676]
+script = ExtResource("3_snap")

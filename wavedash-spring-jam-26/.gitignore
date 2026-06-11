@@ -2,5 +2,10 @@
 .godot/
 /android/
 
+# Godot editor temp/backup files
+*.tmp
+~*
+*.import.tmp
+
 # Web export output (uploaded to Wavedash, not committed)
 /web/

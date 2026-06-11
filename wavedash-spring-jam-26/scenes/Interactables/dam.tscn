@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://dsegyqxkg2kfo"]
+
+[ext_resource type="Script" uid="uid://10fbpyn8xf1" path="res://scripts/Interactions/dam.gd" id="1_vtrub"]
+[ext_resource type="PackedScene" uid="uid://ces3u3rg6uwef" path="res://scenes/hide_area.tscn" id="3_ixr5i"]
+[ext_resource type="Script" uid="uid://cruvqsr81s0bc" path="res://scripts/tools/terrain_snap.gd" id="4_snap"]
+[ext_resource type="Script" uid="uid://co4uju2v2phpr" path="res://scripts/ui/hide_hint.gd" id="5_hint"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_solid"]
+size = Vector3(0.2, 0.2, 0.2)
+
+[node name="Dam" type="StaticBody3D" unique_id=1080324078]
+collision_layer = 3
+script = ExtResource("1_vtrub")
+wood_costs = Array[int]([6, 10, 16, 24])
+prompt_text = "Press E to build (6 wood)"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1075684747]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("BoxShape3D_solid")
+
+[node name="HideArea" parent="." unique_id=722510615 instance=ExtResource("3_ixr5i")]
+
+[node name="TerrainSnap" type="Node3D" parent="." unique_id=416550246]
+script = ExtResource("4_snap")
+
+[node name="HideHint" type="Label3D" parent="." unique_id=1789948080]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+visible = false
+text = "Get inside to hide"
+script = ExtResource("5_hint")
